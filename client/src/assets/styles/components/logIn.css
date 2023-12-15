@@ -1,24 +1,13 @@
 .hero {
   display: flex;
   width: 22.5rem;
-  height: 93.375rem;
+  height: 40rem;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: auto;
   padding: 1.75rem 0.25rem;
   gap: 1.1875rem;
-}
-
-.container {
-  background: #014451;
-  border-radius: 1.25rem;
-  display: flex;
-  width: 19rem;
-  padding: 1.5rem 0.4375rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.0625rem;
 }
 
 .card {
@@ -27,6 +16,7 @@
   display: flex;
   width: 16.9375rem;
   padding: 1.0625rem 0rem;
+  margin-top: 3rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -51,37 +41,24 @@
   height: 1.75rem;
   flex-shrink: 0;
 }
-.card .radio-field {
-  display: flex;
-  width: 14.16319rem;
-  padding: 0.5625rem 0.75rem;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 0.0625rem;
-}
-.card .radio-field .radio-buttons {
-  display: flex;
-  padding: 0.3125rem 0.5rem;
-  margin: auto;
-  gap: 3.1875rem;
-}
-.card .radio-field .radio-buttons small input {
-  margin: 0.5rem;
+
+.no-account {
+  color: #0694A2;
+  font-family: "Noto Kufi Arabic";
+  margin-bottom: 1rem;
 }
 
 button {
   color: #e2efee;
   font-family: "Noto Kufi Arabic";
-  background: #0e0218;
+  background: #046C4E;
   border: 0px solid;
   border-radius: 0.3125rem;
   display: flex;
-  width: 12.5rem;
-  height: 3.125rem;
-  padding: 0.8125rem 0.6875rem 0.8125rem 0.625rem;
+  width: 7.25rem;
+  height: 1.875rem;
+  padding: 0.8125rem 0.625rem;
   justify-content: center;
   align-items: center;
-  gap: 2.5rem;
-}/*# sourceMappingURL=signUp.css.map */
+  gap: 1.25rem;
+}/*# sourceMappingURL=logIn.css.map */
