@@ -1089,7 +1089,7 @@ ALTER TABLE ONLY public."ScoutProfile"
 --
 
 ALTER TABLE ONLY public."Scout"
-    ADD CONSTRAINT "scout_sector_FK" FOREIGN KEY ("sectorBaseName", "sectorBaseName") REFERENCES public."Sector"("suffixName", "baseName") ON UPDATE CASCADE ON DELETE SET NULL NOT VALID;
+    ADD CONSTRAINT "scout_sector_FK" FOREIGN KEY ("sectorSuffixName", "sectorBaseName") REFERENCES public."Sector"("suffixName", "baseName") ON UPDATE CASCADE ON DELETE SET NULL NOT VALID;
 
 
 --
