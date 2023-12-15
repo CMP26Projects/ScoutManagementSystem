@@ -1,7 +1,3 @@
-$text-color: #E2EFEE;
-$grey-900: #111928;
-$font: 'Noto Kufi Arabic';
-
 * {
   margin: 0;
   padding: 0;
@@ -9,17 +5,17 @@ $font: 'Noto Kufi Arabic';
 
 :root {
   text-align: center;
-  background-color: $grey-900;
-  color: $text-color;
-  font-family: $font;
+  background-color: #111928;
+  color: #E2EFEE;
+  font-family: "Noto Kufi Arabic";
 }
 
-// Fonts
 h1 {
   font-size: 2.98625rem;
   font-weight: 800;
   line-height: 139.429%; /* 4.16369rem */
 }
+
 h2 {
   font-size: 2.48813rem;
   font-weight: 700;
@@ -53,4 +49,4 @@ p, label {
 small {
   font-size: 0.83313rem;
   font-weight: 400;
-}
+}/*# sourceMappingURL=theme.css.map */

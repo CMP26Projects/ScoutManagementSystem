@@ -1,9 +1,10 @@
 import "./theme.scss";
+import SignUp from "./components/module_OR_PAGE/signUp";
 
 function App() {
   return (
     <>
-      <h1> 🚀 Sanity Check</h1>
+      <SignUp />
     </>
   );
 }
