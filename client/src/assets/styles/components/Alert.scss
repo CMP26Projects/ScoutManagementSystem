@@ -1,0 +1,142 @@
+@import "../_vars.scss";
+
+.alert-item {
+    display: flex;
+    flex-direction: column;
+
+    width: 340px;
+    height: fit-content;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: $--grey-800;
+
+    padding: 15px 15px;
+    justify-content: center;
+    align-items: end;
+
+    gap: 10px;
+}
+
+.top-bar {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: fit-content;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    height: fit-content;
+}
+
+.right-box {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    margin-left: 10px;
+
+    &.red {
+        background: var(--Red-700, #C81E1E);
+    }
+
+    &.main {
+        background: $--grey-300;
+    }
+
+    &.mint-green {
+        background: $--Teal-500;
+    }
+
+    &.yellow {
+        background: $--Yellow-500;
+    }
+
+}
+
+.title {
+    text-align: right;
+    font-family: Noto Kufi Arabic;
+    font-size: 19.2px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &.main {
+        color: $--grey-300;
+    }
+
+    &.mint-green {
+        color: $--Teal-500;
+    }
+
+    &.red {
+        color: $--Red-700;
+
+    }
+
+    &.yellow {
+
+        color: $--Yellow-500;
+    }
+}
+
+.alert-info {
+    height: 65%;
+    text-align: right;
+    color: $--grey-300;
+    font-family: Noto Kufi Arabic;
+    font-size: 13.33px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.alert-btn {
+    display: flex;
+    width: 100px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+
+    float: right;
+    border-radius: 5px;
+
+    color: $--grey-800;
+
+    font-family: Noto Kufi Arabic;
+    font-size: 13.33px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    &.red {
+        background: var(--Red-700, #C81E1E);
+    }
+
+    &.main {
+        background: $--grey-300;
+    }
+
+    &.mint-green {
+        background: $--Teal-500;
+    }
+
+    &.yellow {
+        background: $--Yellow-500;
+    }
+}
+
+
+.hide {
+    display: none;
+}

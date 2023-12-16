@@ -1,9 +1,17 @@
-import "./theme.scss";
+import React from "react";
+import Alert from "./components/common/Alerts";
 
 function App() {
   return (
     <>
-      <h1> 🚀 Sanity Check</h1>
+      <Alert
+        title="عنوان"
+        info="نص الرسالة"
+        buttontext="تمت المعاينة"
+        showRightBox={false}
+        Onclick={() => console.log("clicked")}
+        color="yellow"
+      />
     </>
   );
 }
