@@ -1,0 +1,24 @@
+.Button {
+  outline: none;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+
+  a {
+    color: inherit;
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  &--primary {
+    background-color: var(--primary-100);
+    color: var(--grey-900);
+  }
+
+  &--dark {
+    background-color: var(--primary-900);
+    color: var(--grey-50);
+  }
+
+  // TODO: Add more button styles and maybe sizes
+}

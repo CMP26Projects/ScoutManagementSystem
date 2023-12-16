@@ -1,0 +1,35 @@
+.Footer {
+  padding: 2rem 20px;
+  text-align: center;
+  position: relative;
+  box-sizing: content-box;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #150a25;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
+  p {
+    color: var(--grey-400, #9ca3af);
+    line-height: normal;
+  }
+
+  a {
+    padding: 5px;
+    background-color: var(--primary-50);
+    color: var(--grey-900);
+    font-size: 13.33px;
+    font-weight: 700;
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+  }
+}
