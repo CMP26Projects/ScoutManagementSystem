@@ -1,11 +1,14 @@
+// Theme file
 import "./theme.scss";
-import SignUp from "./components/module_OR_PAGE/signUp";
-import LogIn from "./components/module_OR_PAGE/logIn";
+// Global Style (includes normalize.css)
+import "./assets/styles/global/global.scss";
+// Import Routes
+import Routes from "./routes";
 
 function App() {
   return (
     <>
-      <LogIn />
+      <Routes />
     </>
   );
 }
