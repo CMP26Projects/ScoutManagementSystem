@@ -1,0 +1,20 @@
+@import "normalize.css";
+@import "typography";
+@import "layout";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg);
+  color: var(--grey-50);
+}
+
+a {
+  color: var(--grey-50);
+  text-decoration: none;
+}
