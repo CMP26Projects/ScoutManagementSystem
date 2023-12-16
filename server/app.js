@@ -1,21 +1,25 @@
-const {Client} = require('pg')
+const express = require('express')
+const cors = require('cors')
+const db = require('./database/db')
+const app = express()
+const PORT = process.env.PORT || 3000
+const authRouter = require('./routes/auth.route')
 
-const client = new Client({
-    host: "localhost",
-    user: "postgres",
-    port: 5432,
-    password: "admin123",
-    database: "scoutsmanagementsystem"
-})
+db.connect()
+    .then(() => {
+        console.log('Database is connected')
+    })
+    .catch((err) => {
+        if (err) return console.error(err)
+    })
 
-client.connect();
+app.use(cors())
+app.use(express.json())
 
-client.query('SELECT * FROM public."Activity"', (err, res) => {
-    if (!err) {
-        console.log(res.rows);
-    }
-    else
-    {
-        console.log(err.message)
-    }
+// Routes
+app.use("/auth", authRouter);
+
+app.listen(PORT, (err) => {
+    if (err) return console.error(err)
+    console.log(`Server started listening at port ${PORT}`)
 })

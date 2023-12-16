@@ -1,0 +1,87 @@
+.hero {
+  display: flex;
+  width: 22.5rem;
+  height: 93.375rem;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 1.75rem 0.25rem;
+  gap: 1.1875rem;
+}
+
+.container {
+  background: #014451;
+  border-radius: 1.25rem;
+  display: flex;
+  width: 19rem;
+  padding: 1.5rem 0.4375rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.0625rem;
+}
+
+.card {
+  background-color: #1f2a37;
+  border-radius: 1.875rem;
+  display: flex;
+  width: 16.9375rem;
+  padding: 1.0625rem 0rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.875rem;
+}
+.card .input-field {
+  display: flex;
+  width: 14.16319rem;
+  padding: 0.125rem 0.75rem;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  gap: 0rem 9.25rem;
+  flex-wrap: wrap;
+}
+.card .input-field input {
+  background: #374151;
+  margin-block: 0.3rem;
+  border: 1px solid #4b5563;
+  border-radius: 0.25rem;
+  width: 12.66319rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+}
+.card .radio-field {
+  display: flex;
+  width: 14.16319rem;
+  padding: 0.5625rem 0.75rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.0625rem;
+}
+.card .radio-field .radio-buttons {
+  display: flex;
+  padding: 0.3125rem 0.5rem;
+  margin: auto;
+  gap: 3.1875rem;
+}
+.card .radio-field .radio-buttons small input {
+  margin: 0.5rem;
+}
+
+button {
+  color: #e2efee;
+  font-family: "Noto Kufi Arabic";
+  background: #0e0218;
+  border: 0px solid;
+  border-radius: 0.3125rem;
+  display: flex;
+  width: 12.5rem;
+  height: 3.125rem;
+  padding: 0.8125rem 0.6875rem 0.8125rem 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}/*# sourceMappingURL=signUp.css.map */
