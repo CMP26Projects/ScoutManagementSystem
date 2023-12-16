@@ -6,8 +6,9 @@ const { jsonToArray, arrayToJson } = require('../utils/convert')
 const authController = {
     signup: async (req, res) => {
         try {
-            // Deconstruct the request body
-            const { email, password } = req.body
+            // get email and password from request body
+            const email = req.body['email']
+            const password = req.body['password']
 
             // Check if email already exists
             const captain = await db.query(
@@ -36,7 +37,7 @@ const authController = {
             // Generate a JWT token containing the captain's id
             // Bearer token is the token that we will send to the client
             const token = jwt.sign(
-                { id: newCaptain.captainId },
+                { id: newCaptain.captainId }, // Payload
                 process.env.JWT_SECRET,
                 {
                     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -50,7 +51,7 @@ const authController = {
                 token,
             })
         } catch (error) {
-            console.log(error.detail)
+            console.log(error)
             res.status(500).json({
                 error: 'An error occurred while creating a new captain!!',
             })
@@ -89,7 +90,7 @@ const authController = {
             // Generate a JWT token containing the captain's id
             // Bearer token is the token that we will send to the client
             const token = jwt.sign(
-                { id: captain.captainId },
+                { id: captain.captainId }, // Payload
                 process.env.JWT_SECRET,
                 {
                     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -102,7 +103,7 @@ const authController = {
                 token,
             })
         } catch (error) {
-            console.log(error.detail)
+            console.log(error)
             res.status(500).json({
                 error: 'An error occurred while logging you in',
             })
@@ -114,7 +115,7 @@ const authController = {
         try {
             res.status(200).json({ user: req.captain })
         } catch (error) {
-            console.log(error.detail)
+            console.log(error)
             res.status(500).json({
                 error: 'An error occurred while fetching data.',
             })
