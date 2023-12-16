@@ -10,6 +10,7 @@ import {
 
 // Import Testing Routes here
 import TestTypo from "./components/testing/testTypo";
+import TestLayout from "./components/testing/testLayout";
 
 function Routes() {
   return (
@@ -19,7 +20,8 @@ function Routes() {
 
         {/* Testing Routes */}
         {/* FIXME: Delete test routes Later */}
-        <Route path="/testTypo" element={<TestTypo />} />
+        <Route path="/test/typo" element={<TestTypo />} />
+        <Route path="/test/layout" element={<TestLayout />} />
 
         {/* Not Found */}
         <Route path="*" element={<h1>Not Found</h1>} />

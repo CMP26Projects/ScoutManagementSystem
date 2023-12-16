@@ -1,0 +1,35 @@
+// _layout.scss
+// Classes or the layout of the app
+
+section,
+.section {
+  padding: var(--section-spacing) 0;
+}
+
+.container {
+  max-width: 100%;
+  padding: 0 var(--side-spacing);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -var(--side-spacing);
+  gap: var(--side-spacing);
+
+  .col-1 {
+    flex: 0 1 calc(25% - var(--side-spacing) * 2);
+  }
+
+  .col-2 {
+    flex: 0 1 calc(50% - var(--side-spacing) * 2);
+  }
+
+  .col-3 {
+    flex: 0 1 calc(75% - var(--side-spacing) * 2);
+  }
+
+  .col-4 {
+    flex: 0 1 calc(100% - var(--side-spacing) * 2);
+  }
+}
