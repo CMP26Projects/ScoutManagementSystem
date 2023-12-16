@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 // Import modules/pages under this line
+import LandingPage from "./components/landingpage/LandingPage";
 
 // Import Testing Routes here
 import TestTypo from "./components/testing/testTypo";
@@ -16,7 +17,7 @@ function Routes() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" element={<h1>Landing</h1>} />
+        <Route exact path="/" element={<LandingPage />} />
 
         {/* Testing Routes */}
         {/* FIXME: Delete test routes Later */}
