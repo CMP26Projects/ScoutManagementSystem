@@ -1,0 +1,48 @@
+// File: _typography.scss
+// This file will contain all the typography styles that we will use in our app.
+// Sizes and weights will be defined here.
+
+h1 {
+  font-size: 2.98625rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 2.48813rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 2.07344rem;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.7287rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.44058rem;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1.20048rem;
+  font-weight: 500;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+a {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.small {
+  font-size: 0.8rem;
+  font-weight: 400;
+}

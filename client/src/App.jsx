@@ -1,17 +1,15 @@
-import React from "react";
-import Alert from "./components/common/Alerts";
+// Theme file
+import "./theme.scss";
+// Global Style (includes normalize.css)
+import "./assets/styles/global/global.scss";
+
+// Import Routes
+import Routes from "./routes";
 
 function App() {
   return (
     <>
-      <Alert
-        title="عنوان"
-        info="نص الرسالة"
-        buttontext="تمت المعاينة"
-        showRightBox={false}
-        Onclick={() => console.log("clicked")}
-        color="yellow"
-      />
+      <Routes />
     </>
   );
 }
