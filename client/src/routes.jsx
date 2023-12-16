@@ -7,19 +7,22 @@ import {
 } from "react-router-dom";
 
 // Import modules/pages under this line
+import LandingPage from "./components/landingpage/LandingPage";
 
 // Import Testing Routes here
 import TestTypo from "./components/testing/testTypo";
+import TestLayout from "./components/testing/testLayout";
 
 function Routes() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" element={<h1>Landing</h1>} />
+        <Route exact path="/" element={<LandingPage />} />
 
         {/* Testing Routes */}
         {/* FIXME: Delete test routes Later */}
-        <Route path="/testTypo" element={<TestTypo />} />
+        <Route path="/test/typo" element={<TestTypo />} />
+        <Route path="/test/layout" element={<TestLayout />} />
 
         {/* Not Found */}
         <Route path="*" element={<h1>Not Found</h1>} />
