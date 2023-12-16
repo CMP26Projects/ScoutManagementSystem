@@ -16,11 +16,8 @@ db.connect()
 app.use(cors())
 app.use(express.json())
 
+// Routes
 app.use("/auth", authRouter);
-
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
 
 app.listen(PORT, (err) => {
     if (err) return console.error(err)
