@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-//const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const db = require('../database/db')
 const { jsonToArray, arrayToJson } = require('../utils/convert')
 
@@ -7,7 +7,6 @@ const authController = {
     signup: async (req, res) => {
         try {
             // Deconstruct the request body
-            console.log(req.body)
             const {
                 firstName,
                 middleName,
@@ -19,28 +18,32 @@ const authController = {
             } = req.body
 
             // Check if email already exists
-            /*
-            const captain = await db.query('CALL getCaptain($1)', [email])
-            if (captain) {
+            const captain = await db.query(
+                `SELECT "email", "password"
+                FROM "Captain" 
+                WHERE "email" = $1;`,
+                [email]
+            )
+            if (captain.rows.length) {
                 console.log('Email is taken!!')
                 return res.status(400).json({ error: 'Email is taken!!' })
             }
-            */
+
             // Hash the password
             const hashedPassword = await bcrypt.hash(password, 10)
 
             // Create a new Captain
             req.body = { ...req.body, password: hashedPassword }
             const params = jsonToArray(req.body)
-            console.log(params)
-            let newCaptain = await db.query(
-                'INSERT INTO "Captain"("firstName", "middleName", "lastName", "email", "password", "phoneNumber", "gender", "type") ' +
-                'VALUES($1, $2, $3, $4, $5, $6, $7, "regular")',
-                params
+            const result = await db.query(
+                `INSERT INTO "Captain"("firstName", "middleName", "lastName", "email", "password", "phoneNumber", "gender", "type")
+                VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
+                params.concat(['regular'])
             )
+            const newCaptain = result.rows[0]
 
-            // Generate a JWT token containing the user's id
-            /*
+            // Generate a JWT token containing the captain's id
+            // Bearer token is the token that we will send to the client
             const token = jwt.sign(
                 { id: newCaptain.captainId },
                 process.env.JWT_SECRET,
@@ -48,15 +51,14 @@ const authController = {
                     expiresIn: process.env.JWT_EXPIRES_IN,
                 }
             )
-            */
 
             res.status(201).json({
                 message: 'Captain created successfully',
                 newCaptain,
-                //token,
+                token,
             })
         } catch (error) {
-            console.log(error)
+            console.log(error.detail)
             res.status(500).json({
                 error: 'An error occurred while creating a new captain!!',
             })
