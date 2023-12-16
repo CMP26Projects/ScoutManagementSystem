@@ -1,20 +1,11 @@
-const dotenv = require('dotenv')
 const express = require('express')
 const cors = require('cors')
-const pg = require('pg')
-
-dotenv.config()
+const db = require('./database/db')
+const app = express()
 const PORT = process.env.PORT || 3000
-const sever = new pg.Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DATABASE,
-})
+const authRouter = require('./routes/auth.route')
 
-sever
-    .connect()
+db.connect()
     .then(() => {
         console.log('Database is connected')
     })
@@ -22,9 +13,10 @@ sever
         if (err) return console.error(err)
     })
 
-const app = express()
 app.use(cors())
 app.use(express.json())
+
+app.use("/auth", authRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World')
