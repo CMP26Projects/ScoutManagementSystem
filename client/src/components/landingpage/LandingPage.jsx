@@ -1,5 +1,6 @@
 import Nav from "../common/nav";
 import Button from "../common/Button";
+import Footer from "../common/Footer";
 
 export default function LandingPage() {
   return (
@@ -11,6 +12,7 @@ export default function LandingPage() {
       <Button className="Button--dark" linkTo="/signUp">
         إنشاء حساب
       </Button>
+      <Footer />
     </>
   );
 }
