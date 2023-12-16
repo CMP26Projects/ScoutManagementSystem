@@ -1,27 +1,110 @@
-:root {
-  text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-// TODO: Delete later this is just a sanity check
-h1 {
-  animation: wiggle 1s infinite;
-  margin-top: 45vh;
-}
+// theme.scss
+// This file will contain all the theme variables that we will use in our app.
+// We will use the SCSS syntax to define the variables.
 
-@keyframes wiggle {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(5deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+// Import the fonts
+@import url("https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  //----------------------------//
+  // Colors
+  //----------------------------//
+  --green-50: #f3faf7;
+  --green-100: #def7ec;
+  --green-200: #bcf0da;
+  --green-300: #84e1bc;
+  --green-400: #31c48d;
+  --green-500: #0e9f6e;
+  --green-600: #057a55;
+  --green-700: #046c4e;
+  --green-800: #03543f;
+  --green-900: #014737;
+
+  --pink-50: #fdf2f8;
+  --pink-100: #fce8f3;
+  --pink-200: #fad1e8;
+  --pink-300: #f8b4d9;
+  --pink-400: #f17eb8;
+  --pink-500: #e74694;
+  --pink-600: #d61f69;
+  --pink-700: #bf125d;
+  --pink-800: #99154b;
+  --pink-900: #751a3d;
+
+  --primary-50: #f4e7fd;
+  --primary-100: #deb8fa;
+  --primary-200: #c888f6;
+  --primary-300: #b259f2;
+  --primary-400: #9c2aef;
+  --primary-500: #8210d5;
+  --primary-600: #650da6;
+  --primary-700: #480977;
+  --primary-800: #2b0547;
+  --primary-900: #0e0218;
+
+  --red-50: #fdf2f2;
+  --red-100: #fde8e8;
+  --red-200: #fbd5d5;
+  --red-300: #f8b4b4;
+  --red-400: #f98080;
+  --red-500: #f05252;
+  --red-600: #e02424;
+  --red-700: #c81e1e;
+  --red-800: #9b1c1c;
+  --red-900: #771d1d;
+
+  --teal-50: #edfafa;
+  --teal-100: #d5f5f6;
+  --teal-200: #afecef;
+  --teal-300: #7edce2;
+  --teal-400: #16bdca;
+  --teal-500: #0694a2;
+  --teal-600: #047481;
+  --teal-700: #036672;
+  --teal-800: #05505c;
+  --teal-900: #014451;
+
+  --yellow-50: #fdfdea;
+  --yellow-100: #fdf6b2;
+  --yellow-200: #fce96a;
+  --yellow-300: #faca15;
+  --yellow-400: #e3a008;
+  --yellow-500: #c27803;
+  --yellow-700: #8e4b10;
+  --yellow-800: #723b13;
+  --yellow-900: #633112;
+
+  --grey-50: #f9fafb;
+  --grey-100: #f3f4f6;
+  --grey-200: #e5e7eb;
+  --grey-300: #d1d5db;
+  --grey-400: #9ca3af;
+  --grey-500: #6b7280;
+  --grey-600: #4b5563;
+  --grey-700: #374151;
+  --grey-800: #1f2a37;
+  --grey-900: #111928;
+
+  --bg: #040807;
+
+  //----------------------------//
+  // Gradient
+  //----------------------------//
+  --primary-gradient: linear-gradient(
+    96deg,
+    #650da6 -11.62%,
+    #650da6 -11.61%,
+    #df1846 119.72%
+  );
+  --secondary-gradient: linear-gradient(
+    113deg,
+    #1f2a37 0%,
+    rgba(31, 42, 55, 0) 100%
+  );
+
+  //----------------------------//
+  // Font
+  //----------------------------//
+  --font-primary: "Noto Kufi Arabic", sans-serif;
+  --font-base-size: 16px;
 }
