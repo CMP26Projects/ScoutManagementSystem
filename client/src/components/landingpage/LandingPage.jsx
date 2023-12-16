@@ -1,8 +1,9 @@
-export default function LandingPage()
-{
+import Nav from "../common/nav";
+
+export default function LandingPage() {
   return (
     <>
-      <div className="container">Landing Page</div>
+      <Nav showIcons={true} />
     </>
   );
 }
