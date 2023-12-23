@@ -44,6 +44,7 @@ const authController = {
             // Send the response
             res.status(201).json({
                 message: 'Captain created successfully',
+                newCaptain,
             })
         } catch (error) {
             console.log(error)
