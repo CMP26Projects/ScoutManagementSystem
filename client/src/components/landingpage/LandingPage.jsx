@@ -1,6 +1,4 @@
-import Nav from "../common/nav";
 import Button from "../common/Button";
-import Footer from "../common/Footer";
 
 import FancyBlobs from "./FancyBlobs";
 

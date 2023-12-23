@@ -21,5 +21,16 @@
     color: var(--grey-50);
   }
 
+  &--medium {
+    a {
+    font-size: 1rem;
+    }
+  }
+
+  &--success {
+    background-color: var(--green-400);
+    color: var(--grey-900);
+  }
+
   // TODO: Add more button styles and maybe sizes
 }

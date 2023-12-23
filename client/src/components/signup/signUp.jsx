@@ -1,3 +1,4 @@
+import Button from "../common/Button";
 import "./signUp.scss";
 
 export default function SignUp() {
@@ -56,7 +57,7 @@ export default function SignUp() {
               </div>
             </label>
           </div>
-          <button>تسجيل</button>
+          <Button className="Button--success Button-medium">تسجيل</Button>
         </div>
       </div>
     </div>

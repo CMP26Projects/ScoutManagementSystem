@@ -1,3 +1,4 @@
+import Button from "../common/Button";
 import "./logIn.scss";
 
 export default function LogIn() {
@@ -14,7 +15,9 @@ export default function LogIn() {
             الرمز السري
             <input type="password" />
           </label>
-          <button>تسجيل الدخول</button>
+          <Button className="Button--medium Button--success" linkTo="/signUp">
+            تسجيل الدخول
+          </Button>
         </div>
         <div className="small no-account">ليس لديك حساب؟</div>
       </div>
