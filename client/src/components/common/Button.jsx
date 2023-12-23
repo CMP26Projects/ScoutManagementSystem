@@ -8,9 +8,17 @@ export default function Button(props) {
   const { children, className, linkTo, ...rest } = props;
 
   return (
-    <button className={`Button ${className}`} {...rest}>
-      {linkTo ? <Link to={linkTo}>{children}</Link> : <>{children}</>}
-    </button>
+    <>
+      {linkTo ? (
+        <Link to={linkTo} className={`Button ${className}`} {...rest}>
+          {children}
+        </Link>
+      ) : (
+        <button className={`Button ${className}`} {...rest}>
+          {children}
+        </button>
+      )}
+    </>
   );
 }
 
