@@ -15,6 +15,7 @@ const authSlice = createSlice({
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
     },
     clearCredentials: (state, action) => {
+      action;
       state.userInfo = null;
       localStorage.removeItem("userInfo");
     },

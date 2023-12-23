@@ -1,16 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../common/Button";
-import { Link } from "react-router-dom";
 import TextInput from "../common/Inputs";
 import "./logIn.scss";
+import { useLoginMutation } from "../../redux/slices/usersApiSlice";
+import { setCredentials } from "../../redux/slices/authSlice";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      /* TODO: Add later the home page not the landing page */
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      console.log(err?.data?.message || err.error);
+    }
   };
 
   return (
