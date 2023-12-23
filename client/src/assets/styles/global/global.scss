@@ -10,12 +10,13 @@
 
 body {
   font-family: var(--font-primary);
+  font-size: var(--font-base-size);
   background-color: var(--bg);
-  color: var(--grey-50);
+  color: var(--text-color);
   overflow-x: hidden;
 }
 
 a {
-  color: var(--grey-50);
+  color: var(--text-color);
   text-decoration: none;
 }
