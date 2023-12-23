@@ -12,7 +12,7 @@ const captainController = {
             // Respond with the data retrieved and a successful retrieval message
             res.status(200).json({
                 message: 'Successful retrieval',
-                result,
+                body: result,
             })
 
         } catch (error) {
