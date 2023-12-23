@@ -36,7 +36,7 @@ const authController = {
 
             // Generate a JWT token containing the captain's id
             // Bearer token is the token that we will send to the client
-            const token = jwt.sign(
+            const token = jwt.sign( 
                 { id: newCaptain.captainId }, // Payload
                 process.env.JWT_SECRET,
                 {

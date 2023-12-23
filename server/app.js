@@ -1,25 +1,27 @@
-const express = require('express')
-const cors = require('cors')
-const db = require('./database/db')
-const app = express()
-const PORT = process.env.PORT || 3000
-const authRouter = require('./routes/auth.route')
+const express = require("express");
+const cors = require("cors");
+const db = require("./database/db");
+const app = express();
+const PORT = process.env.PORT || 3000;
+const authRouter = require("./routes/auth.route");
+const alertRouter = require("./routes/alert.route");
 
 db.connect()
-    .then(() => {
-        console.log('Database is connected')
-    })
-    .catch((err) => {
-        if (err) return console.error(err)
-    })
+  .then(() => {
+    console.log("Database is connected");
+  })
+  .catch((err) => {
+    if (err) return console.error(err);
+  });
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 // Routes
 app.use("/auth", authRouter);
+app.use("/alert", alertRouter);
 
 app.listen(PORT, (err) => {
-    if (err) return console.error(err)
-    console.log(`Server started listening at port ${PORT}`)
-})
+  if (err) return console.error(err);
+  console.log(`Server started listening at port ${PORT}`);
+});
