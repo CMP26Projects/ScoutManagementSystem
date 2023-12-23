@@ -1,5 +1,4 @@
 import "./signUp.scss";
-import Footer from "../common/Footer";
 
 export default function SignUp() {
   return (
@@ -60,7 +59,6 @@ export default function SignUp() {
           <button>تسجيل</button>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
