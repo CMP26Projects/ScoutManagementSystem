@@ -24,7 +24,7 @@ const Alert = ({ title, info, buttontext, Onclick, showRightBox, color }) => {
             className={
               showRightBox ? "right-box " + color : "right-box hide " + color
             }
-          />
+          / >
         </div>
       </div>
       <text className="alert-info">{info}</text>
