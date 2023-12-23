@@ -1,7 +1,14 @@
+import { useState } from "react";
 import Button from "../common/Button";
+import TextInput, { RadioInput } from "../common/Inputs";
 import "./signUp.scss";
 
 export default function SignUp() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [gender, setGender] = useState("");
+
   return (
     <div className="signUp">
       <div className="hero">
@@ -9,6 +16,21 @@ export default function SignUp() {
         <div className="container">
           <div className="card">
             <h6>الاسم</h6>
+            <TextInput
+              label="الاسم الأول"
+              type="text"
+              name="firstName"
+              value={firstName}
+              placeholder="أكتب أسمك الاول"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <RadioInput
+              label="النوع"
+              name="gender"
+              required={true}
+              valuesArr={["أنثى", "ذكر"]}
+              onChange={(e) => setGender(e.target.value) } 
+            />
             <label className="input-field">
               الاسم الأول
               <input type="text" />
