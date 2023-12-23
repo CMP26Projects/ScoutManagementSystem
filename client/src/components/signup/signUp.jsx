@@ -8,10 +8,19 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log("submit");
+  };
 
   return (
     <div className="signUp">
-      <div className="hero">
+      <form onSubmit={submitHandler} className="hero">
         <h2>تسجيل حساب</h2>
         <div className="container">
           <div className="card">
@@ -23,65 +32,81 @@ export default function SignUp() {
               value={firstName}
               placeholder="أكتب أسمك الاول"
               onChange={(e) => setFirstName(e.target.value)}
+              required={true}
+            />
+            <TextInput
+              label="الاسم المتوسط"
+              type="text"
+              name="middleName"
+              value={middleName}
+              placeholder="أكتب أسمك المتوسط"
+              onChange={(e) => setMiddleName(e.target.value)}
+              required={true}
+            />
+            <TextInput
+              label="الاسم الأخير"
+              type="text"
+              name="lastName"
+              value={lastName}
+              placeholder="أكتب أسمك الأخير"
+              onChange={(e) => setLastName(e.target.value)}
+              required={true}
+            />
+          </div>
+          <div className="card">
+            <h6>معلومات الحساب</h6>
+            <TextInput
+              label="البريد الالكتروني"
+              type="email"
+              name="email"
+              value={email}
+              placeholder="أكتب بريدك الالكتروني"
+              onChange={(e) => setEmail(e.target.value)}
+              required={true}
+            />
+            <TextInput
+              label="الرمز السري"
+              type="password"
+              name="password"
+              value={password}
+              placeholder="أكتب الرمز السري"
+              onChange={(e) => setPassword(e.target.value)}
+              required={true}
+            />
+            <TextInput
+              label="أعد إدخال الرمز السري"
+              type="password"
+              name="rePassword"
+              value={rePassword}
+              placeholder="أعد إدخال الرمز السري"
+              onChange={(e) => setRePassword(e.target.value)}
+              required={true}
+            />
+          </div>
+          <div className="card">
+            <h6>معلومات أخرى</h6>
+            <TextInput
+              label="رقم الهاتف"
+              type="text"
+              name="phone"
+              value={phone}
+              placeholder="أكتب رقم هاتفك"
+              onChange={(e) => setPhone(e.target.value)}
+              required={true}
             />
             <RadioInput
               label="النوع"
               name="gender"
+              valuesArr={["ذكر", "أنثى"]}
+              onChange={(e) => setGender(e.target.value)}
               required={true}
-              valuesArr={["أنثى", "ذكر"]}
-              onChange={(e) => setGender(e.target.value) } 
             />
-            <label className="input-field">
-              الاسم الأول
-              <input type="text" />
-            </label>
-            <label className="input-field">
-              الاسم المتوسط
-              <input type="text" />
-            </label>
-            <label className="input-field">
-              الاسم الأخير
-              <input type="text" />
-            </label>
           </div>
-          <div className="card">
-            <h6>معلومات الحساب</h6>
-            <label className="input-field">
-              الحساب
-              <input type="text" />
-            </label>
-            <label className="input-field">
-              الرمز السري
-              <input type="text" />
-            </label>
-            <label className="input-field">
-              أعد إدخال الرمز السري
-              <input type="text" />
-            </label>
-          </div>
-          <div className="card">
-            <h6>معلومات أخرى</h6>
-            <label className="input-field">
-              رقم الهاتف
-              <input type="text" />
-            </label>
-            <label className="radio-field">
-              النوع
-              <div className="radio-buttons">
-                <small>
-                  أنثى
-                  <input type="radio" name="gender" />
-                </small>
-                <small>
-                  ذكر
-                  <input type="radio" name="gender" />
-                </small>
-              </div>
-            </label>
-          </div>
-          <Button className="Button--success Button-medium">تسجيل</Button>
+          <Button type="submit" className="Button--success Button-medium">
+            تسجيل
+          </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
