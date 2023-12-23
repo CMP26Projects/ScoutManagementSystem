@@ -1,26 +1,74 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../common/Button";
+import TextInput from "../common/Inputs";
 import "./logIn.scss";
+import { useLoginMutation } from "../../redux/slices/usersApiSlice";
+import { setCredentials } from "../../redux/slices/authSlice";
 
 export default function LogIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      /* TODO: Add later the home page not the landing page */
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res?.data }));
+      navigate("/");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+      console.error(err);
+    }
+  };
+
   return (
     <div className="login">
-      <div className="hero">
+      <form onSubmit={submitHandler} className="hero">
         <h2>تسجيل الدخول</h2>
         <div className="card">
-          <label className="input-field">
-            الحساب
-            <input type="email" />
-          </label>
-          <label className="input-field">
-            الرمز السري
-            <input type="password" />
-          </label>
-          <Button className="Button--medium Button--success" linkTo="/signUp">
+          <TextInput
+            label="البريد الالكتروني"
+            type="email"
+            name="email"
+            value={email}
+            placeholder="أكتب بريدك الالكتروني"
+            onChange={(e) => setEmail(e.target.value)}
+            required={true}
+          />
+          <TextInput
+            label="الرمز السري"
+            type="password"
+            name="password"
+            value={password}
+            placeholder="أكتب الرمز السري"
+            onChange={(e) => setPassword(e.target.value)}
+            required={true}
+          />
+          <Button type="submit" className="Button--medium Button--success">
             تسجيل الدخول
           </Button>
         </div>
-        <div className="small no-account">ليس لديك حساب؟</div>
-      </div>
+        <Link to="/signUp" className="small no-account">
+          ليس لديك حساب؟
+        </Link>
+      </form>
     </div>
   );
 }
