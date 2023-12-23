@@ -7,5 +7,5 @@ const baseQuery = fetchBaseQuery({ baseUrl });
 export const apiSlice = createApi({
   baseQuery,
   tagTypes: ["Scouts"],
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
 });
