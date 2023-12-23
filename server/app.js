@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import db from './database/db.js'
 import apiRouter from "./routes/api.route.js"
+import alertRouter from "./routes/alert.route.js"
 import { notFound, errorHandler } from './middlewares/error.middleware.js'
 import cookieParser from 'cookie-parser'
 const app = express()

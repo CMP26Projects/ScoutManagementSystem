@@ -1,4 +1,4 @@
-const db = require("../database/db");
+import db from "../database/db.js";
 
 const alertController = {
   getAlert: async (req, res) => {
@@ -66,4 +66,4 @@ const alertController = {
   },
 };
 
-module.exports = alertController;
+export default alertController;
