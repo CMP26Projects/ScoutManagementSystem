@@ -1,10 +1,11 @@
-const express = require("express");
-const cors = require("cors");
-const db = require("./database/db");
-const app = express();
-const PORT = process.env.PORT || 3000;
-const authRouter = require("./routes/auth.route");
-const alertRouter = require("./routes/alert.route");
+import express from 'express'
+import cors from 'cors'
+import db from './database/db.js'
+import apiRouter from "./routes/api.route.js"
+import { notFound, errorHandler } from './middlewares/error.middleware.js'
+import cookieParser from 'cookie-parser'
+const app = express()
+const PORT = process.env.PORT || 3000
 
 db.connect()
   .then(() => {
@@ -14,12 +15,15 @@ db.connect()
     if (err) return console.error(err);
   });
 
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(cookieParser())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-// Routes
-app.use("/auth", authRouter);
+app.use('/api', apiRouter)
 app.use("/alert", alertRouter);
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(PORT, (err) => {
   if (err) return console.error(err);

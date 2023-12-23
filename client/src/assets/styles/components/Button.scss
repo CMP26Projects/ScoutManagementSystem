@@ -3,6 +3,11 @@
   border: none;
   padding: 12px 20px;
   border-radius: 6px;
+  cursor: pointer;
+  color: inherit;
+  font-size: 19px;
+  font-weight: 500;
+  text-align: center;
 
   a {
     color: inherit;
@@ -18,6 +23,17 @@
   &--dark {
     background-color: var(--primary-900);
     color: var(--grey-50);
+  }
+
+  &--medium {
+    a {
+      font-size: 1rem;
+    }
+  }
+
+  &--success {
+    background-color: var(--green-400);
+    color: var(--grey-900);
   }
 
   // TODO: Add more button styles and maybe sizes
