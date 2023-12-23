@@ -43,7 +43,7 @@ const captainController = {
             })
         }
     },
-    captainInSectorInfo: async (req, res) => {
+    captainsInSectorInfo: async (req, res) => {
         try {
             // Extract sector base name and suffix name from the request body
             const { sectorBaseName, sectorSuffixName } = req.body;
@@ -62,6 +62,32 @@ const captainController = {
                     message: "Count of rows returned is 0",
                 });
             }
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result,
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                error
+            })
+        }
+    },
+    captainsInSectorCount: async (req, res) => {
+        try {
+            // Extract sector base name and suffix name from the request body
+            const { sectorBaseName, sectorSuffixName } = req.body;
+
+            // Query on the database to get all the captains count in a specific sector
+            const result = await db.query(`
+                SELECT COUNT(*)
+                FROM "Captain"
+                WHERE "rSectorBaseName" = $1 AND "rSectorSuffixName" = $2`,
+            [sectorBaseName, sectorSuffixName]
+            );
 
             res.status(200).json({
                 message: "Successful retrieval",
