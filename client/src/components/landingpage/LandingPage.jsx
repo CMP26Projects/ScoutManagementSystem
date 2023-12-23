@@ -4,6 +4,8 @@ import FancyBlobs from "./FancyBlobs";
 
 import "./LandingPage.scss";
 
+import PageTitle from "../common/PageTitle";
+
 import {
   FolderIcon,
   AcademicCapIcon,
@@ -50,7 +52,8 @@ export default function LandingPage() {
     <div className="landing_page">
       <header className="hero">
         <div className="container">
-          <h1>نظام إدارة الكشافة الحديث</h1>
+          <PageTitle title="نظام إدارة الكشافة الحديث" />
+
           <p>
             نقدم حلول لكل مشاكل اداريات المجموعات من تسجيل الغياب الاشتراكات
             المواضيع التقييم وغيرهم من الامور.
