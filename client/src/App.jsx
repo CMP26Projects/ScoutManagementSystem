@@ -8,13 +8,17 @@ import Routes from "./routes";
 import store from "./redux/store";
 // Import Provider
 import { Provider } from "react-redux";
+// Import Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
-    <Provider store={store}>
-      <Routes />
-    </Provider>
+      <ToastContainer />
+      <Provider store={store}>
+        <Routes />
+      </Provider>
     </>
   );
 }
