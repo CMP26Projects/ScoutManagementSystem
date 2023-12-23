@@ -6,12 +6,13 @@ const authMiddleware = async (req, res, next) => {
     const token = req.cookies.token
 
     if (!token) {
-        return res.status(401).json({ error: 'No token provided' })
+        return res.status(401).json({ error: 'No token provided or Provided token has expired' })
     }
 
     try {
         // Verify token and get captain's id
-        const id = jwt.verify(token, process.env.JWT_SECRET).id
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const id = decoded.id
 
         // Get captain's data
         const result = await db.query(
