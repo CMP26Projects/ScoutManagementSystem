@@ -1,9 +1,11 @@
-const express = require('express')
-const cors = require('cors')
-const db = require('./database/db')
+import express from 'express'
+import cors from 'cors'
+import db from './database/db.js'
+import apiRouter from "./routes/api.route.js"
+import { notFound, errorHandler } from './middlewares/error.middleware.js'
+import cookieParser from 'cookie-parser'
 const app = express()
 const PORT = process.env.PORT || 3000
-const authRouter = require('./routes/auth.route')
 
 db.connect()
     .then(() => {
@@ -14,10 +16,13 @@ db.connect()
     })
 
 app.use(cors())
+app.use(cookieParser())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-// Routes
-app.use("/auth", authRouter);
+app.use('/api', apiRouter)
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(PORT, (err) => {
     if (err) return console.error(err)

@@ -14,7 +14,4 @@ const arrayToJson = (arr) => {
     return json
 }
 
-module.exports = {
-    jsonToArray,
-    arrayToJson,
-}
+export { jsonToArray, arrayToJson }

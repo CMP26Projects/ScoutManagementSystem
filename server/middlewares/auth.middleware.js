@@ -1,20 +1,13 @@
-const jwt = require('jsonwebtoken')
-const db = require('../database/db')
+import jwt from 'jsonwebtoken'
+import db from '../database/db.js'
 
 const authMiddleware = async (req, res, next) => {
-    // Get authorization header and check if it exists
-    const auth = req.headers.authorization
-    if (!auth) {
+    // Get token from cookie
+    const token = req.cookies.token
+
+    if (!token) {
         return res.status(401).json({ error: 'No token provided' })
     }
-
-    // Check if the authorization header is "Bearer <token>"
-    if (!auth.startsWith('Bearer') || auth.split(' ').length !== 2) {
-        return res.status(401).json({ error: 'Invalid token, not Bearer' })
-    }
-
-    // Get token from the authorization header
-    const token = auth.split(' ')[1]
 
     try {
         // Verify token and get captain's id
@@ -44,4 +37,4 @@ const authMiddleware = async (req, res, next) => {
     }
 }
 
-module.exports = authMiddleware
+export default authMiddleware
