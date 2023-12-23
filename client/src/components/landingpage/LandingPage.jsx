@@ -78,8 +78,8 @@ export default function LandingPage() {
         ))}
 
         <FancyBlobs />
-        <Footer />
       </section>
+      <Footer />
     </div>
   );
 }

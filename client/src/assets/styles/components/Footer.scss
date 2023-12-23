@@ -1,8 +1,14 @@
 .Footer {
   padding: 2rem 20px;
+  margin-bottom: 0;
   text-align: center;
   position: relative;
   box-sizing: content-box;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 
   &::before {
     content: "";
@@ -23,6 +29,7 @@
   }
 
   a {
+    border-radius: 5px;
     padding: 5px;
     background-color: var(--primary-50);
     color: var(--grey-900);
