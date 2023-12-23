@@ -12,12 +12,16 @@ import LandingPage from "./components/landingpage/LandingPage";
 // Import Testing Routes here
 import TestTypo from "./components/testing/testTypo";
 import TestLayout from "./components/testing/testLayout";
+import SignUp from "./components/signup/signUp";
+import LogIn from "./components/login/logIn";
 
 function Routes() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="/signUp" element={<SignUp />} />
+        <Route exact path="/logIn" element={<LogIn />} />
 
         {/* Testing Routes */}
         {/* FIXME: Delete test routes Later */}
