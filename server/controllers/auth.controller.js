@@ -1,9 +1,13 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const db = require('../database/db')
-const { jsonToArray, arrayToJson } = require('../utils/convert')
+import bcrypt from 'bcryptjs'
+import db from '../database/db.js'
+import { jsonToArray } from '../utils/convert.js'
+import generateToken from '../utils/generateToken.js'
 
 const authController = {
+
+    // @desc    Create a new captain
+    // @route   POST /api/auth/signup
+    // @access  Public
     signup: async (req, res) => {
         try {
             // get email and password from request body
@@ -28,27 +32,18 @@ const authController = {
             req.body = { ...req.body, password: hashedPassword }
             const params = jsonToArray(req.body)
             const result = await db.query(
-                `INSERT INTO "Captain"("firstName", "middleName", "lastName", "email", "password", "phoneNumber", "gender", "type")
+                `INSERT INTO "Captain"("firstName", "middleName", "lastName", "phoneNumber", "email", "password", "gender", "type")
                 VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
                 params.concat(['regular'])
             )
             const newCaptain = result.rows[0]
 
-            // Generate a JWT token containing the captain's id
-            // Bearer token is the token that we will send to the client
-            const token = jwt.sign(
-                { id: newCaptain.captainId }, // Payload
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: process.env.JWT_EXPIRES_IN,
-                }
-            )
+            // Generate a JWT token
+            generateToken(res, newCaptain.captainId)
 
             // Send the response
             res.status(201).json({
                 message: 'Captain created successfully',
-                newCaptain,
-                token,
             })
         } catch (error) {
             console.log(error)
@@ -58,6 +53,9 @@ const authController = {
         }
     },
 
+    // @desc    Login a captain
+    // @route   POST /api/auth/login
+    // @access  Public
     login: async (req, res) => {
         try {
             // Deconstruct the request body
@@ -65,7 +63,7 @@ const authController = {
 
             // Check if email already exists
             const result = await db.query(
-                `SELECT "email", "password"
+                `SELECT *
                 FROM "Captain" 
                 WHERE "email" = $1;`,
                 [email]
@@ -87,20 +85,12 @@ const authController = {
                 })
             }
 
-            // Generate a JWT token containing the captain's id
-            // Bearer token is the token that we will send to the client
-            const token = jwt.sign(
-                { id: captain.captainId }, // Payload
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: process.env.JWT_EXPIRES_IN,
-                }
-            )
+            // Generate a JWT token
+            generateToken(res, captain.captainId)
 
             // Send the response
             res.status(200).json({
                 message: 'Logged in successfully',
-                token,
             })
         } catch (error) {
             console.log(error)
@@ -110,7 +100,29 @@ const authController = {
         }
     },
 
-    // This controller is responsible for fetching data of the logged-in captain
+    // @desc    Logout a captain
+    // @route   GET /api/auth/logout
+    // @access  Private
+    logout: async (req, res) => {
+        try {
+            // Clear the cookie
+            res.clearCookie('token')
+
+            // Send the response
+            res.status(200).json({
+                message: 'Logged out successfully',
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occurred while logging out',
+            })
+        }
+    },
+
+    // @desc    Auth logged-in captain
+    // @route   GET /api/auth/me
+    // @access  Private
     me: (req, res) => {
         try {
             res.status(200).json({ user: req.captain })
@@ -122,4 +134,5 @@ const authController = {
         }
     },
 }
-module.exports = authController
+
+export default authController
