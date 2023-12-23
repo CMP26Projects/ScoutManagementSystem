@@ -16,6 +16,7 @@
     padding: 1.5rem 0.4375rem;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 1.0625rem;
   }
 
@@ -23,13 +24,12 @@
     background-color: var(--grey-800);
     border-radius: 1.875rem;
     display: flex;
-    width: 16.9375rem;
-    padding: 1.0625rem 0rem;
+    padding: 1.5rem 1rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 0.875rem;
-    padding: 10px;
+
     .input-field {
       display: flex;
       width: 14.16319rem;
