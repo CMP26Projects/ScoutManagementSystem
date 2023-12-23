@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../common/Button";
 import TextInput, { RadioInput } from "../common/Inputs";
 import "./signUp.scss";
+import { useSignupMutation } from "../../redux/slices/usersApiSlice";
+import { setCredentials } from "../../redux/slices/authSlice";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -13,9 +18,51 @@ export default function SignUp() {
   const [rePassword, setRePassword] = useState("");
   const [phone, setPhone] = useState("");
 
-  const submitHandler = (e) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [signup, { isLoading, error }] = useSignupMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      /* TODO: Add later the home page not the landing page */
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    if (password !== rePassword) {
+      toast.error("الرمز السري غير متطابق");
+      return;
+    }
+    try {
+      console.log({
+        firstName,
+        middleName,
+        lastName,
+        password,
+        email,
+        phone,
+        gender: gender == "ذكر" ? "male" : "female",
+      });
+      const res = await signup({
+        firstName,
+        middleName,
+        lastName,
+        phone,
+        email,
+        password,
+        gender: gender == "ذكر" ? "male" : "female",
+      }).unwrap();
+      dispatch(setCredentials({ ...res?.data }));
+      navigate("/");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+      console.log(err?.data?.message || err.error);
+    }
   };
 
   return (
@@ -102,6 +149,7 @@ export default function SignUp() {
               required={true}
             />
           </div>
+          {isLoading && <p>جاري التحميل...</p>}
           <Button type="submit" className="Button--success Button-medium">
             تسجيل
           </Button>

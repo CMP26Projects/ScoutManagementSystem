@@ -30,10 +30,11 @@ export default function LogIn() {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
+      dispatch(setCredentials({ ...res?.data }));
       navigate("/");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
+      console.error(err);
     }
   };
 
