@@ -22,6 +22,27 @@ const captainController = {
             })
         }
     },
+    allCaptainsCount: async (req, res) => {
+        try {
+            // Query on the database to get the captains info
+            const result = await db.query(`
+            SELECT COUNT(*)
+            FROM "Captain"
+            `);
+
+            // Respond with the data retrieved and a successful retrieval message
+            res.status(200).json({
+                message: 'Successful retrieval',
+                body: result, 
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                error: 'An error occured while retrieving the captains count'
+            })
+        }
+    }
 }
 
 export default captainController
