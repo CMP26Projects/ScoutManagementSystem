@@ -4,6 +4,8 @@ import Footer from "../common/Footer";
 
 import FancyBlobs from "./FancyBlobs";
 
+import "./LandingPage.scss";
+
 import {
   FolderIcon,
   AcademicCapIcon,
@@ -47,7 +49,7 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <>
+    <div className="landing_page">
       <Nav showIcons={false} />
       <header className="hero">
         <div className="container">
@@ -56,12 +58,14 @@ export default function LandingPage() {
             نقدم حلول لكل مشاكل اداريات المجموعات من تسجيل الغياب الاشتراكات
             المواضيع التقييم وغيرهم من الامور.
           </p>
-          <Button className="Button--primary" linkTo="/login">
-            تسجيل الدخول
-          </Button>
-          <Button className="Button--dark" linkTo="/signUp">
-            إنشاء حساب
-          </Button>
+          <div className="btn__container">
+            <Button className="Button--primary" linkTo="/login">
+              تسجيل الدخول
+            </Button>
+            <Button className="Button--dark" linkTo="/signUp">
+              إنشاء حساب
+            </Button>
+          </div>
         </div>
       </header>
       <section className="features">
@@ -76,6 +80,6 @@ export default function LandingPage() {
         <FancyBlobs />
         <Footer />
       </section>
-    </>
+    </div>
   );
 }
