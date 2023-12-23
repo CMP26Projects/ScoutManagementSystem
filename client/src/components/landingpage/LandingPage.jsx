@@ -1,6 +1,4 @@
-import Nav from "../common/nav";
 import Button from "../common/Button";
-import Footer from "../common/Footer";
 
 import FancyBlobs from "./FancyBlobs";
 
@@ -50,7 +48,6 @@ const features = [
 export default function LandingPage() {
   return (
     <div className="landing_page">
-      <Nav showIcons={false} />
       <header className="hero">
         <div className="container">
           <h1>نظام إدارة الكشافة الحديث</h1>
@@ -79,7 +76,6 @@ export default function LandingPage() {
 
         <FancyBlobs />
       </section>
-      <Footer />
     </div>
   );
 }

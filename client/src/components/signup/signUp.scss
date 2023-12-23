@@ -1,16 +1,14 @@
-
-.hero {
+.signUp {
+  .hero {
     display: flex;
-    width: 22.5rem;
-    height: 93.375rem;
     flex-direction: column;
     align-items: center;
     margin: auto;
     padding: 1.75rem 0.25rem;
     gap: 1.1875rem;
-}
+  }
 
-.container {
+  .container {
     background: var(--Teal-900);
     border-radius: 1.25rem;
     display: flex;
@@ -18,11 +16,10 @@
     padding: 1.5rem 0.4375rem;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     gap: 1.0625rem;
-}
+  }
 
-.card {
+  .card {
     background-color: var(--grey-800);
     border-radius: 1.875rem;
     display: flex;
@@ -32,58 +29,45 @@
     justify-content: center;
     align-items: center;
     gap: 0.875rem;
+    padding: 10px;
     .input-field {
-        display: flex;
-        width: 14.16319rem;
-        padding: 0.125rem 0.75rem;
-        justify-content: flex-end;
-        align-items: center;
-        align-content: center;
-        gap: 0rem 9.25rem;
-        flex-wrap: wrap;
-        input {
-            background: var(--grey-700);
-            margin-block: 0.3rem;
-            border: 1px solid var(--grey-600);
-            border-radius: 0.25rem;
-            width: 12.66319rem;
-            height: 1.75rem;
-            flex-shrink: 0;
-        }
+      display: flex;
+      width: 14.16319rem;
+      padding: 0.125rem 0.75rem;
+      justify-content: flex-end;
+      align-items: center;
+      align-content: center;
+      gap: 0rem 9.25rem;
+      flex-wrap: wrap;
+      input {
+        background: var(--grey-700);
+        margin-block: 0.3rem;
+        border: 1px solid var(--grey-600);
+        border-radius: 0.25rem;
+        width: 12.66319rem;
+        height: 1.75rem;
+        flex-shrink: 0;
+      }
     }
-    
+
     .radio-field {
+      display: flex;
+      width: 14.16319rem;
+      padding: 0.5625rem 0.75rem;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 0.0625rem;
+      .radio-buttons {
         display: flex;
-        width: 14.16319rem;
-        padding: 0.5625rem 0.75rem;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-end;
-        flex-wrap: wrap;
-        gap: 0.0625rem;
-        .radio-buttons {
-            display: flex;
-            padding: 0.3125rem 0.5rem;
-            margin: auto;
-            gap: 3.1875rem;
-            .small input {
-                margin: 0.5rem;
-            }
+        padding: 0.3125rem 0.5rem;
+        margin: auto;
+        gap: 3.1875rem;
+        .small input {
+          margin: 0.5rem;
         }
+      }
     }
-}
-
-
-button {
-    //color: $text-color;
-    background: var(--Primary-900);
-    border: 0px solid;
-    border-radius: 0.3125rem;
-    display: flex;
-    width: 12.5rem;
-    height: 3.125rem;
-    padding: 0.8125rem 0.6875rem 0.8125rem 0.625rem;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
+  }
 }

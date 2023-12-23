@@ -1,5 +1,5 @@
-
-.hero {
+.login {
+  .hero {
     display: flex;
     width: 22.5rem;
     height: 40rem;
@@ -9,9 +9,9 @@
     margin: auto;
     padding: 1.75rem 0.25rem;
     gap: 1.1875rem;
-}
+  }
 
-.card {
+  .card {
     background-color: var(--grey-800);
     border-radius: 1.875rem;
     display: flex;
@@ -23,41 +23,28 @@
     align-items: center;
     gap: 0.875rem;
     .input-field {
-        display: flex;
-        width: 14.16319rem;
-        padding: 0.125rem 0.75rem;
-        justify-content: flex-end;
-        align-items: center;
-        align-content: center;
-        gap: 0rem 9.25rem;
-        flex-wrap: wrap;
-        input {
-            background: var(--grey-700);
-            margin-block: 0.3rem;
-            border: 1px solid var(--grey-600);
-            border-radius: 0.25rem;
-            width: 12.66319rem;
-            height: 1.75rem;
-            flex-shrink: 0;
-        }
+      display: flex;
+      width: 14.16319rem;
+      padding: 0.125rem 0.75rem;
+      justify-content: flex-end;
+      align-items: center;
+      align-content: center;
+      gap: 0rem 9.25rem;
+      flex-wrap: wrap;
+      input {
+        background: var(--grey-700);
+        margin-block: 0.3rem;
+        border: 1px solid var(--grey-600);
+        border-radius: 0.25rem;
+        width: 12.66319rem;
+        height: 1.75rem;
+        flex-shrink: 0;
+      }
     }
-}
+  }
 
-.no-account {
+  .no-account {
     color: var(--Teal-500);
     margin-bottom: 1rem;
-}
-
-button {
-    //color: var(--text-color);
-    background: var(--green-700);
-    border: 0px solid;
-    border-radius: 0.3125rem;
-    display: flex;
-    width: 7.25rem;
-    height: 1.875rem;
-    padding: 0.8125rem 0.625rem;
-    justify-content: center;
-    align-items: center;
-    gap: 1.25rem;
+  }
 }
