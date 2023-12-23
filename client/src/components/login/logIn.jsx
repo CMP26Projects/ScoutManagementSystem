@@ -3,7 +3,7 @@ import Footer from '../common/Footer'
 
 export default function LogIn() {
     return (
-        <>
+        <div className='login'>
             <div className="hero">
                 <h2>تسجيل الدخول</h2>
                 <div className="card">
@@ -20,6 +20,6 @@ export default function LogIn() {
                 <div className="small no-account">ليس لديك حساب؟</div>
             </div>
             <Footer />
-        </>
+        </div>
     )
 }
