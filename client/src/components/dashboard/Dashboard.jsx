@@ -3,6 +3,10 @@ import "./Dashboard.scss";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NotificationBox from "../common/NotificationBox";
+import TermInfoSection from "../common/TermInfoSection";
+import UserActions from "../common/UserActions";
+import InfoSection from "../common/InfoSection";
 
 export default function Dashboard() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -19,6 +23,22 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <PageTitle title={titleMsg} />
+      <section className="dashboard__section">
+        <h4 className="section_heading">إشعارات</h4>
+        <NotificationBox />
+      </section>
+      <section className="dashboard__section">
+        <h4 className="section_heading">معلومات</h4>
+        <InfoSection />
+      </section>
+      <section className="dashboard__section">
+        <h4 className="section_heading">الفترة الحالية</h4>
+        <TermInfoSection />
+      </section>
+      <section className="dashboard__section">
+        <h4 className="section_heading">إجراءات</h4>
+        <UserActions />
+      </section>
     </div>
   );
 }
