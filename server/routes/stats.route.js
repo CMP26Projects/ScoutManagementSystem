@@ -3,6 +3,6 @@ import statsController from '../controllers/stats.controller.js'
 import checkRankMiddleware from '../middlewares/checkrank.middleware.js'
 const statsRouter = Router()
 
-statsRouter.get('/', statsController.getAllAbsenceRate)
+statsRouter.get('/', statsController.getAbsenceRate)
 
 export default statsRouter
