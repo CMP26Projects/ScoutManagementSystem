@@ -5,7 +5,7 @@ const baseUrl =
     ? "https://scouts-managment-system-api-dev.onrender.com"
     : "";
 
-const baseQuery = fetchBaseQuery({ baseUrl, credentials: "include" });
+const baseQuery = fetchBaseQuery({ baseUrl });
 
 export const apiSlice = createApi({
   baseQuery,
