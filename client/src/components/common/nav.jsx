@@ -39,7 +39,7 @@ export default function Nav() {
 
   const handleLogout = async () => {
     try {
-      const res = await logout().unwrap();
+      await logout().unwrap();
       toast.dark("تم تسجيل الخروج بنجاح");
       dispatch(clearCredentials());
       navigate("/");
@@ -75,6 +75,8 @@ export default function Nav() {
           </div>
         )}
       </div>
+      {isLoading && <p>جاري التحميل...</p>}
+      {error && <p>{error}</p>}
     </nav>
   );
 }
