@@ -180,6 +180,43 @@ const scoutController = {
                 error
             })
         }
+    },
+    certainScoutInfo: async (req, res) => {
+        try {
+            const { scoutId } = req.body;
+
+            // Make sure that the id is provided (not undefined)
+            if (!scoutId){
+                return res.status(404).json({
+                    error: "Enter a valid scout id"
+                })
+            }
+
+            const result = await db.query(`
+                SELECT *
+                FROM "Scout"
+                WHERE "scoutId" = $1;
+            `,
+            [scoutId])
+
+            if (!result.rows.length) {
+                return res.status(404).json({
+                    error: "No scout found"
+                })
+            }
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result,
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                error
+            })
+        }
     }
 }
 
