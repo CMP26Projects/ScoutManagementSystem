@@ -3,13 +3,27 @@ import cron from 'node-cron'
 import dotenv from 'dotenv'
 
 dotenv.config()
-const db = new pg.Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DATABASE,
-})
+
+let _db
+if (process.env.DB === 'online') {
+    _db = new pg.Pool({
+        connectionString: process.env.DB_URI,
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    })
+}
+else {
+    _db = new pg.Pool({
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_DATABASE,
+    })
+}
+
+const db = _db
 
 // Run the cron job every Sunday at 00:00
 cron.schedule('0 0 * * 0', async () => {

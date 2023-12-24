@@ -31,7 +31,7 @@ const authController = {
             }
 
             // Hash the password
-            password = await bcrypt.hash(password, 10)
+            const hashedPassword = await bcrypt.hash(password, 10)
 
             // Create a new Captain
             const result = await db.query(
@@ -43,7 +43,7 @@ const authController = {
                     lastName,
                     phoneNumber,
                     email,
-                    password,
+                    hashedPassword,
                     gender,
                     'regular',
                 ]
