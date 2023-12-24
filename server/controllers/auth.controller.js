@@ -139,7 +139,7 @@ const authController = {
     // @access  Private
     me: (req, res) => {
         try {
-            res.status(200).json({ user: req.captain })
+            res.status(200).json({ message: 'You are in', body: req.captain })
         } catch (error) {
             console.log(error)
             res.status(500).json({
