@@ -18,6 +18,7 @@ import PublicLayout from "./components/layout/PublicLayout";
 import TestTypo from "./components/testing/testTypo";
 import TestLayout from "./components/testing/testLayout";
 import Dashboard from "./components/dashboard/Dashboard";
+import CaptainProfile from "./components/captain-profile/CaptainProfile";
 
 function Routes() {
   return (
@@ -28,6 +29,7 @@ function Routes() {
           <Route exact path="/signUp" element={<SignUp />} />
           <Route exact path="/logIn" element={<LogIn />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/profile" element={<CaptainProfile />} />
         </Route>
 
         {/* Testing Routes */}
