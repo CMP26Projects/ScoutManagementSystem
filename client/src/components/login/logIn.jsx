@@ -60,6 +60,8 @@ export default function LogIn() {
             onChange={(e) => setPassword(e.target.value)}
             required={true}
           />
+          {isLoading && <p>جاري التحميل...</p>}
+          {error && <p>{error}</p>}
           <Button type="submit" className="Button--medium Button--success">
             تسجيل الدخول
           </Button>

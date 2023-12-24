@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../common/Button";
 import TextInput, { RadioInput } from "../common/Inputs";
@@ -149,6 +149,7 @@ export default function SignUp() {
             />
           </div>
           {isLoading && <p>جاري التحميل...</p>}
+          {error && <p>{error}</p>}
           <Button type="submit" className="Button--success Button-medium">
             تسجيل
           </Button>
