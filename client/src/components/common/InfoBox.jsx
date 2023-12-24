@@ -1,4 +1,3 @@
-import React from "react";
 import "../../assets/styles/components/infoBox.scss";
 const InfoBox = ({ title, value, width = "narrow", color = "dark" }) => {
   return (

@@ -6,7 +6,7 @@ import Footer from "../common/Footer";
 export default function PublicLayout() {
   return (
     <div className="public_layout">
-      <Nav showIcons={false} />
+      <Nav />
       <Outlet />
       <Footer />
     </div>

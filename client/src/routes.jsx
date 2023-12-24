@@ -17,6 +17,7 @@ import PublicLayout from "./components/layout/PublicLayout";
 // Import Testing Routes here
 import TestTypo from "./components/testing/testTypo";
 import TestLayout from "./components/testing/testLayout";
+import Dashboard from "./components/dashboard/Dashboard";
 
 function Routes() {
   return (
@@ -26,6 +27,7 @@ function Routes() {
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/signUp" element={<SignUp />} />
           <Route exact path="/logIn" element={<LogIn />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
         </Route>
 
         {/* Testing Routes */}
