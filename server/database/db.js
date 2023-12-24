@@ -1,7 +1,6 @@
-import pg from "pg";
-import dotenv from "dotenv";
+import pg from 'pg'
+import dotenv from 'dotenv'
 
-dotenv.config();
 dotenv.config();
 const db = new pg.Pool({
   host: process.env.DB_HOST,
@@ -12,4 +11,4 @@ const db = new pg.Pool({
 });
 
 
-export default db;
+export default db
