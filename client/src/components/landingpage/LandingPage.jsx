@@ -82,8 +82,8 @@ export default function LandingPage() {
         <FancyBlobs />
       </section>
 
-      {/* uncomment to test statistics Table */
-      /* <TestTable /> */}
+      {/* uncomment to test statistics Table */}
+      {/* <TestTable /> */}
     </div>
   );
 }
