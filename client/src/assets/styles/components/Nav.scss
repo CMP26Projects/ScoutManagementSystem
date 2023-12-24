@@ -1,8 +1,9 @@
 .Nav {
-  padding: var(--side-spacing);
+  padding: 1rem;
 
   .container {
     display: flex;
+    padding: 0;
     justify-content: space-between;
     align-items: center;
     flex-direction: row-reverse;
@@ -28,7 +29,15 @@
     align-items: center;
   }
 
+  a {
+    cursor: pointer;
+    > * {
+      cursor: pointer;
+    }
+  }
+
   &__icon {
     width: 24px;
+    cursor: pointer;
   }
 }

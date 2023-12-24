@@ -30,6 +30,7 @@ export default function LogIn() {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res?.data }));
+      toast.dark("تم تسجيل الدخول بنجاح");
       navigate("/");
     } catch (err) {
       toast.error(err?.data?.message || err.error);

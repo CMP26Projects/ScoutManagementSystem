@@ -57,6 +57,7 @@ export default function SignUp() {
         gender: gender == "ذكر" ? "male" : "female",
       }).unwrap();
       dispatch(setCredentials({ ...res?.data }));
+      toast.dark(" تم تسجيل الحساب بنجاح");
       navigate("/");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
