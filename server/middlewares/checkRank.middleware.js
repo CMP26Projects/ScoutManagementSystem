@@ -1,4 +1,3 @@
-import db from '../database/db.js'
 
 const checkRankMiddleware = (rank) => {
     return async (req, res, next) => {

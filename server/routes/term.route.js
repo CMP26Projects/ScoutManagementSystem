@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import termController from '../controllers/term.controller.js'
-import checkRankMiddleware from '../middlewares/checkrank.middleware.js'
+import checkRankMiddleware from '../middlewares/checkRank.middleware.js'
 const termRouter = Router()
 
 // Term routes
