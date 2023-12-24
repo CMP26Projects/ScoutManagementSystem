@@ -1,0 +1,12 @@
+.userActions {
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    direction: rtl;
+
+    .span-2-cols {
+      grid-column: 1 / span 2;
+    }
+  }
+}
