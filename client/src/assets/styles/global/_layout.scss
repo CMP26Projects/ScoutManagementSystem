@@ -21,7 +21,7 @@ section,
   .col-1 {
     flex: 0 1 calc(25% - var(--side-spacing) * 2);
   }
-
+    
   .col-2 {
     flex: 0 1 calc(50% - var(--side-spacing) * 2);
   }
@@ -33,4 +33,14 @@ section,
   .col-4 {
     flex: 0 1 calc(100% - var(--side-spacing) * 2);
   }
+}
+
+.PopUp {
+  width: 80%;
+  height: fit-content;
+  border-radius: 14px;
+  background: linear-gradient(115deg, #201429 2.95%, #360C55 95.69%);
+
+  justify-content: center;
+  align-items: center;
 }

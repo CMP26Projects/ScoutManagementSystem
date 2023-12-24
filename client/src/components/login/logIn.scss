@@ -15,13 +15,14 @@
     background-color: var(--grey-800);
     border-radius: 1.875rem;
     display: flex;
-    width: 16.9375rem;
     padding: 1.0625rem 0rem;
     margin-top: 3rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.875rem;
+    gap: 1rem;
+    padding: 3rem 1rem;
+
     .input-field {
       display: flex;
       width: 14.16319rem;

@@ -2,7 +2,11 @@ import Button from "../common/Button";
 
 import FancyBlobs from "./FancyBlobs";
 
+import PageTitle from "../common/PageTitle";
+
 import "./LandingPage.scss";
+
+import TestTable from "../testing/TestTable";
 
 import {
   FolderIcon,
@@ -50,7 +54,8 @@ export default function LandingPage() {
     <div className="landing_page">
       <header className="hero">
         <div className="container">
-          <h1>نظام إدارة الكشافة الحديث</h1>
+          <PageTitle title="نظام إدارة الكشافة الحديث" />
+
           <p>
             نقدم حلول لكل مشاكل اداريات المجموعات من تسجيل الغياب الاشتراكات
             المواضيع التقييم وغيرهم من الامور.
@@ -76,6 +81,9 @@ export default function LandingPage() {
 
         <FancyBlobs />
       </section>
+
+      {/* uncomment to test statistics Table */}
+      {/* <TestTable /> */}
     </div>
   );
 }
