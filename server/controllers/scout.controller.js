@@ -106,6 +106,80 @@ const scoutController = {
                 error
             })
         }
+    },
+    allScoutsInUnitInfo: async (req, res) => {
+        try {
+            const { unitCaptainId } = req.body;
+
+            // Make sure that the id is provided (not undefined)
+            if (!unitCaptainId){
+                return res.status(404).json({
+                    error: "Enter a valid unit captain id"
+                })
+            }
+
+            const result = await db.query(`
+                SELECT scout.*
+                FROM "Scout" AS scout, "Sector" AS sector
+                WHERE sector."unitCaptainId" = $1 AND scout."sectorBaseName" = sector."baseName" AND scout."sectorSuffixName" = sector."suffixName";
+            `,
+            [unitCaptainId])
+
+            if (!result.rows.length) {
+                return res.status(404).json({
+                    error: "No scouts found in this unit"
+                })
+            }
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result,
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                error
+            })
+        }
+    },
+    allScoutsInUnitCount: async (req, res) => {
+        try {
+            const { unitCaptainId } = req.body;
+
+            // Make sure that the id is provided (not undefined)
+            if (!unitCaptainId){
+                return res.status(404).json({
+                    error: "Enter a valid unit captain id"
+                })
+            }
+
+            const result = await db.query(`
+                SELECT Count(*)
+                FROM "Scout" AS scout, "Sector" AS sector
+                WHERE sector."unitCaptainId" = $1 AND scout."sectorBaseName" = sector."baseName" AND scout."sectorSuffixName" = sector."suffixName";
+            `,
+            [unitCaptainId])
+
+            if (!result.rows.length) {
+                return res.status(404).json({
+                    error: "No scouts found in this unit"
+                })
+            }
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result,
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                error
+            })
+        }
     }
 }
 
