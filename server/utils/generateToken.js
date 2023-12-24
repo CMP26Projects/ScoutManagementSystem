@@ -17,7 +17,7 @@ const generateToken = (res, id) => {
     // Save token in cookie
     res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: maxAge,
     })

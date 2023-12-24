@@ -1,18 +1,23 @@
 import bcrypt from 'bcryptjs'
 import db from '../database/db.js'
-import { jsonToArray } from '../utils/convert.js'
 import generateToken from '../utils/generateToken.js'
 
 const authController = {
-
     // @desc    Create a new captain
     // @route   POST /api/auth/signup
     // @access  Public
     signup: async (req, res) => {
         try {
-            // get email and password from request body
-            const email = req.body['email']
-            const password = req.body['password']
+            // get info from request body
+            const {
+                firstName,
+                middleName,
+                lastName,
+                phoneNumber,
+                email,
+                password,
+                gender,
+            } = req.body
 
             // Check if email already exists
             const captain = await db.query(
@@ -26,15 +31,22 @@ const authController = {
             }
 
             // Hash the password
-            const hashedPassword = await bcrypt.hash(password, 10)
+            password = await bcrypt.hash(password, 10)
 
             // Create a new Captain
-            req.body = { ...req.body, password: hashedPassword }
-            const params = jsonToArray(req.body)
             const result = await db.query(
                 `INSERT INTO "Captain"("firstName", "middleName", "lastName", "phoneNumber", "email", "password", "gender", "type")
                 VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
-                params.concat(['regular'])
+                [
+                    firstName,
+                    middleName,
+                    lastName,
+                    phoneNumber,
+                    email,
+                    password,
+                    gender,
+                    'regular',
+                ]
             )
             const newCaptain = result.rows[0]
 
@@ -44,6 +56,7 @@ const authController = {
             // Send the response
             res.status(201).json({
                 message: 'Captain created successfully',
+                body: newCaptain,
             })
         } catch (error) {
             console.log(error)
@@ -91,6 +104,7 @@ const authController = {
             // Send the response
             res.status(200).json({
                 message: 'Logged in successfully',
+                body: captain,
             })
         } catch (error) {
             console.log(error)
@@ -101,7 +115,7 @@ const authController = {
     },
 
     // @desc    Logout a captain
-    // @route   GET /api/auth/logout
+    // @route   POST /api/auth/logout
     // @access  Private
     logout: async (req, res) => {
         try {
