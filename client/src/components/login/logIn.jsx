@@ -29,11 +29,11 @@ export default function LogIn() {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res?.data }));
+      dispatch(setCredentials({ ...res?.body }));
       toast.dark("تم تسجيل الدخول بنجاح");
       navigate("/");
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      toast.error(err?.body?.message || err.error);
       console.error(err);
     }
   };
