@@ -64,8 +64,7 @@ export default function Nav() {
             <Link onClick={handleLogout}>
               <ArrowLeftOnRectangleIcon className="Nav__icon" />
             </Link>
-            {/* TODO: add route later */}
-            <Link to="/">
+            <Link to="/profile">
               <UserCircleIcon className="Nav__icon" />
             </Link>
             {/* TODO: add route later */}

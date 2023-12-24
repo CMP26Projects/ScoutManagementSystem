@@ -1,0 +1,50 @@
+.captain-profile {
+  &__avatar {
+    display: flex;
+    justify-content: center;
+    margin-block: 1rem;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  &__name,
+  &__type {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__type {
+    color: var(--primary-100);
+  }
+
+  &__info {
+    width: 90vw;
+    margin-inline: auto;
+    padding: 20px;
+    background-color: var(--primary-900);
+    border-radius: 30px;
+
+    h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    &__item {
+      direction: rtl;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+
+      h6 {
+        color: var(--primary-200);
+      }
+    }
+    &__btn {
+      margin-inline: auto;
+      display: block;
+    }
+  }
+}
