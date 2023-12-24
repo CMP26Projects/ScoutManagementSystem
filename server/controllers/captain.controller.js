@@ -117,7 +117,7 @@ const captainController = {
 
             // If captain doesn't exist return an error message
             if (!result.rows.length) {
-                res.status(404).json({
+                return res.status(404).json({
                     error: "Captain not found!"
                 })
             }
