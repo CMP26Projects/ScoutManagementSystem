@@ -1,40 +1,62 @@
 import React from "react";
 
+import "../../assets/styles/components/StatisitcTable.scss";
+
 const StatisticTable = ({ title, columnNames, dataRows }) => {
+  const columnsNo = Object.keys(dataRows[0]).length;
+
   return (
     <div className="table-box">
-      <p6>{title}</p6>
-      <div className="table">
-        <div className="columns-title-box">
-          <p6 className="column-title">#</p6>
-          {columnNames.map((col, index) => {
-            <p6 className="column-title" key={index}>
-              {col}
-            </p6>;
-          })}
-        </div>
+      <h6>{title}</h6>
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="2"
-          viewBox="0 0 320 2"
-          fill="none"
-          className="line"
-        >
-          <path
-            d="M0.5 1L319.218 0.778839"
-            stroke="#4B5563"
-            stroke-linecap="square"
-          />
-        </svg>
-
-        <div className="rows">
-          {dataRows.map((item, index) => {
-            <small className="row-item" key={index}>
-              {item}
-            </small>;
-          })}
-        </div>
+      <div className="table-outlier">
+        <table>
+          {
+            <thead>
+              <tr className="columns-title-box">
+                {columnNames.map((col, index) => {
+                  return (
+                    <th className="column-title" key={index}>
+                      {col.name}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+          }
+          <tr className="line">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="3"
+              width="100%"
+              viewBox="0 0 320 2"
+              fill="none"
+            >
+              <path
+                d="M0.5 1L319.218 0.778839"
+                stroke="#4B5563"
+                strokeLinecap="square"
+              />
+            </svg>
+          </tr>
+          {
+            <tbody className="columns-value-box">
+              <div className="values">
+                {dataRows.map((row, rowIndex) => (
+                  // Map over rows
+                  <tr key={rowIndex} className="single-row">
+                    {Object.values(row).map((cell, cellIndex) => (
+                      // Map over cells within each row
+                      <td key={cellIndex} className="row-item">
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </div>
+            </tbody>
+          }
+        </table>
       </div>
     </div>
   );

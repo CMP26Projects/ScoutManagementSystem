@@ -2,10 +2,11 @@ import Button from "../common/Button";
 
 import FancyBlobs from "./FancyBlobs";
 
-
 import PageTitle from "../common/PageTitle";
 
-import StatisticTable from "../common/StatisticTable";
+import "./LandingPage.scss";
+
+import TestTable from "../testing/TestTable";
 
 import {
   FolderIcon,
@@ -81,11 +82,8 @@ export default function LandingPage() {
         <FancyBlobs />
       </section>
 
-      <StatisticTable
-        title="معلومات الكباتن"
-        columnNames={["الاسم", "النوع", "الحالة"]}
-        dataRows={["إسماعيل أحمد قنباوي", "ذكر", "مقيد"]}
-      />
+      {/* uncomment to test statistics Table */
+      /* <TestTable /> */}
     </div>
   );
 }
