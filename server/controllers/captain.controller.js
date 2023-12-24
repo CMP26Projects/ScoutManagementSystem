@@ -135,6 +135,47 @@ const captainController = {
                 error
             })
         }
+    },
+    allCaptainsInUnitInfo: async (req, res) => {
+        try {
+            const { unitCaptainId } = req.body;
+
+            // Make sure that the id is provided (not undefined)
+            if (!unitCaptainId){
+                return res.status(404).json({
+                    error: "Enter a valid unit captain id"
+                })
+            }
+
+            // Query to get the id
+            const result = await db.query(`
+                SELECT C.*
+                FROM "Captain" AS C, "Sector" AS S
+                WHERE S."unitCaptainId" = $1 AND C."rSectorBaseName" = S."baseName" AND C."rSectorSuffixName" = S."suffixName";`,
+            [unitCaptainId]
+            )
+
+            // If there is no result found, return 404 not found error (This might not be an error)
+            if (!result.rows.length)
+            {
+                return res.status(404).json({
+                    error: "Captains Not Found"
+                })
+            }
+
+            // Return the data
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result,
+            });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                error
+            })
+        }
     }
 }
 
