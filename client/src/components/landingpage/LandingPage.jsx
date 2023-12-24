@@ -2,9 +2,11 @@ import Button from "../common/Button";
 
 import FancyBlobs from "./FancyBlobs";
 
+import PageTitle from "../common/PageTitle";
+
 import "./LandingPage.scss";
 
-import PageTitle from "../common/PageTitle";
+import TestTable from "../testing/TestTable";
 
 import {
   FolderIcon,
@@ -79,6 +81,9 @@ export default function LandingPage() {
 
         <FancyBlobs />
       </section>
+
+      {/* uncomment to test statistics Table */}
+      {/* <TestTable /> */}
     </div>
   );
 }

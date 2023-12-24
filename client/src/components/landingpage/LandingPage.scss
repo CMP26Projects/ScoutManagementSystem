@@ -16,6 +16,7 @@
       padding-inline: 5px;
       line-height: 1.5;
     }
+
     .btn__container {
       display: flex;
       flex-direction: column;
@@ -23,7 +24,7 @@
       justify-content: center;
       gap: 20px;
 
-      > * {
+      >* {
         min-width: 70%;
       }
     }
@@ -57,7 +58,8 @@
 
       .icon {
         color: var(--primary-100);
-        > * {
+
+        >* {
           width: var(--icon-size);
           height: var(--icon-size);
         }
@@ -69,4 +71,10 @@
       }
     }
   }
+}
+
+.test-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
