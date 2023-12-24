@@ -11,6 +11,7 @@ captainRouter.get('/captainsInSector/info', captainController.captainsInSectorIn
 captainRouter.get('/captainsInSector/count', captainController.captainsInSectorCount)
 captainRouter.get('/ceratinCaptain/info', captainController.captainInfo)
 captainRouter.get('/allCaptainsInUnit/info', captainController.allCaptainsInUnitInfo)
+captainRouter.get('/allCaptainsInUnit/count', captainController.allCaptainsInUnitCount)
 
 
 export default captainRouter
