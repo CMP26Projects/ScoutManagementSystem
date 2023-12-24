@@ -23,20 +23,20 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <PageTitle title={titleMsg} />
-      <section className="dashboard__section">
-        <h4 className="section_heading">إشعارات</h4>
+      <section className="dashboard__section container">
+        <h4 className="section__heading">إشعارات</h4>
         <NotificationBox />
       </section>
-      <section className="dashboard__section">
-        <h4 className="section_heading">معلومات</h4>
+      <section className="dashboard__section container">
+        <h4 className="section__heading">معلومات</h4>
         <InfoSection />
       </section>
-      <section className="dashboard__section">
-        <h4 className="section_heading">الفترة الحالية</h4>
+      <section className="dashboard__section container">
+        <h4 className="section__heading">الفترة الحالية</h4>
         <TermInfoSection />
       </section>
-      <section className="dashboard__section">
-        <h4 className="section_heading">إجراءات</h4>
+      <section className="dashboard__section container ">
+        <h4 className="section__heading">إجراءات</h4>
         <UserActions />
       </section>
     </div>
