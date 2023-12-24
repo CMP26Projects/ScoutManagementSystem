@@ -9,3 +9,13 @@
     border: 1px solid var(--Primary-600);
 
 }
+
+.line {
+    width: 318.718px;   
+    height: 0px;
+    transform: rotate(-0.04deg);
+    flex-shrink: 0;
+
+    stroke-width: 1px;
+    stroke: var(--grey-600);
+}

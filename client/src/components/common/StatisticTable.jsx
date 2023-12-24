@@ -1,7 +1,6 @@
 import React from "react";
-import "../../assets/styles/components/StatisticTable";
 
-export const StatisticTable = ({ title, columnNames, dataRows }) => {
+const StatisticTable = ({ title, columnNames, dataRows }) => {
   return (
     <div className="table-box">
       <p6>{title}</p6>
@@ -15,6 +14,20 @@ export const StatisticTable = ({ title, columnNames, dataRows }) => {
           })}
         </div>
 
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="2"
+          viewBox="0 0 320 2"
+          fill="none"
+          className="line"
+        >
+          <path
+            d="M0.5 1L319.218 0.778839"
+            stroke="#4B5563"
+            stroke-linecap="square"
+          />
+        </svg>
+
         <div className="rows">
           {dataRows.map((item, index) => {
             <small className="row-item" key={index}>
@@ -26,3 +39,5 @@ export const StatisticTable = ({ title, columnNames, dataRows }) => {
     </div>
   );
 };
+
+export default StatisticTable;
