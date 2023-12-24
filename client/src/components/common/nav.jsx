@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 // icons
 import { UserCircleIcon } from "@heroicons/react/24/outline";
@@ -9,8 +11,18 @@ import logo from "../../assets/images/logo.svg";
 // styles
 import "../../assets/styles/components/Nav.scss";
 
-export default function Nav(props) {
-  const { showIcons } = props;
+export default function Nav() {
+  const [show, setShow] = useState(false);
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, [userInfo]);
 
   return (
     <nav className="Nav">
@@ -21,7 +33,7 @@ export default function Nav(props) {
             <h2 className="logo-text">كشافة</h2>
           </Link>
         </div>
-        {showIcons && (
+        {show && (
           <div className="Nav__icons">
             {/* TODO: add route later */}
             <Link to="/">
@@ -39,5 +51,5 @@ export default function Nav(props) {
 }
 
 Nav.propTypes = {
-  showIcons: PropTypes.bool.isRequired,
+  showIcons: PropTypes.bool,
 };
