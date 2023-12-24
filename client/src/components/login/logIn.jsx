@@ -21,8 +21,7 @@ export default function LogIn() {
 
   useEffect(() => {
     if (userInfo) {
-      /* TODO: Add later the home page not the landing page */
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [navigate, userInfo]);
 
