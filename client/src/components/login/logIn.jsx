@@ -62,7 +62,6 @@ export default function LogIn() {
             required={true}
           />
           {isLoading && <p>جاري التحميل...</p>}
-          {error && <p>{error}</p>}
           <Button type="submit" className="Button--medium Button--success">
             تسجيل الدخول
           </Button>

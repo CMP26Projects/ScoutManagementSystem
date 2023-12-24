@@ -75,7 +75,6 @@ export default function Nav() {
         )}
       </div>
       {isLoading && <p>جاري التحميل...</p>}
-      {error && <p>{error}</p>}
     </nav>
   );
 }

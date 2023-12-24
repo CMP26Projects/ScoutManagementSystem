@@ -150,7 +150,6 @@ export default function SignUp() {
             />
           </div>
           {isLoading && <p>جاري التحميل...</p>}
-          {error && <p>{error}</p>}
           <Button type="submit" className="Button--success Button-medium">
             تسجيل
           </Button>

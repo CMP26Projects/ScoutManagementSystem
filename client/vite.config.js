@@ -8,9 +8,11 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        // switch between the 2 lines for local and remote
         // target: "http://localhost:5000",
-        target: "https://scouts-managment-system-api-dev.onrender.com",
+        target:
+          process.env.NODE_ENV === "production"
+            ? "https://scouts-managment-system-api-dev.onrender.com"
+            : "http://localhost:5000",
         changeOrigin: true,
       },
     },
