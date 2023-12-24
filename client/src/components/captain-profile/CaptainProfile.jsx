@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Button from "../common/Button";
 import PageTitle from "../common/PageTitle";
+import "./CaptainProfile.scss";
 
 export default function CaptainProfile() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -42,7 +43,8 @@ export default function CaptainProfile() {
               : "لا يوجد"}
           </p>
         </div>
-        <Button className="captain-profile__info__btn Button--medium Button--success">
+        {/* TODO: Add the route for The Button Later */}
+        <Button className="captain-profile__info__btn Button--medium Button--primary">
           تعديل الصفحة الشخصية
         </Button>
       </div>
