@@ -20,15 +20,24 @@
     color: var(--grey-900);
   }
 
+  &--primary-darker {
+    background-color: var(--primary-200);
+    color: var(--grey-900);
+  }
+
+  &--regular {
+    background-color: var(--grey-800);
+    color: var(--grey-100);
+  }
+
   &--dark {
     background-color: var(--primary-900);
     color: var(--grey-50);
   }
 
   &--medium {
-    a {
-      font-size: 1rem;
-    }
+    font-size: 1rem;
+    padding-inline: 10px;
   }
 
   &--success {
