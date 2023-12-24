@@ -101,6 +101,40 @@ const captainController = {
                 error
             })
         }
+    },
+    captainInfo: async (req, res) => {
+        try {
+            // Extract the captain ID from the request body
+            const { captainId } = req.body;
+
+            // Query on the database to get that captain info
+            const result = await db.query(`
+                SELECT *
+                FROM "Captain"
+                WHERE "captainId" = $1`,
+            [captainId]
+            );
+
+            // If captain doesn't exist return an error message
+            if (!result.rows.length) {
+                res.status(404).json({
+                    error: "Captain not found!"
+                })
+            }
+
+            // Return the data of the captain
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result,
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                error
+            })
+        }
     }
 }
 
