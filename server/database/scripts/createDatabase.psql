@@ -441,10 +441,10 @@ CREATE TABLE public."Scout" (
 
 
 --
--- Name: ScoutAttends; Type: TABLE; Schema: public; Owner: -
+-- Name: ScoutAttendance; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."ScoutAttends" (
+CREATE TABLE public."ScoutAttendance" (
     "scoutId" integer NOT NULL,
     "weekNumber" integer NOT NULL,
     "termNumber" integer NOT NULL,
@@ -625,7 +625,7 @@ ALTER SEQUENCE public."Term_termNumber_seq" OWNED BY public."Term"."termNumber";
 
 CREATE TABLE public."Week" (
     "weekNumber" integer NOT NULL,
-    canceled boolean DEFAULT false NOT NULL,
+    cancelled boolean DEFAULT false NOT NULL,
     "startDate" date NOT NULL,
     "termNumber" integer NOT NULL
 );
@@ -805,11 +805,11 @@ ALTER TABLE ONLY public."Report"
 
 
 --
--- Name: ScoutAttends ScoutAttends_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ScoutAttendance ScoutAttendance_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."ScoutAttends"
-    ADD CONSTRAINT "ScoutAttends_pkey" PRIMARY KEY ("scoutId", "weekNumber", "termNumber");
+ALTER TABLE ONLY public."ScoutAttendance"
+    ADD CONSTRAINT "ScoutAttendance_pkey" PRIMARY KEY ("scoutId", "weekNumber", "termNumber");
 
 
 --
@@ -973,18 +973,18 @@ ALTER TABLE ONLY public."Aspect"
 
 
 --
--- Name: ScoutAttends attendance_scout_FK; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ScoutAttendance attendance_scout_FK; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."ScoutAttends"
+ALTER TABLE ONLY public."ScoutAttendance"
     ADD CONSTRAINT "attendance_scout_FK" FOREIGN KEY ("scoutId") REFERENCES public."Scout"("scoutId") ON UPDATE RESTRICT ON DELETE CASCADE;
 
 
 --
--- Name: ScoutAttends attendance_week_FK; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ScoutAttendance attendance_week_FK; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."ScoutAttends"
+ALTER TABLE ONLY public."ScoutAttendance"
     ADD CONSTRAINT "attendance_week_FK" FOREIGN KEY ("weekNumber", "termNumber") REFERENCES public."Week"("weekNumber", "termNumber") ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
