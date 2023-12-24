@@ -11,5 +11,6 @@ scoutRouter.get('/scoutsInSector/info', scoutController.scoutsInSectorInfo)
 scoutRouter.get('/allScoutsInUnit/count', scoutController.allScoutsInUnitCount)
 scoutRouter.get('/allScoutsInUnit/info', scoutController.allScoutsInUnitInfo)
 scoutRouter.get('/certainScout/info', scoutController.certainScoutInfo)
+scoutRouter.put('/updateScout', scoutController.updateScout)
 
 export default scoutRouter

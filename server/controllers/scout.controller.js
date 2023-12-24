@@ -217,6 +217,53 @@ const scoutController = {
                 error
             })
         }
+    },
+    updateScout: async (req, res) => {
+        try {
+            const { scoutId, firstName, middleName, lastName, gender, sectorBaseName, 
+                    sectorSuffixName, birthDate, enrollDate, schoolGrade, photo, birthCertificate } = req.body;
+            
+            if (!scoutId) {
+                return res.status(400).json({
+                    error: "Please enter a valid scout id"
+                })
+            }
+
+            const result1 = await db.query(`
+                UPDATE "Scout"
+                SET "firstName" = $1, "middleName" = $2, "lastName" = $3, "gender" = $4, "sectorBaseName" = $5,
+                "sectorSuffixName" = $6
+                WHERE "scoutId" = $7
+            `,
+            [firstName, middleName, lastName, gender, sectorBaseName, sectorSuffixName, scoutId])
+
+            if (result1.rowCount == 0) {
+                return res.status(404).json({
+                    error: "No rows updated for the scout",
+                    result1
+                })
+            }
+
+            const result2 = await db.query(`
+                UPDATE "ScoutProfile"
+                SET "birthDate" = $1, "enrollDate" = $2, "schoolGrade" = $3, "photo" = $4,
+                "birthCertificate" = $5
+                WHERE "scoutId" = $6
+            `,
+            [birthDate, enrollDate, schoolGrade, photo, birthCertificate, scoutId])
+
+            res.status(200).json({
+                message: "Successful update",
+                body: { result1, result2 }
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                message: 'An error occured while updating the scout',
+                error
+            })
+        }
     }
 }
 
