@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../common/Button";
 import TextInput, { RadioInput } from "../common/Inputs";
@@ -27,8 +27,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if (userInfo) {
-      /* TODO: Add later the home page not the landing page */
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [navigate, userInfo]);
 
@@ -58,6 +57,7 @@ export default function SignUp() {
         gender: gender == "ذكر" ? "male" : "female",
       }).unwrap();
       dispatch(setCredentials({ ...res?.data }));
+      toast.dark(" تم تسجيل الحساب بنجاح");
       navigate("/");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
@@ -150,6 +150,7 @@ export default function SignUp() {
             />
           </div>
           {isLoading && <p>جاري التحميل...</p>}
+          {error && <p>{error}</p>}
           <Button type="submit" className="Button--success Button-medium">
             تسجيل
           </Button>

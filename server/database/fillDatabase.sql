@@ -19,5 +19,5 @@ VALUES
     "amir.kedis@gmail.com",
     "$2a$10$82orQ3yruIoakCWUg/29KuXBwJlZiezJzxUW.8Ek.Jvc/MPLagDYS",
     "male",
-    "regular"
+    "general"
   ) RETURNING *;

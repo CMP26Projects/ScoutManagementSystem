@@ -21,8 +21,7 @@ export default function LogIn() {
 
   useEffect(() => {
     if (userInfo) {
-      /* TODO: Add later the home page not the landing page */
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [navigate, userInfo]);
 
@@ -31,6 +30,7 @@ export default function LogIn() {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res?.data }));
+      toast.dark("تم تسجيل الدخول بنجاح");
       navigate("/");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
@@ -61,6 +61,8 @@ export default function LogIn() {
             onChange={(e) => setPassword(e.target.value)}
             required={true}
           />
+          {isLoading && <p>جاري التحميل...</p>}
+          {error && <p>{error}</p>}
           <Button type="submit" className="Button--medium Button--success">
             تسجيل الدخول
           </Button>

@@ -14,7 +14,7 @@ export const usersApi = apiSlice.injectEndpoints({
     logout: builder.mutation({
       query: () => ({
         url: `${USERS_API}/logout`,
-        method: "POST",
+        method: "GET",
       }),
     }),
     signup: builder.mutation({
