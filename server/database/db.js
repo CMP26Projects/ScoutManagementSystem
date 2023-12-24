@@ -2,6 +2,7 @@ import pg from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
+dotenv.config();
 const db = new pg.Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -9,5 +10,6 @@ const db = new pg.Pool({
   password: process.env.DB_PASS,
   database: process.env.DB_DATABASE,
 });
+
 
 export default db;

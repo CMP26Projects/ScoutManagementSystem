@@ -33,6 +33,7 @@ const authController = {
       const result = await db.query(
         `INSERT INTO "Captain"("firstName", "middleName", "lastName", "phoneNumber", "email", "password", "gender", "type")
                 VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
+
         params.concat(["regular"])
       );
       const newCaptain = result.rows[0];
