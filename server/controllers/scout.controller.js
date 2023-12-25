@@ -4,7 +4,6 @@ const scoutController = {
     getAllScouts: async (req, res) => {
         try {
             const result = await db.query(`SELECT * FROM "Scout";`)
-
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
@@ -137,7 +136,6 @@ const scoutController = {
             if (result1.rowCount == 0) {
                 return res.status(404).json({
                     error: 'No rows updated for the scout',
-                    body: result1,
                 })
             }
 
@@ -161,7 +159,7 @@ const scoutController = {
             // Respond with the updated data
             res.status(200).json({
                 message: 'Successful update',
-                body: { result1, result2 },
+                body: { scout: result1.rows[0], scoutProfile: result2.rows[0] },
             })
         } catch (error) {
             console.log(error)
@@ -207,7 +205,6 @@ const scoutController = {
             if (result1.rowCount == 0) {
                 return res.status(400).json({
                     error: 'No data was inserted for the scout',
-                    body: result1,
                 })
             }
 
@@ -222,7 +219,7 @@ const scoutController = {
                     schoolGrade,
                     photo,
                     birthCertificate,
-                    result1.rows[0]['scoutId'],
+                    result1.rows[0].scoutId,
                 ]
             )
 
@@ -230,14 +227,14 @@ const scoutController = {
             if (result2.rowCount == 0) {
                 return res.status(400).json({
                     error: 'No data was inserted for the scout profile',
-                    body: result2,
+                    body: { scout: result1.rows[0] },
                 })
             }
 
             // Return the data
             res.status(200).json({
                 message: 'Successful insertion',
-                body: { result1, result2 },
+                body: { scout: result1.rows[0], scoutProfile: result2.rows[0] },
             })
         } catch (error) {
             console.log(error)
