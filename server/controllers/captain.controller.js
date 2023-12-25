@@ -106,14 +106,26 @@ const captainController = {
             })
         }
     },
+    // @desc    Update a captain type
+    // @route   PATCH /api/captain/change/type/:id
+    // @access  Private
     setCaptainType: async (req, res) => {
         try {
-            const { captainId } = req.params
+            const { id } = req.params
             const { type } = req.body
 
-            //if (type != 'regular' && type != 'unit' && type != 'general') {
-            //    
-            //}
+            if (!id) {
+                return res.status(400).json({
+                    error: "Please enter a valid id",
+                })
+            }
+
+            // Maybe we can remove it as it is hard coded (and depened only on the catch error which is not very descriptive)
+            if (type != 'regular' && type != 'unit' && type != 'general') {
+                return res.status(400).json({
+                    error: "Please enter a valid captain type",
+                })
+            }
 
             const result = await db.query(`
                 UPDATE "Captain"
@@ -121,11 +133,11 @@ const captainController = {
                 WHERE "captainId" = $1
                 RETURNING *
             `,
-            [captainId, type])
+            [id, type])
 
             res.status(200).json({
                 message: "Successful update",
-                body: result,
+                body: result.rows,
             })
 
         } catch (error) {
