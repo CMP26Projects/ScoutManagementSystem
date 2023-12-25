@@ -12,7 +12,7 @@ const InfoBox = ({ title, value, width = "narrow", color = "dark" }) => {
 
 InfoBox.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.any,
   width: PropTypes.string,
   color: PropTypes.string,
 };

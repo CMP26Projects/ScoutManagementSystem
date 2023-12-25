@@ -15,7 +15,7 @@ export default function LogIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login, { isLoading}] = useLoginMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
