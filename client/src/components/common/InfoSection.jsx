@@ -72,11 +72,98 @@ export default function InfoSection() {
     );
   };
 
+  const RegularCaptainInfo = () => {
+    //TODO: ADD UNIT CAPTAIN DATA INSTEAD OF GLOBAL DATA
+    const { data: absenceRate, isFetching: isFetchingAbsence } =
+      useGetAbsenceRateQuery();
+
+    const { data: scoutsCount, isFetching: isFetchingScoutsCount } =
+      useGetAllScoutsCountQuery();
+
+    return (
+      <>
+        <InfoBox
+          title="متوسط نسبة الغياب"
+          value={
+            isFetchingAbsence
+              ? "جاري التحميل"
+              : !absenceRate
+              ? "لا يوجد بيانات"
+              : absenceRate?.body?.absenceRate + "%"
+          }
+          color="dark"
+        />
+        <InfoBox
+          title="عدد الأفراد"
+          value={
+            isFetchingScoutsCount
+              ? "جاري التحميل"
+              : !scoutsCount
+              ? "لا يوجد بيانات"
+              : scoutsCount?.body
+          }
+          color="dark"
+        />
+      </>
+    );
+  };
+
+  const UnitCaptainInfo = () => {
+    //TODO: ADD UNIT CAPTAIN DATA INSTEAD OF GLOBAL DATA
+    const { data: captains, isFetching } = useGetCaptainsQuery();
+    const captainCount = captains?.body.length;
+
+    const { data: absenceRate, isFetching: isFetchingAbsence } =
+      useGetAbsenceRateQuery();
+
+    const { data: scoutsCount, isFetching: isFetchingScoutsCount } =
+      useGetAllScoutsCountQuery();
+
+    return (
+      <>
+        <InfoBox
+          title="متوسط نسبة الغياب"
+          value={
+            isFetchingAbsence
+              ? "جاري التحميل"
+              : !absenceRate
+              ? "لا يوجد بيانات"
+              : absenceRate?.body?.absenceRate + "%"
+          }
+          color="dark"
+          className="span-2-cols"
+        />
+        <InfoBox
+          title="عدد القادة"
+          value={
+            isFetching
+              ? "جاري التحميل"
+              : !captainCount
+              ? "لا يوجد بيانات"
+              : captainCount
+          }
+          color="dark"
+        />
+        <InfoBox
+          title="عدد الأفراد"
+          value={
+            isFetchingScoutsCount
+              ? "جاري التحميل"
+              : !scoutsCount
+              ? "لا يوجد بيانات"
+              : scoutsCount?.body
+          }
+          color="dark"
+        />
+      </>
+    );
+  };
+
   return (
     <div className="info-section">
       {type === "general" && <GeneralCaptainInfo />}
-      {type === "regular" && <GeneralCaptainInfo />}
-      {type === "unit" && <GeneralCaptainInfo />}
+      {type === "regular" && <RegularCaptainInfo />}
+      {type === "unit" && <UnitCaptainInfo />}
     </div>
   );
 }

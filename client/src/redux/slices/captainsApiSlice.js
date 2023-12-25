@@ -10,6 +10,7 @@ export const captainsApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    
   }),
 });
 
