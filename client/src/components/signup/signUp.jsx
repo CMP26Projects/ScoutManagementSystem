@@ -44,22 +44,24 @@ export default function SignUp() {
         lastName,
         password,
         email,
-        phone,
+        phoneNumber: phone,
         gender: gender == "ذكر" ? "male" : "female",
       });
       const res = await signup({
         firstName,
         middleName,
         lastName,
-        phone,
+        phoneNumber: phone,
         email,
         password,
         gender: gender == "ذكر" ? "male" : "female",
       }).unwrap();
-      dispatch(setCredentials({ ...res?.data }));
+      dispatch(setCredentials({ ...res?.body }));
       toast.dark(" تم تسجيل الحساب بنجاح");
       navigate("/");
     } catch (err) {
+      toast.dark("حدث خطأ ما");
+      toast.error(JSON.stringify(err));
       toast.error(err?.data?.message || err.error);
       console.log(err?.data?.message || err.error);
     }
