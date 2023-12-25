@@ -4,6 +4,7 @@ import InfoBox from "./InfoBox";
 import { useGetCaptainsQuery } from "../../redux/slices/captainsApiSlice";
 import { useGetAbsenceRateQuery } from "../../redux/slices/statsApiSlice";
 import { useGetAllScoutsCountQuery } from "../../redux/slices/scoutApiSlice";
+import { useGetBudgetQuery } from "../../redux/slices/financeApiSlice";
 
 export default function InfoSection() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -19,9 +20,21 @@ export default function InfoSection() {
     const { data: scoutsCount, isFetching: isFetchingScoutsCount } =
       useGetAllScoutsCountQuery();
 
+    const { data: budget, isFetching: isFetchingBudget } = useGetBudgetQuery();
+
     return (
       <>
-        <InfoBox title="محتوى الخزنة" value={captainCount} color="purple" />
+        <InfoBox
+          title="محتوى الخزنة"
+          value={
+            isFetchingBudget
+              ? "جاري التحميل"
+              : !budget
+              ? "لا يوجد بيانات"
+              : budget?.body + " جنيه"
+          }
+          color="purple"
+        />
         <InfoBox
           title="متوسط نسبة الغياب"
           value={
