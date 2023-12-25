@@ -45,5 +45,10 @@
     color: var(--grey-900);
   }
 
+  &--danger {
+    background-color: var(--red-500);
+    color: var(--grey-900);
+  }
+
   // TODO: Add more button styles and maybe sizes
 }

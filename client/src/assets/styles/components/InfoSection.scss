@@ -1,0 +1,30 @@
+.info-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  direction: rtl;
+  margin-block: 2rem;
+
+  .span-2-cols {
+    grid-column: 1 / span 2;
+  }
+
+  > .info-box {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 1rem;
+
+    h6:first-child {
+      font-size: 13px;
+    }
+
+    // unset fixed width
+    &.narrow {
+      width: initial;
+    }
+  }
+}
