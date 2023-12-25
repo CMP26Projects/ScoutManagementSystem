@@ -58,6 +58,32 @@ const sectorController = {
             })
         }
     },
+    // @desc    Insert a new sector given its baseName, suffixName and unitCaptainId(optional)
+    // @route   POST /api/sector/add
+    // @access  Private
+    insertSector: async (req, res) => {
+        try {
+            const { baseName, suffixName, unitCaptainId } = req.body
+
+            const result = await db.query(`
+                INSERT INTO "Sector" VALUES ($1, $2, $3)
+                RETURNING *
+            `,
+            [baseName, suffixName, unitCaptainId])
+
+            res.status(200).json({
+                message: "Successful insertion",
+                body: result.rows,
+            })
+            
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occured while retrieving the captains info',
+                body: error,
+            })
+        }
+    },
 }
 
 export default sectorController;
