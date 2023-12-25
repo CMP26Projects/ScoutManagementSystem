@@ -1,10 +1,10 @@
 import db from '../database/db.js'
 
 const statsController = {
-    // @desc    Get all absence rates from the start of term till now
-    // @route   GET /api/stats
+    // @desc    Get absence rates for scouts from the start of term till now
+    // @route   GET /api/stats/scouts
     // @access  Private
-    getAbsenceRate: async (req, res) => {
+    getScoutsAbsenceRate: async (req, res) => {
         try {
             if (req.currentWeek.weekNumber === 0) {
                 return res.status(400).json({
@@ -18,7 +18,7 @@ const statsController = {
                     COUNT(*) FILTER (WHERE "attendanceStatus" = 'absent') AS absenceCount,
                     COUNT(*) FILTER (WHERE "attendanceStatus" = 'attended') AS attendanceCount 
                     FROM "ScoutAttendance"
-                    WHERE "termNumber" = $1`,
+                    WHERE "termNumber" = $1;`,
                     [req.currentTerm.termNumber]
                 )
             } else if (req.captain.type === 'unit') {
@@ -31,7 +31,7 @@ const statsController = {
                     SA."scoutId" = SC."scoutId" AND
                     SC."sectorBaseName" = SE."baseName" AND
                     SC."sectorSuffixName" = SE."suffixName" AND
-                    SE."unitCaptainId" = $2`,
+                    SE."unitCaptainId" = $2;`,
                     [req.currentTerm.termNumber, req.captain.captainId]
                 )
             } else {
@@ -44,7 +44,7 @@ const statsController = {
                     SA."scoutId" = SC."scoutId" AND
                     SC."sectorBaseName" = C."rSectorBaseName" AND
                     SC."sectorSuffixName" = C."rSectorSuffixName" AND
-                    C."captainId" = $2`,
+                    C."captainId" = $2;`,
                     [req.currentTerm.termNumber, req.captain.captainId]
                 )
             }
@@ -63,6 +63,12 @@ const statsController = {
                 .status(500)
                 .json({ error: 'An error occurred while getting absence rate' })
         }
+    },
+
+    // @desc    Get all absence rates from the start of term till now
+    // @route   GET /api/stats/captains
+    // @access  Private
+    getCaptainsAbsenceRate: async (req, res) => {
     },
 }
 

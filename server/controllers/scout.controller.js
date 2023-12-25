@@ -3,14 +3,13 @@ import db from '../database/db.js'
 const scoutController = {
     allScoutsCount: async (req, res) => {
         try {
-            const result = await db.query(`
-                SELECT COUNT(*)
-                FROM "Scout"
-            `)
+            const result = await db.query(
+                `SELECT COUNT(*) AS count FROM "Scout";`
+            )
 
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
@@ -22,14 +21,11 @@ const scoutController = {
     },
     allScoutsInfo: async (req, res) => {
         try {
-            const result = await db.query(`
-                SELECT *
-                FROM "Scout"
-            `)
+            const result = await db.query(`SELECT * FROM "Scout";`)
 
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows,
             })
         } catch (error) {
             console.log(error)
@@ -43,33 +39,16 @@ const scoutController = {
         try {
             const { sectorBaseName, sectorSuffixName } = req.body
 
-            if (
-                sectorBaseName === undefined &&
-                sectorSuffixName === undefined
-            ) {
-                return res.status(400).json({
-                    error: 'Please enter the sector base name and/or suffix name',
-                })
-            }
-
             const result = await db.query(
-                `
-                SELECT *
+                `SELECT *
                 FROM "Scout"
-                WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2
-            `,
+                WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2;`,
                 [sectorBaseName, sectorSuffixName]
             )
 
-            if (!result.rows.length) {
-                return res.status(404).json({
-                    error: 'No scouts found in this sector',
-                })
-            }
-
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows,
             })
         } catch (error) {
             console.log(error)
@@ -83,27 +62,16 @@ const scoutController = {
         try {
             const { sectorBaseName, sectorSuffixName } = req.body
 
-            if (
-                sectorBaseName === undefined &&
-                sectorSuffixName === undefined
-            ) {
-                return res.status(400).json({
-                    error: 'Please enter the sector base name and/or suffix name',
-                })
-            }
-
             const result = await db.query(
-                `
-                SELECT COUNT(*)
+                `SELECT COUNT(*) AS count
                 FROM "Scout"
-                WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2
-            `,
+                WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2;`,
                 [sectorBaseName, sectorSuffixName]
             )
 
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
@@ -117,31 +85,18 @@ const scoutController = {
         try {
             const { unitCaptainId } = req.params
 
-            // Make sure that the id is provided (not undefined)
-            if (!unitCaptainId) {
-                return res.status(404).json({
-                    error: 'Enter a valid unit captain id',
-                })
-            }
-
             const result = await db.query(
-                `
-                SELECT scout.*
+                `SELECT scout.*
                 FROM "Scout" AS scout, "Sector" AS sector
-                WHERE sector."unitCaptainId" = $1 AND scout."sectorBaseName" = sector."baseName" AND scout."sectorSuffixName" = sector."suffixName";
-            `,
+                WHERE sector."unitCaptainId" = $1 AND
+                scout."sectorBaseName" = sector."baseName" AND
+                scout."sectorSuffixName" = sector."suffixName";`,
                 [unitCaptainId]
             )
 
-            if (!result.rows.length) {
-                return res.status(404).json({
-                    error: 'No scouts found in this unit',
-                })
-            }
-
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows,
             })
         } catch (error) {
             console.log(error)
@@ -155,31 +110,18 @@ const scoutController = {
         try {
             const { unitCaptainId } = req.params
 
-            // Make sure that the id is provided (not undefined)
-            if (!unitCaptainId) {
-                return res.status(404).json({
-                    error: 'Enter a valid unit captain id',
-                })
-            }
-
             const result = await db.query(
-                `
-                SELECT Count(*)
+                `SELECT Count(*)
                 FROM "Scout" AS scout, "Sector" AS sector
-                WHERE sector."unitCaptainId" = $1 AND scout."sectorBaseName" = sector."baseName" AND scout."sectorSuffixName" = sector."suffixName";
-            `,
+                WHERE sector."unitCaptainId" = $1 AND
+                scout."sectorBaseName" = sector."baseName" AND
+                scout."sectorSuffixName" = sector."suffixName";`,
                 [unitCaptainId]
             )
 
-            if (!result.rows.length) {
-                return res.status(404).json({
-                    error: 'No scouts found in this unit',
-                })
-            }
-
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
@@ -193,19 +135,10 @@ const scoutController = {
         try {
             const { scoutId } = req.params
 
-            // Make sure that the id is provided (not undefined)
-            if (!scoutId) {
-                return res.status(404).json({
-                    error: 'Enter a valid scout id',
-                })
-            }
-
             const result = await db.query(
-                `
-                SELECT *
+                `SELECT *
                 FROM "Scout"
-                WHERE "scoutId" = $1;
-            `,
+                WHERE "scoutId" = $1;`,
                 [scoutId]
             )
 
@@ -217,7 +150,7 @@ const scoutController = {
 
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0],
             })
         } catch (error) {
             console.log(error)
@@ -245,22 +178,13 @@ const scoutController = {
                 birthCertificate,
             } = req.body
 
-            // If no scout id is provided give an error
-            if (!scoutId) {
-                return res.status(400).json({
-                    error: 'Please enter a valid scout id',
-                })
-            }
-
             // Update the scout data
             const result1 = await db.query(
-                `
-                UPDATE "Scout"
+                `UPDATE "Scout"
                 SET "firstName" = $1, "middleName" = $2, "lastName" = $3, "gender" = $4, "sectorBaseName" = $5,
                 "sectorSuffixName" = $6
                 WHERE "scoutId" = $7
-                RETURNING *
-            `,
+                RETURNING *;`,
                 [
                     firstName,
                     middleName,
@@ -282,13 +206,11 @@ const scoutController = {
 
             // Update the scout profile data
             const result2 = await db.query(
-                `
-                UPDATE "ScoutProfile"
+                `UPDATE "ScoutProfile"
                 SET "birthDate" = $1, "enrollDate" = $2, "schoolGrade" = $3, "photo" = $4,
                 "birthCertificate" = $5
                 WHERE "scoutId" = $6
-                RETURNING *
-            `,
+                RETURNING *;`,
                 [
                     birthDate,
                     enrollDate,
@@ -331,11 +253,9 @@ const scoutController = {
 
             // Insert a new scout into the database
             const result1 = await db.query(
-                `
-                INSERT INTO "Scout" ("firstName", "middleName", "lastName", "gender", "sectorBaseName", "sectorSuffixName")
+                `INSERT INTO "Scout" ("firstName", "middleName", "lastName", "gender", "sectorBaseName", "sectorSuffixName")
                 VALUES ($1, $2, $3, $4, $5, $6)
-                RETURNING *;
-            `,
+                RETURNING *;`,
                 [
                     firstName,
                     middleName,
@@ -356,11 +276,9 @@ const scoutController = {
 
             // Insert the scout profile
             const result2 = await db.query(
-                `
-                INSERT INTO "ScoutProfile" ("birthDate", "enrollDate", "schoolGrade", "photo", "birthCertificate", "scoutId")
+                `INSERT INTO "ScoutProfile" ("birthDate", "enrollDate", "schoolGrade", "photo", "birthCertificate", "scoutId")
                 VALUES ($1, $2, $3, $4, $5, $6)
-                RETURNING *;
-            `,
+                RETURNING *;`,
                 [
                     birthDate,
                     enrollDate,

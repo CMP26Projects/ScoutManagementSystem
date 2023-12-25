@@ -9,18 +9,17 @@ const alertController = {
             [id]
         )
 
-        if (!alert) return res.status(404).json({ error: 'Alert not found' })
+        if (!alert.rowCount)
+            return res.status(404).json({ error: 'Alert not found' })
 
         res.status(200).json({
             message: 'Alert successfully found',
-            body: alert,
+            body: alert.rows[0],
         })
     },
 
     CreateAlert: async (req, res) => {
-        const { title, message, type } = req.body
-        if (!title || !message || !type)
-            return res.status(400).json({ error: 'Missing input' })
+        const { message, type } = req.body
 
         const newAlert = await db.query(
             `INSERT INTO "Notification" ("message")
@@ -28,11 +27,12 @@ const alertController = {
             [message]
         )
 
-        if (!newAlert) return res.status(400).json({ error: 'Cannot Post' })
+        if (!newAlert.rowCount)
+            return res.status(400).json({ error: 'Cannot Post' })
 
         res.status(200).json({
             message: 'Alert successfully created',
-            body: newAlert,
+            body: newAlert.rows[0],
         })
     },
 
@@ -69,9 +69,6 @@ const alertController = {
 
     getAllAlerts: async (req, res) => {
         const Alerts = await db.query(`SELECT * FROM "Notification";`)
-
-        if (!Alerts.rows.length)
-            return res.status(400).json({ error: 'No alerts found' })
 
         res.status(200).json({
             message: 'get Alerts successfully',

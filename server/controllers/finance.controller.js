@@ -8,13 +8,15 @@ const financeController = {
         try {
             // get income
             let result = await db.query(
-                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem" WHERE "type" = 'income'`
+                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem"
+                WHERE "type" = 'income';`
             )
             const income = result.rows[0].sum
 
             // get expense
             result = await db.query(
-                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem" WHERE "type" = 'expense'`
+                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem"
+                WHERE "type" = 'expense';`
             )
             const expense = result.rows[0].sum
 

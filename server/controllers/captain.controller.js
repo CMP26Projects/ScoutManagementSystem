@@ -4,15 +4,12 @@ const captainController = {
     allCaptainsInfo: async (req, res) => {
         try {
             // Query on the database to get the captains info
-            const result = await db.query(`
-            SELECT *
-            FROM "Captain"
-            `)
+            const result = await db.query(`SELECT * FROM "Captain"`)
 
             // Respond with the data retrieved and a successful retrieval message
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows,
             })
         } catch (error) {
             console.log(error)
@@ -25,15 +22,14 @@ const captainController = {
     allCaptainsCount: async (req, res) => {
         try {
             // Query on the database to get the captains info
-            const result = await db.query(`
-            SELECT COUNT(*)
-            FROM "Captain"
-            `)
+            const result = await db.query(
+                `SELECT COUNT(*) AS count FROM "Captain"`
+            )
 
             // Respond with the data retrieved and a successful retrieval message
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
@@ -50,8 +46,7 @@ const captainController = {
 
             // Query on the database to get all the captains info in a specific sector
             const result = await db.query(
-                `
-                SELECT *
+                `SELECT *
                 FROM "Captain"
                 WHERE "rSectorBaseName" = $1 AND "rSectorSuffixName" = $2`,
                 [rSectorBaseName, rSectorSuffixName]
@@ -59,7 +54,7 @@ const captainController = {
 
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows,
             })
         } catch (error) {
             console.log(error)
@@ -76,8 +71,7 @@ const captainController = {
 
             // Query on the database to get all the captains count in a specific sector
             const result = await db.query(
-                `
-                SELECT COUNT(*)
+                `SELECT COUNT(*) AS count
                 FROM "Captain"
                 WHERE "rSectorBaseName" = $1 AND "rSectorSuffixName" = $2`,
                 [rSectorBaseName, rSectorSuffixName]
@@ -85,7 +79,7 @@ const captainController = {
 
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
@@ -102,8 +96,7 @@ const captainController = {
 
             // Query on the database to get that captain info
             const result = await db.query(
-                `
-                SELECT *
+                `SELECT *
                 FROM "Captain"
                 WHERE "captainId" = $1`,
                 [captainId]
@@ -119,7 +112,7 @@ const captainController = {
             // Return the data of the captain
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0],
             })
         } catch (error) {
             console.log(error)
@@ -133,33 +126,20 @@ const captainController = {
         try {
             const { unitCaptainId } = req.params
 
-            // Make sure that the id is provided (not undefined)
-            if (!unitCaptainId) {
-                return res.status(404).json({
-                    error: 'Enter a valid unit captain id',
-                })
-            }
-
             // Query to get the id
             const result = await db.query(
-                `
-                SELECT C.*
+                `SELECT C.*
                 FROM "Captain" AS C, "Sector" AS S
-                WHERE S."unitCaptainId" = $1 AND C."rSectorBaseName" = S."baseName" AND C."rSectorSuffixName" = S."suffixName";`,
+                WHERE S."unitCaptainId" = $1 AND
+                C."rSectorBaseName" = S."baseName" AND
+                C."rSectorSuffixName" = S."suffixName";`,
                 [unitCaptainId]
             )
-
-            // If there is no result found, return 404 not found error (This might not be an error)
-            if (!result.rows.length) {
-                return res.status(404).json({
-                    error: 'Captains Not Found',
-                })
-            }
 
             // Return the data
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows,
             })
         } catch (error) {
             console.log(error)
@@ -173,17 +153,9 @@ const captainController = {
         try {
             const { unitCaptainId } = req.params
 
-            // Make sure that the id is provided (not undefined)
-            if (!unitCaptainId) {
-                return res.status(404).json({
-                    error: 'Enter a valid unit captain id',
-                })
-            }
-
             // Query to get the id
             const result = await db.query(
-                `
-                SELECT COUNT(*)
+                `SELECT COUNT(*) AS count
                 FROM "Captain" AS C, "Sector" AS S
                 WHERE S."unitCaptainId" = $1 AND C."rSectorBaseName" = S."baseName" AND C."rSectorSuffixName" = S."suffixName";`,
                 [unitCaptainId]
@@ -192,7 +164,7 @@ const captainController = {
             // Return the data
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result,
+                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
