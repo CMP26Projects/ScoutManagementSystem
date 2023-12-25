@@ -10,5 +10,6 @@ captainRouter.get(
     '/sector/:baseName/:suffixName',
     captainController.getCaptainsInSector
 )
+captainRouter.patch('/type/change/:captainId', captainController.setCaptainType)
 
 export default captainRouter

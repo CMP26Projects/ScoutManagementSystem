@@ -106,6 +106,36 @@ const captainController = {
             })
         }
     },
+    setCaptainType: async (req, res) => {
+        try {
+            const { captainId } = req.params
+            const { type } = req.body
+
+            //if (type != 'regular' && type != 'unit' && type != 'general') {
+            //    
+            //}
+
+            const result = await db.query(`
+                UPDATE "Captain"
+                SET "type" = $2
+                WHERE "captainId" = $1
+                RETURNING *
+            `,
+            [captainId, type])
+
+            res.status(200).json({
+                message: "Successful update",
+                body: result,
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                message: 'An error occured while retrieving data',
+                body: error,
+            })
+        }
+    }
 }
 
 export default captainController
