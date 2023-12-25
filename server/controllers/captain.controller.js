@@ -76,14 +76,14 @@ const captainController = {
     getCaptain: async (req, res) => {
         try {
             // Extract the captain ID from the request params
-            const { captainId } = req.params
+            const { id } = req.params
 
             // Query on the database to get that captain info
             const result = await db.query(
                 `SELECT *
                 FROM "Captain"
                 WHERE "captainId" = $1`,
-                [captainId]
+                [id]
             )
 
             // If captain doesn't exist return an error message

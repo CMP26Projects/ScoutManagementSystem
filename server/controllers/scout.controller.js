@@ -4,7 +4,6 @@ const scoutController = {
     getAllScouts: async (req, res) => {
         try {
             const result = await db.query(`SELECT * FROM "Scout";`)
-
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
