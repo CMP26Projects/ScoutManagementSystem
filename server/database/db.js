@@ -12,8 +12,7 @@ if (process.env.DB === 'online') {
             rejectUnauthorized: false,
         },
     })
-}
-else {
+} else {
     _db = new pg.Pool({
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
@@ -32,25 +31,31 @@ cron.schedule('0 0 * * 0', async () => {
         const currentDate = new Date()
 
         // Get the current term
-        const result = await db.query(
+        let result = await db.query(
             `SELECT * FROM "Term" WHERE "termNumber" IN 
             (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term");`
         )
-        if (!result.rows.length || result.rows[0].endDate <= currentDate) return
+        if (
+            !result.rows.length ||
+            result.rows[0].endDate <= currentDate ||
+            result.rows[0].startDate > currentDate
+        )
+            return
 
         const currentTermNumber = result.rows[0].termNumber
 
         // Get the current week
         result = await db.query(
-            `SELECT COALESCE(MAX("weekNumber"), 0) FROM "Week" WHERE "termNumber" = $1;`,
+            `SELECT COALESCE(MAX("weekNumber"), 0) AS max FROM "Week" WHERE "termNumber" = $1;`,
             [currentTermNumber]
         )
-        const { currentWeekNumber } = result.rows[0]
+        const currentWeekNumber = result.rows[0].max
 
+        console.log('Add a new week', currentWeekNumber + 1)
         // Add a new week
         result = await db.query(
             `INSERT INTO "Week"
-            VALUES ($1, $2, $3)
+            VALUES ($1, $2, $3, $4)
             RETURNING *;`,
             [currentWeekNumber + 1, false, currentDate, currentTermNumber]
         )

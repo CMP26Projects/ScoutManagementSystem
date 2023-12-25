@@ -1,69 +1,80 @@
-import db from "../database/db.js";
+import db from '../database/db.js'
 
 const alertController = {
-  getAlert: async (req, res) => {
-    console.log(req.params);
-    const { id } = req.params; //string
+    getAlert: async (req, res) => {
+        const { id } = req.params
 
-    const alert = await db.query(
-      `SELECT * FROM "Notification" WHERE "NotificationId" = ${Number(id)};`
-    );
+        const alert = await db.query(
+            `SELECT * FROM "Notification" WHERE "NotificationId" = $1;`,
+            [id]
+        )
 
-    if (!alert) return res.status(404).json({ error: "Alert not found" });
+        if (!alert.rowCount)
+            return res.status(404).json({ error: 'Alert not found' })
 
-    res
-      .status(200)
-      .json({ success: true, message: "Alert successfully found", alert });
-  },
+        res.status(200).json({
+            message: 'Alert successfully found',
+            body: alert.rows[0],
+        })
+    },
 
-  CreateAlert: async (req, res) => {
-    console.log(req.body);
-    const { title, message, type } = req.body;
-    if (!title || !message || !type)
-      return res.status(400).json({ error: "Missing input" });
+    CreateAlert: async (req, res) => {
+        const { message, type } = req.body
 
-    const newAlert = await db.query(
-      `INSERT INTO "Notification" ( "message" )
-        VALUES( '${message}' ) RETURNING *;`
-    );
+        const newAlert = await db.query(
+            `INSERT INTO "Notification" ("message")
+            VALUES($1) RETURNING *;`,
+            [message]
+        )
 
-    if (!newAlert) return res.status(400).json({ error: "Cannot Post" });
+        if (!newAlert.rowCount)
+            return res.status(400).json({ error: 'Cannot Post' })
 
-    res.status(200).json({ success: true, newAlert });
-  },
+        res.status(200).json({
+            message: 'Alert successfully created',
+            body: newAlert.rows[0],
+        })
+    },
 
-  DeleteAlert: async (req, res) => {
-    console.log(req.params);
-    const { id } = req.params;
+    DeleteAlert: async (req, res) => {
+        const { id } = req.params
 
-    const Alerts = await db.query(`SELECT * FROM "Notification";`);
+        const Alerts = await db.query(`SELECT * FROM "Notification";`)
 
-    const alertsArr = Alerts.rows;
+        const alertsArr = Alerts.rows
 
-    if (!alertsArr.find((item) => item.NotificationId === Number(id)))
-      return res.status(404).json({ error: "Alert to be deleted not found" });
+        if (!alertsArr.find((item) => item.NotificationId === Number(id)))
+            return res
+                .status(404)
+                .json({ error: 'Alert to be deleted not found' })
 
-    try {
-      await db.query(
-        `DELETE FROM "Notification" WHERE "NotificationId" = ${Number(id)};`
-      );
+        try {
+            await db.query(
+                `DELETE FROM "Notification" WHERE "NotificationId" = $1;`,
+                [id]
+            )
 
-      alertsArr.filter((item) => item.NotificationId !== Number(id));
-      return res.status(200).json({ success: true });
-    } catch (error) {
-      console.error(error);
-      res.status(400).json({ success: false });
-    }
-  },
+            alertsArr.filter((item) => item.NotificationId !== Number(id))
+            return res.status(200).json({
+                message: 'Alert successfully deleted',
+                body: alertsArr,
+            })
+        } catch (error) {
+            console.error(error)
+            res.status(400).json({
+                error: 'An error occured while deleting alert',
+            })
+        }
+    },
 
-  getAllAlerts: async (req, res) => {
-    const Alerts = await db.query(`SELECT * FROM "Notification";`);
+    getAllAlerts: async (req, res) => {
+        const Alerts = await db.query(`SELECT * FROM "Notification";`)
 
-    if (!Alerts.rows.length)
-      return res.status(400).json({ error: "No alerts found" });
+        res.status(200).json({
+            message: 'get Alerts successfully',
+            body: Alerts.rows,
+        })
+    },
+}
 
-    res.status(200).json({ status: true, data: Alerts.rows });
-  },
-};
-
-export default alertController;
+export default alertController

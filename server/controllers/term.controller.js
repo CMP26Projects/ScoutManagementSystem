@@ -5,29 +5,15 @@ const termController = {
     // @route   GET /api/term/
     // @access  Private
     getTerm: async (req, res) => {
-        try {
-            const result = await db.query(
-                `SELECT * FROM "Term" WHERE "termNumber" IN 
-                (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term");`
-            )
-            if (!result.rows.length) {
-                return res.status(400).json({
-                    error: 'There is no term in the system',
-                })
-            }
-
-            const currentTerm = result.rows[0]
-
-            res.status(200).json({
-                message: 'Current term found successfully',
-                body: currentTerm,
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                error: 'An error occurred while getting the term',
+        if (req.currentTerm.termNumber === 0) {
+            return res.status(400).json({
+                error: 'There is no terms in the system',
             })
         }
+        res.status(200).json({
+            message: 'Current term found successfully',
+            body: req.currentTerm,
+        })
     },
 
     // @desc    Add a term
@@ -37,30 +23,29 @@ const termController = {
         try {
             const { termName, startDate, endDate } = req.body
 
-            if (startDate >= endDate) {
+            const currentDate = new Date()
+            const startDateObj = new Date(startDate)
+            const endDateObj = new Date(endDate)
+            console.log(currentDate)
+            console.log(endDateObj)
+            if (startDateObj >= endDateObj || endDateObj < currentDate) {
                 return res.status(400).json({
                     error: 'Invalid dates',
                 })
             }
 
-            const result = await db.query(
-                `SELECT COALESCE(MAX("termNumber"), 0) AS MAX FROM "Term";`
-            )
+            const termNumber = req.currentTerm.termNumber + 1
 
-            const termNumber = result.rows[0].MAX + 1
-
-            result = await db.query(
-                `SELECT * FROM "Term" WHERE "termNumber" = $1;`,
-                [termNumber - 1]
-            )
-
-            if (result.rows.length && result.rows[0].endDate >= startDate) {
+            if (
+                req.currentTerm.termNumber &&
+                req.currentTerm.endDate >= startDateObj
+            ) {
                 return res.status(400).json({
                     error: 'Invalid start date: Overlapping terms',
                 })
             }
 
-            result = await db.query(
+            const result = await db.query(
                 `INSERT INTO "Term" VALUES ($1, $2, $3, $4)
                 RETURNING *;`,
                 [termNumber, termName, startDate, endDate]
@@ -119,22 +104,14 @@ const termController = {
     // @access  Private
     getWeek: async (req, res) => {
         try {
-            const result = await db.query(
-                `SELECT * FROM "Week" WHERE "weekNumber" IN
-                (SELECT COALESCE(MAX("weekNumber"), 0) FROM "Week" WHERE "termNumber" IN
-                (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term"));`
-            )
-            if (!result.rows.length) {
+            if (req.currentWeek.weekNumber === 0) {
                 return res.status(400).json({
                     error: 'There is no weeks or terms in the system',
                 })
             }
-
-            const currentWeek = result.rows[0]
-
             res.status(200).json({
                 message: 'Current week found successfully',
-                body: currentWeek,
+                body: req.currentWeek,
             })
         } catch (error) {
             console.log(error)
@@ -149,18 +126,17 @@ const termController = {
     // @access  Private
     cancelWeek: async (req, res) => {
         try {
-            const result = await db.query(
-                `UPDATE "Week" SET "cancelled" = false
-                WHERE "weekNumber" IN
-                (SELECT COALESCE(MAX("weekNumber"), 0) FROM "Week" WHERE "termNumber" IN
-                (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term"))
-                RETURNING *;`
-            )
-            if (!result.rows.length) {
+            if (req.currentWeek.weekNumber === 0) {
                 return res.status(400).json({
-                    error: 'There is no weeks or terms in the system',
+                    error: 'There is no weeks or terms in the system to be cancelled',
                 })
             }
+            const result = await db.query(
+                `UPDATE "Week" SET "cancelled" = true
+                WHERE "termNumber" = $1 AND "weekNumber" = $2
+                RETURNING *;`,
+                [req.currentWeek.termNumber, req.currentWeek.weekNumber]
+            )
 
             const updatedWeek = result.rows[0]
 
@@ -181,21 +157,19 @@ const termController = {
     // @access  Private
     getRemainingWeeks: async (req, res) => {
         try {
-            const result = await db.query(
-                `SELECT * FROM "Term" WHERE "termNumber" IN 
-                (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term");`
-            )
             const currentDate = new Date()
-            if (!result.rows.length || result.rows[0].endDate < currentDate) {
+            if (
+                req.currentTerm.termNumber === 0 ||
+                req.currentTerm.endDate < currentDate
+            ) {
                 return res.status(400).json({
                     error: 'There is no running term in the system',
                 })
             }
 
-            const currentTerm = result.rows[0]
-
             const remainingWeeks = Math.ceil(
-                (currentTerm.endDate - currentDate) / (1000 * 60 * 60 * 24 * 7)
+                (req.currentTerm.endDate - currentDate) /
+                    (1000 * 60 * 60 * 24 * 7)
             )
 
             res.status(200).json({
