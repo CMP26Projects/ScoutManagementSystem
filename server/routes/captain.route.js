@@ -1,17 +1,14 @@
-import { Router } from "express"
-import captainController from "../controllers/captain.controller.js";
+import { Router } from 'express'
+import captainController from '../controllers/captain.controller.js'
 
+const captainRouter = Router()
 
-const captainRouter = Router();
-
-
-captainRouter.get('/:id', captainController.captainInfo)
-captainRouter.get('/allCaptains/info', captainController.allCaptainsInfo)
-captainRouter.get('/allCaptains/count', captainController.allCaptainsCount)
-captainRouter.get('/captainsInSector/info', captainController.captainsInSectorInfo)
-captainRouter.get('/captainsInSector/count', captainController.captainsInSectorCount)
-captainRouter.get('/allCaptainsInUnit/info/:id', captainController.allCaptainsInUnitInfo)
-captainRouter.get('/allCaptainsInUnit/count/:id', captainController.allCaptainsInUnitCount)
-
+captainRouter.get('/:id', captainController.getCaptain)
+captainRouter.get('/all', captainController.getAllCaptains)
+captainRouter.get('/unit/:unitCaptainId', captainController.getCaptainsInUnit)
+captainRouter.get(
+    '/sector/:baseName/:suffixName',
+    captainController.getCaptainsInSector
+)
 
 export default captainRouter

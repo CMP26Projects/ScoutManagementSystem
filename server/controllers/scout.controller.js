@@ -1,31 +1,14 @@
 import db from '../database/db.js'
 
 const scoutController = {
-    allScoutsCount: async (req, res) => {
-        try {
-            const result = await db.query(
-                `SELECT COUNT(*) AS count FROM "Scout";`
-            )
-
-            res.status(200).json({
-                message: 'Successful retrieval',
-                body: result.rows[0].count,
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                message: 'An error occured while retrieving data',
-                body: error,
-            })
-        }
-    },
-    allScoutsInfo: async (req, res) => {
+    getAllScouts: async (req, res) => {
         try {
             const result = await db.query(`SELECT * FROM "Scout";`)
 
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
+                count: result.rowCount,
             })
         } catch (error) {
             console.log(error)
@@ -35,20 +18,21 @@ const scoutController = {
             })
         }
     },
-    scoutsInSectorInfo: async (req, res) => {
+    getScoutsInSector: async (req, res) => {
         try {
-            const { sectorBaseName, sectorSuffixName } = req.body
+            const { baseName, suffixName } = req.params
 
             const result = await db.query(
                 `SELECT *
                 FROM "Scout"
                 WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2;`,
-                [sectorBaseName, sectorSuffixName]
+                [baseName, suffixName]
             )
 
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
+                count: result.rowCount,
             })
         } catch (error) {
             console.log(error)
@@ -58,30 +42,7 @@ const scoutController = {
             })
         }
     },
-    scoutsInSectorCount: async (req, res) => {
-        try {
-            const { sectorBaseName, sectorSuffixName } = req.body
-
-            const result = await db.query(
-                `SELECT COUNT(*) AS count
-                FROM "Scout"
-                WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2;`,
-                [sectorBaseName, sectorSuffixName]
-            )
-
-            res.status(200).json({
-                message: 'Successful retrieval',
-                body: result.rows[0].count,
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                message: 'An error occured while retrieving data',
-                body: error,
-            })
-        }
-    },
-    allScoutsInUnitInfo: async (req, res) => {
+    getScoutsInUnit: async (req, res) => {
         try {
             const { unitCaptainId } = req.params
 
@@ -97,6 +58,7 @@ const scoutController = {
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
+                count: result.rowCount,
             })
         } catch (error) {
             console.log(error)
@@ -106,32 +68,7 @@ const scoutController = {
             })
         }
     },
-    allScoutsInUnitCount: async (req, res) => {
-        try {
-            const { unitCaptainId } = req.params
-
-            const result = await db.query(
-                `SELECT Count(*)
-                FROM "Scout" AS scout, "Sector" AS sector
-                WHERE sector."unitCaptainId" = $1 AND
-                scout."sectorBaseName" = sector."baseName" AND
-                scout."sectorSuffixName" = sector."suffixName";`,
-                [unitCaptainId]
-            )
-
-            res.status(200).json({
-                message: 'Successful retrieval',
-                body: result.rows[0].count,
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                message: 'An error occured while retrieving data',
-                body: error,
-            })
-        }
-    },
-    certainScoutInfo: async (req, res) => {
+    getScout: async (req, res) => {
         try {
             const { scoutId } = req.params
 

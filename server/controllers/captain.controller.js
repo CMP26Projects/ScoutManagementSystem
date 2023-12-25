@@ -1,7 +1,7 @@
 import db from '../database/db.js'
 
 const captainController = {
-    allCaptainsInfo: async (req, res) => {
+    getAllCaptains: async (req, res) => {
         try {
             // Query on the database to get the captains info
             const result = await db.query(`SELECT * FROM "Captain"`)
@@ -10,6 +10,7 @@ const captainController = {
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
+                count: result.rowCount,
             })
         } catch (error) {
             console.log(error)
@@ -19,42 +20,22 @@ const captainController = {
             })
         }
     },
-    allCaptainsCount: async (req, res) => {
+    getCaptainsInSector: async (req, res) => {
         try {
-            // Query on the database to get the captains info
-            const result = await db.query(
-                `SELECT COUNT(*) AS count FROM "Captain"`
-            )
-
-            // Respond with the data retrieved and a successful retrieval message
-            res.status(200).json({
-                message: 'Successful retrieval',
-                body: result.rows[0].count,
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                error: 'An error occured while retrieving the captains count',
-                body: error,
-            })
-        }
-    },
-    captainsInSectorInfo: async (req, res) => {
-        try {
-            // Extract sector base name and suffix name from the request body
-            const { rSectorBaseName, rSectorSuffixName } = req.body
+            const { baseName, suffixName } = req.params
 
             // Query on the database to get all the captains info in a specific sector
             const result = await db.query(
                 `SELECT *
                 FROM "Captain"
                 WHERE "rSectorBaseName" = $1 AND "rSectorSuffixName" = $2`,
-                [rSectorBaseName, rSectorSuffixName]
+                [baseName, suffixName]
             )
 
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows,
+                count: result.rowCount,
             })
         } catch (error) {
             console.log(error)
@@ -64,22 +45,25 @@ const captainController = {
             })
         }
     },
-    captainsInSectorCount: async (req, res) => {
+    getCaptainsInUnit: async (req, res) => {
         try {
-            // Extract sector base name and suffix name from the request body
-            const { rSectorBaseName, rSectorSuffixName } = req.body
+            const { unitCaptainId } = req.params
 
-            // Query on the database to get all the captains count in a specific sector
+            // Query to get the id
             const result = await db.query(
-                `SELECT COUNT(*) AS count
-                FROM "Captain"
-                WHERE "rSectorBaseName" = $1 AND "rSectorSuffixName" = $2`,
-                [rSectorBaseName, rSectorSuffixName]
+                `SELECT C.*
+                FROM "Captain" AS C, "Sector" AS S
+                WHERE S."unitCaptainId" = $1 AND
+                C."rSectorBaseName" = S."baseName" AND
+                C."rSectorSuffixName" = S."suffixName";`,
+                [unitCaptainId]
             )
 
+            // Return the data
             res.status(200).json({
                 message: 'Successful retrieval',
-                body: result.rows[0].count,
+                body: result.rows,
+                count: result.rowCount,
             })
         } catch (error) {
             console.log(error)
@@ -89,7 +73,7 @@ const captainController = {
             })
         }
     },
-    captainInfo: async (req, res) => {
+    getCaptain: async (req, res) => {
         try {
             // Extract the captain ID from the request params
             const { captainId } = req.params
@@ -113,58 +97,6 @@ const captainController = {
             res.status(200).json({
                 message: 'Successful retrieval',
                 body: result.rows[0],
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                message: 'An error occured while retrieving data',
-                body: error,
-            })
-        }
-    },
-    allCaptainsInUnitInfo: async (req, res) => {
-        try {
-            const { unitCaptainId } = req.params
-
-            // Query to get the id
-            const result = await db.query(
-                `SELECT C.*
-                FROM "Captain" AS C, "Sector" AS S
-                WHERE S."unitCaptainId" = $1 AND
-                C."rSectorBaseName" = S."baseName" AND
-                C."rSectorSuffixName" = S."suffixName";`,
-                [unitCaptainId]
-            )
-
-            // Return the data
-            res.status(200).json({
-                message: 'Successful retrieval',
-                body: result.rows,
-            })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({
-                message: 'An error occured while retrieving data',
-                body: error,
-            })
-        }
-    },
-    allCaptainsInUnitCount: async (req, res) => {
-        try {
-            const { unitCaptainId } = req.params
-
-            // Query to get the id
-            const result = await db.query(
-                `SELECT COUNT(*) AS count
-                FROM "Captain" AS C, "Sector" AS S
-                WHERE S."unitCaptainId" = $1 AND C."rSectorBaseName" = S."baseName" AND C."rSectorSuffixName" = S."suffixName";`,
-                [unitCaptainId]
-            )
-
-            // Return the data
-            res.status(200).json({
-                message: 'Successful retrieval',
-                body: result.rows[0].count,
             })
         } catch (error) {
             console.log(error)
