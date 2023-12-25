@@ -1,7 +1,7 @@
 
 const checkRankMiddleware = (rank) => {
     return async (req, res, next) => {
-        const captainRank = req.user.type
+        const captainRank = req.captain.type
         if (captainRank === rank) {
             next()
         } else {

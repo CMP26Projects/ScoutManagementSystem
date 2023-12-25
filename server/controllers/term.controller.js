@@ -23,7 +23,12 @@ const termController = {
         try {
             const { termName, startDate, endDate } = req.body
 
-            if (startDate >= endDate) {
+            const currentDate = new Date()
+            const startDateObj = new Date(startDate)
+            const endDateObj = new Date(endDate)
+            console.log(currentDate)
+            console.log(endDateObj)
+            if (startDateObj >= endDateObj || endDateObj < currentDate) {
                 return res.status(400).json({
                     error: 'Invalid dates',
                 })
@@ -33,7 +38,7 @@ const termController = {
 
             if (
                 req.currentTerm.termNumber &&
-                req.currentTerm.endDate >= startDate
+                req.currentTerm.endDate >= startDateObj
             ) {
                 return res.status(400).json({
                     error: 'Invalid start date: Overlapping terms',
