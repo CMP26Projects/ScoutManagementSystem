@@ -2,24 +2,43 @@ import "../../assets/styles/components/InfoSection.scss";
 import { useSelector } from "react-redux";
 import InfoBox from "./InfoBox";
 import { useGetCaptainsQuery } from "../../redux/slices/captainsApiSlice";
-import { useEffect } from "react";
+import { useGetAbsenceRateQuery } from "../../redux/slices/statsApiSlice";
 
 export default function InfoSection() {
   const { userInfo } = useSelector((state) => state.auth);
   const { type } = userInfo;
 
   const GeneralCaptainInfo = () => {
-    const { data, isFetching, isLoading } = useGetCaptainsQuery();
-    const captainCount = data?.body.length;
+    let { data: captains, isFetching } = useGetCaptainsQuery();
+    const captainCount = captains?.body.length;
+
+    let { data: absenceRate, isFetching: isFetchingAbsence } =
+      useGetAbsenceRateQuery();
 
     return (
       <>
         <InfoBox title="محتوى الخزنة" value={captainCount} color="purple" />
-        <InfoBox title="متوسط نسبة الغياب" value="10,113ج.م" color="dark" />
+        <InfoBox
+          title="متوسط نسبة الغياب"
+          value={
+            isFetchingAbsence
+              ? "جاري التحميل"
+              : !absenceRate
+              ? "لا يوجد بيانات"
+              : absenceRate?.body?.absenceRate + "%"
+          }
+          color="dark"
+        />
         <InfoBox title="عدد الأفراد" value="10,113ج.م" color="dark" />
         <InfoBox
           title="عدد القادة"
-          value={isFetching ? "جاري التحميل" : captainCount}
+          value={
+            isFetching
+              ? "جاري التحميل"
+              : !captainCount
+              ? "لا يوجد بيانات"
+              : captainCount
+          }
           color="dark"
         />
       </>
