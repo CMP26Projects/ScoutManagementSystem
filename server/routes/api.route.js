@@ -14,7 +14,7 @@ apiRouter.use('/stats', authMiddleware, statsRouter)
 apiRouter.use('/finance', authMiddleware, financeRouter)
 apiRouter.use('/term', authMiddleware, termRouter)
 apiRouter.use('/captain', authMiddleware, captainRouter)
-apiRouter.use('/alert', alertRouter)
+apiRouter.use('/alert', authMiddleware, alertRouter)
 apiRouter.use('/scout', authMiddleware, scoutRouter)
 
 export default apiRouter
