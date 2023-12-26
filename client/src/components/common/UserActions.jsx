@@ -36,7 +36,6 @@ export default function UserActions() {
           تعيين قائد لقطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Add Sector"]}
           className="Button--medium Button--regular"
         >
