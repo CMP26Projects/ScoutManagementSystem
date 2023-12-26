@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../common/Button";
 import PageTitle from "../common/PageTitle";
 import TextInput from "../common/Inputs";
 import "./InsertSector.scss";
 import { useInsertSectorMutation } from "../../redux/slices/sectorApiSlice";
 import { toast } from "react-toastify";
+import { useGetCaptainsQuery } from "../../redux/slices/captainsApiSlice";
+import CustomSelect from "../common/CustomSelect";
 
 export default function InsertSector() {
   const [sectorBaseName, setSectorBaseName] = useState("");
@@ -13,6 +15,23 @@ export default function InsertSector() {
 
   const [insertSector, { isLoading: isLoadingInsertSector }] =
     useInsertSectorMutation();
+
+  let unitCaptains = [];
+
+  const { data, isFetching } = useGetCaptainsQuery();
+
+  if (data && !isFetching) {
+    unitCaptains = data.body.filter((captain) => captain.type === "unit");
+    if (unitCaptains.length === 0) {
+      unitCaptains = [{ captainId: "", firstName: "لا يوجد قادة" }];
+    }
+  }
+
+  useEffect(() => {
+    if (unitCaptains.length === 1) {
+      setUnitSectorLeader(unitCaptains[0].captainId);
+    }
+  }, [unitCaptains]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,10 +78,40 @@ export default function InsertSector() {
             placeholder="مثل: أ, ب, ج"
             required
           />
+          <CustomSelect
+            data={unitCaptains}
+            label="قائد القطاع"
+            name="unitSectorLeader"
+            selectedValue={unitSectorLeader}
+            onChange={(e) => {
+              setUnitSectorLeader(e.target.value);
+            }}
+            required
+            displayMember="firstName"
+            valueMember="captainId"
+          />
+          {isFetching && (
+            <p
+              style={{
+                direction: "rtl",
+              }}
+            >
+              جاري التحميل
+            </p>
+          )}
         </div>
         <Button className="insert-sector__btn Button--medium Button--primary-darker">
           إنشاء
         </Button>
+        {isLoadingInsertSector && (
+          <p
+            style={{
+              direction: "rtl",
+            }}
+          >
+            جاري الإنشاء
+          </p>
+        )}
       </form>
     </div>
   );
