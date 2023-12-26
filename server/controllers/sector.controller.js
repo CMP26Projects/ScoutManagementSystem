@@ -30,8 +30,13 @@ const sectorController = {
     // @access  Private
     getSector: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.params
-
+            let { baseName, suffixName } = req.params
+            
+            // If the suffix name wasn't provided (meaning it would be :suffixName) then make it an empty string
+            if (suffixName === ':suffixName') {
+                suffixName = ""
+            }
+            
             const result = await db.query(
                 `
                 SELECT *
@@ -64,7 +69,17 @@ const sectorController = {
     // @access  Private
     insertSector: async (req, res) => {
         try {
-            const { baseName, suffixName, unitCaptainId } = req.body
+            let { baseName, suffixName, unitCaptainId } = req.body
+
+            if (!baseName) {
+                return res.status(404).json({
+                    error: "You must insert a baseName for the sector"
+                })
+            }
+
+            if (!suffixName) {
+                suffixName = ""
+            }
 
             const result = await db.query(
                 `
