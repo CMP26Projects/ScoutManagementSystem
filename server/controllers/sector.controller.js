@@ -101,6 +101,19 @@ const sectorController = {
                 })
             }
 
+            const sectorInfo = await db.query(`
+                SELECT *
+                FROM "Sector"
+                WHERE "baseName" = $1 AND "suffixName" = $2            
+            `,
+            [baseName, suffixName])
+
+            if (sectorInfo.rowCount === 0) {
+                return res.status(404).json({
+                    error: "No sector exists with these ids"
+                })
+            }
+
             const captainInfo = await db.query(`
                 SELECT *
                 FROM "Captain"
