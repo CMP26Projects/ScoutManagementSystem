@@ -30,7 +30,7 @@ export default function UpdateTermPage() {
     }
   }, [data]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // TODO: send request with this info to the server
     console.log({
@@ -40,11 +40,13 @@ export default function UpdateTermPage() {
       understandCheckbox,
     });
     try {
-      updateTerm({
+      const res = updateTerm({
         termName,
         startDate: termStartDate,
         endDate: termEndDate,
-      });
+      }).unwrap();
+      if (res.status === 400 || res.status === 500)
+        throw new Error("Something went wrong while updating the term");
       toast.success("تم تعديل الفترة بنجاح");
     } catch (err) {
       console.log(err);

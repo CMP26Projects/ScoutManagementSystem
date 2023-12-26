@@ -15,7 +15,7 @@ export default function InsertTermPage() {
 
   const [insertTerm, { isLoading }] = useInsertTermMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // TODO: send request with this info to the server
     console.log({
@@ -25,11 +25,14 @@ export default function InsertTermPage() {
       understandCheckbox,
     });
     try {
-      insertTerm({
+      const res = await insertTerm({
         termName,
         startDate: termStartDate,
         endDate: termEndDate,
-      });
+      }).unwrap();
+      console.log(res);
+      if (res.status === 400 || res.status === 500 )
+        throw new Error("Something went wrong while inserting the term");
       toast.success("تم إنشاء الفترة بنجاح");
     } catch (err) {
       console.log(err);
