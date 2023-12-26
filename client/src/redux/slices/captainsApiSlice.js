@@ -10,7 +10,13 @@ export const captainsApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    GetUnitCaptains: builder.query({
+      query: () => ({
+        url: `${CAPTAINS_URL}/`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetCaptainsQuery } = captainsApi;
+export const { useGetCaptainsQuery, useGetUnitCaptainsQuery } = captainsApi;
