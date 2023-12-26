@@ -6,7 +6,7 @@ export const scoutsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetAllScoutsCount: builder.query({
       query: () => ({
-        url: `${SCOUT_URL}/allScouts/count`,
+        url: `${SCOUT_URL}/`,
         method: "GET",
       }),
     }),

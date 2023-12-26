@@ -17,7 +17,7 @@ export default function InfoSection() {
     const { data: absenceRate, isFetching: isFetchingAbsence } =
       useGetAbsenceRateQuery();
 
-    const { data: scoutsCount, isFetching: isFetchingScoutsCount } =
+    const { data: scouts, isFetching: isFetchingScoutsCount } =
       useGetAllScoutsCountQuery();
 
     const { data: budget, isFetching: isFetchingBudget } = useGetBudgetQuery();
@@ -51,9 +51,9 @@ export default function InfoSection() {
           value={
             isFetchingScoutsCount
               ? "جاري التحميل"
-              : !scoutsCount
+              : !scouts
               ? "لا يوجد بيانات"
-              : scoutsCount?.body
+              : scouts?.body?.length
           }
           color="dark"
         />
@@ -77,7 +77,7 @@ export default function InfoSection() {
     const { data: absenceRate, isFetching: isFetchingAbsence } =
       useGetAbsenceRateQuery();
 
-    const { data: scoutsCount, isFetching: isFetchingScoutsCount } =
+    const { data: scouts, isFetching: isFetchingScoutsCount } =
       useGetAllScoutsCountQuery();
 
     return (
@@ -98,9 +98,9 @@ export default function InfoSection() {
           value={
             isFetchingScoutsCount
               ? "جاري التحميل"
-              : !scoutsCount
+              : !scouts
               ? "لا يوجد بيانات"
-              : scoutsCount?.body
+              : scouts?.body?.length
           }
           color="dark"
         />
@@ -116,7 +116,7 @@ export default function InfoSection() {
     const { data: absenceRate, isFetching: isFetchingAbsence } =
       useGetAbsenceRateQuery();
 
-    const { data: scoutsCount, isFetching: isFetchingScoutsCount } =
+    const { data: scouts, isFetching: isFetchingScoutsCount } =
       useGetAllScoutsCountQuery();
 
     return (
@@ -149,9 +149,9 @@ export default function InfoSection() {
           value={
             isFetchingScoutsCount
               ? "جاري التحميل"
-              : !scoutsCount
+              : !scouts
               ? "لا يوجد بيانات"
-              : scoutsCount?.body
+              : scouts?.body?.length
           }
           color="dark"
         />

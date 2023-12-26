@@ -6,11 +6,10 @@ export const captainsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetCaptains: builder.query({
       query: () => ({
-        url: `${CAPTAINS_URL}/allCaptains/info`,
+        url: `${CAPTAINS_URL}/`,
         method: "GET",
       }),
     }),
-    
   }),
 });
 

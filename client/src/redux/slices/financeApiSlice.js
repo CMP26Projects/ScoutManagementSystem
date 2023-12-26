@@ -6,7 +6,7 @@ export const financeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetBudget: builder.query({
       query: () => ({
-        url: `${FINANCE_URL}/budget`,
+        url: `${FINANCE_URL}`,
         method: "GET",
       }),
     }),
