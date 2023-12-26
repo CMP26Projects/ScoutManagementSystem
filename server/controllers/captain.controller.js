@@ -3,8 +3,21 @@ import db from '../database/db.js'
 const captainController = {
     getAllCaptains: async (req, res) => {
         try {
-            // Query on the database to get the captains info
-            const result = await db.query(`SELECT * FROM "Captain"`)
+            const { type } = req.body
+
+            let result;
+            if (type === 'regular') {
+                result = await db.query(`SELECT * FROM "Captain" WHERE "type" = 'regular'`)
+            }
+            else if (type === 'unit') {
+                result = await db.query(`SELECT * FROM "Captain" WHERE "type" = 'unit'`)
+            }
+            else if (type === 'general') {
+                result = await db.query(`SELECT * FROM "Captain" WHERE "type" = 'general'`)
+            }
+            else {
+                result = await db.query(`SELECT * FROM "Captain"`)                
+            }
 
             // Respond with the data retrieved and a successful retrieval message
             res.status(200).json({
