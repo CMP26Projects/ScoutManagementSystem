@@ -21,7 +21,8 @@
   input[type="number"],
   input[type="tel"],
   input[type="date"],
-  input[type="time"] {
+  input[type="time"],
+  select {
     width: 100%;
     outline: none;
     border-radius: 4px;

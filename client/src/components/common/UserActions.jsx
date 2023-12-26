@@ -29,66 +29,77 @@ export default function UserActions() {
     return (
       <>
         <Button
+          disabled
           linkTo={ActionRoutes["Assign Sector Leader"]}
           className="Button--medium Button--primary-darker"
         >
           تعيين قائد لقطاع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Add Sector"]}
           className="Button--medium Button--regular"
         >
           إضافة قطاع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Add Scout"]}
           className="Button--medium Button--regular"
         >
           إضافة كشاف
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes.Statistics}
           className="Button--medium Button--regular"
         >
           الاحصائيات
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Financial Management"]}
           className="Button--medium Button--regular"
         >
           إدارة الماليات
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Send Notification"]}
           className="Button--medium Button--regular"
         >
           إرسال إشعار
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium Button--regular"
         >
           تعديل كشاف
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium Button--regular"
         >
           التقارير والمجالس
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium Button--regular"
         >
           الأنشطة
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium Button--regular"
         >
           المواضيع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium span-2-cols Button--success"
         >
@@ -102,60 +113,70 @@ export default function UserActions() {
     return (
       <>
         <Button
+          disabled
           linkTo={ActionRoutes["Assign Sector Leader"]}
           className="Button--medium Button--primary-darker"
         >
           تعيين قائد لقطاع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Statistics"]}
           className="Button--medium Button--regular"
         >
           الاحصائيات
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Send Notification"]}
           className="Button--medium Button--regular"
         >
           إرسال إشعار
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Add Scout"]}
           className="Button--medium Button--regular"
         >
           إضافة كشاف
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
           تعديل كشاف
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Reports and Councils"]}
           className="Button--medium Button--regular"
         >
           التقارير والمجالس
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Activities"]}
           className="Button--medium Button--regular"
         >
           الأنشطة
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium Button--regular"
         >
           المواضيع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sectors"]}
           className="Button--medium span-2-cols Button--regular"
         >
           القطاعات
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Record Captain Absence"]}
           className="Button--medium span-2-cols Button--success"
         >
@@ -169,48 +190,56 @@ export default function UserActions() {
     return (
       <>
         <Button
+          disabled
           linkTo={ActionRoutes["Statistics"]}
           className="Button--medium span-2-cols Button--regular"
         >
           الاحصائيات
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
           تعديل كشاف
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Reports and Councils"]}
           className="Button--medium Button--regular"
         >
           التقارير والمجالس
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Activities"]}
           className="Button--medium Button--regular"
         >
           الأنشطة
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sessions"]}
           className="Button--medium Button--regular"
         >
           المواضيع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Scores"]}
           className="Button--medium Button--regular"
         >
           تقييم أفراد
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Sector"]}
           className="Button--medium Button--regular"
         >
           القطاع
         </Button>
         <Button
+          disabled
           linkTo={ActionRoutes["Record Scouts Absence"]}
           className="Button--medium span-2-cols Button--success"
         >
