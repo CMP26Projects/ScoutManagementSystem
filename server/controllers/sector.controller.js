@@ -101,6 +101,25 @@ const sectorController = {
                 })
             }
 
+            const captainInfo = await db.query(`
+                SELECT *
+                FROM "Captain"
+                WHERE "captainId" = $1    
+            `,
+            [unitCaptainId])
+
+            if (captainInfo.rowCount === 0) {
+                return res.status(404).json({
+                    error: "No captain exist with this id"
+                })
+            }
+
+            if (captainInfo.rows[0].type !== 'unit') {
+                return res.status(401).json({
+                    error: "The provided captain id is not for a unit captain"
+                })
+            }
+
             const result = await db.query(
                 `
                 UPDATE "Sector"
@@ -118,7 +137,7 @@ const sectorController = {
         } catch (error) {
             console.log(error)
             res.status(500).json({
-                error: 'An error occured while retrieving the captains info',
+                error: 'An error occured while updating the sector info',
                 body: error,
             })
         }
