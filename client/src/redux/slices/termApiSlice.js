@@ -29,6 +29,13 @@ export const termApi = apiSlice.injectEndpoints({
         body: term,
       }),
     }),
+    UpdateTerm: builder.mutation({
+      query: (term) => ({
+        url: `${TERM_URL}/`,
+        method: "PATCH",
+        body: term,
+      }),
+    }),
   }),
 });
 
@@ -37,4 +44,5 @@ export const {
   useGetCurWeekQuery,
   useGetRemainingWeeksQuery,
   useInsertTermMutation,
+  useUpdateTermMutation,
 } = termApi;

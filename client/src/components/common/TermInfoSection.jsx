@@ -67,8 +67,10 @@ export default function TermInfoSection() {
         }}
         className="row"
       >
-        <Button className="Button--danger">إلغاء الاسبوع</Button>
-        <Button className="Button--dark">تعديل الفترة</Button>
+        <Button disabled className="Button--danger">إلغاء الاسبوع</Button>
+        <Button linkTo="/edit-term" className="Button--dark">
+          تعديل الفترة
+        </Button>
       </div>
     </div>
   );
