@@ -22,6 +22,13 @@ export const termApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    InsertTerm: builder.mutation({
+      query: (term) => ({
+        url: `${TERM_URL}/`,
+        method: "POST",
+        body: term,
+      }),
+    }),
   }),
 });
 
@@ -29,4 +36,5 @@ export const {
   useGetCurTermQuery,
   useGetCurWeekQuery,
   useGetRemainingWeeksQuery,
+  useInsertTermMutation,
 } = termApi;

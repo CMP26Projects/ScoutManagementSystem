@@ -4,6 +4,8 @@ import TextInput from "../common/Inputs";
 import Button from "../common/Button";
 import CustomCheckbox from "../common/CustomCheckbox";
 import "./InsertTermPage.scss";
+import { useInsertTermMutation } from "../../redux/slices/termApiSlice";
+import { toast } from "react-toastify";
 
 export default function InsertTermPage() {
   const [termName, setTermName] = useState("");
@@ -11,15 +13,29 @@ export default function InsertTermPage() {
   const [termEndDate, setTermEndDate] = useState("");
   const [understandCheckbox, setUnderstandCheckbox] = useState(false);
 
+  const [insertTerm, { isLoading }] = useInsertTermMutation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // TODO: send request with this info to the server
     console.log({
       termName,
-      termStartDate,
-      termEndDate,
+      startDate: termStartDate,
+      endDate: termEndDate,
       understandCheckbox,
     });
+    try {
+      insertTerm({
+        termName,
+        startDate: termStartDate,
+        endDate: termEndDate,
+      });
+      toast.success("تم إنشاء الفترة بنجاح");
+    } catch (err) {
+      console.log(err);
+      toast.error("حدث خطأ أثناء إنشاء الفترة");
+      toast.error(JSON.stringify(err));
+    }
   };
 
   return (
@@ -63,6 +79,7 @@ export default function InsertTermPage() {
           checkedValues={understandCheckbox ? ["understand"] : []}
           onChange={(e) => setUnderstandCheckbox(e.target.checked)}
           name="understand"
+          required
         />
         <Button
           className="insert-term__btn Button--medium Button--primary-darker"
@@ -71,6 +88,15 @@ export default function InsertTermPage() {
           إنشاء الفترة
         </Button>
       </form>
+      {isLoading && (
+        <p
+          style={{
+            textAlign: "center",
+          }}
+        >
+          جاري إنشاء الفترة
+        </p>
+      )}
       <div className="actions-row">
         <Button
           className="insert-term__btn Button--medium Button--danger"
