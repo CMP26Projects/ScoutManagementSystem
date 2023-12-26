@@ -57,14 +57,17 @@ const alertController = {
             const { id } = req.params
             const { sectorBaseName, sectorSuffixName } = req.body
 
+            // what if alert does not exist?
+            // what if alert is already sent?
+
             let result
 
             if (!sectorBaseName || !sectorSuffixName) {
                 // send alert to all captains
                 result = await db.query(
                     `INSERT INTO "RecieveNotification" ("notificationId", "captainId", "status")
-                    SELECT $1, C."captainId", 'unread'
-                    FROM "Captain" AS C
+                    (SELECT $1::integer, C."captainId", 'unread'::"NotificationStatus"
+                    FROM "Captain" AS C)
                     RETURNING *;`,
                     [id]
                 )
@@ -72,10 +75,15 @@ const alertController = {
                 // send alert to all captains in sector
                 result = await db.query(
                     `INSERT INTO "RecieveNotification" ("notificationId", "captainId", "status")
-                    SELECT $1, C."captainId", 'unread'
+                    ((SELECT $1::integer, C."captainId", 'unread'::"NotificationStatus"
                     FROM "Captain" AS C
                     WHERE C."rSectorBaseName" = $2 AND
-                    C."rSectorSuffixName" = $3
+                    C."rSectorSuffixName" = $3)
+                    UNION
+                    (SELECT $1::integer, S."unitCaptainId", 'unread'::"NotificationStatus"
+                    FROM "Sector" AS S
+                    WHERE S."baseName" = $2 AND
+                    S."suffixName" = $3))
                     RETURNING *;`,
                     [id, sectorBaseName, sectorSuffixName]
                 )
@@ -83,7 +91,7 @@ const alertController = {
 
             res.status(200).json({
                 message: 'Alert successfully sent',
-                body: result.rows[0],
+                body: result.rows,
             })
         } catch (error) {
             console.error(error)

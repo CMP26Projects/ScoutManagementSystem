@@ -8,11 +8,11 @@ const sectorController = {
         try {
             const result = await db.query(`
                 SELECT *
-                FROM "Sector"
+                FROM "Sector";
             `)
 
             res.status(200).json({
-                message: "Successful retrieval",
+                message: 'Successful retrieval',
                 body: result.rows,
                 count: result.rowCount,
             })
@@ -32,24 +32,25 @@ const sectorController = {
         try {
             const { baseName, suffixName } = req.params
 
-            const result = await db.query(`
+            const result = await db.query(
+                `
                 SELECT *
                 FROM "Sector"
                 WHERE "baseName" = $1 AND "suffixName" = $2;
             `,
-            [baseName, suffixName]);
+                [baseName, suffixName]
+            )
 
             if (result.rowCount === 0) {
                 return res.status(404).json({
-                    error: "No sector found with this name"
+                    error: 'No sector found with this name',
                 })
             }
 
             res.status(200).json({
-                message: "Successful retrieval",
+                message: 'Successful retrieval',
                 body: result.rows,
             })
-
         } catch (error) {
             console.log(error)
             res.status(500).json({
@@ -65,17 +66,18 @@ const sectorController = {
         try {
             const { baseName, suffixName, unitCaptainId } = req.body
 
-            const result = await db.query(`
+            const result = await db.query(
+                `
                 INSERT INTO "Sector" VALUES ($1, $2, $3)
-                RETURNING *
+                RETURNING *;
             `,
-            [baseName, suffixName, unitCaptainId])
+                [baseName, suffixName, unitCaptainId]
+            )
 
             res.status(200).json({
-                message: "Successful insertion",
+                message: 'Successful insertion',
                 body: result.rows,
             })
-            
         } catch (error) {
             console.log(error)
             res.status(500).json({
@@ -90,35 +92,37 @@ const sectorController = {
     // @access  Private
     setUnitCaptain: async (req, res) => {
         try {
-            const { id, baseName, suffixName } = req.params
+            const { baseName, suffixName } = req.params
+            const { unitCaptainId } = req.body
 
-            if (!id || (!baseName && !suffixName)) {
+            if (!unitCaptainId) {
                 res.status(400).json({
-                    error: "Please enter valid ids"
+                    error: 'Please enter valid ids',
                 })
             }
 
-            const result = await db.query(`
+            const result = await db.query(
+                `
                 UPDATE "Sector"
                 SET "unitCaptainId" = $1
                 WHERE "baseName" = $2 AND "suffixName" = $3
-                RETURNING *
+                RETURNING *;
             `,
-            [id, baseName, suffixName])
+                [unitCaptainId, baseName, suffixName]
+            )
 
             res.status(200).json({
-                message: "Successful update",
+                message: 'Successful update',
                 body: result.rows,
             })
-
         } catch (error) {
             console.log(error)
             res.status(500).json({
                 error: 'An error occured while retrieving the captains info',
                 body: error,
             })
-        } 
-    }
+        }
+    },
 }
 
-export default sectorController;
+export default sectorController
