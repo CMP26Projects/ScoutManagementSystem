@@ -84,6 +84,41 @@ const sectorController = {
             })
         }
     },
+
+    // @desc    update a sector unit captain
+    // @route   PATCH /api/sector/unit/set/:id/:baseName/:suffixName
+    // @access  Private
+    setUnitCaptain: async (req, res) => {
+        try {
+            const { id, baseName, suffixName } = req.params
+
+            if (!id || (!baseName && !suffixName)) {
+                res.status(400).json({
+                    error: "Please enter valid ids"
+                })
+            }
+
+            const result = await db.query(`
+                UPDATE "Sector"
+                SET "unitCaptainId" = $1
+                WHERE "baseName" = $2 AND "suffixName" = $3
+                RETURNING *
+            `,
+            [id, baseName, suffixName])
+
+            res.status(200).json({
+                message: "Successful update",
+                body: result.rows,
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occured while retrieving the captains info',
+                body: error,
+            })
+        } 
+    }
 }
 
 export default sectorController;
