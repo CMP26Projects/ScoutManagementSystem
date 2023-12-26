@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../common/Button";
 import PageTitle from "../common/PageTitle";
 import TextInput from "../common/Inputs";
+import "./InsertSector.scss";
 
 export default function InsertSector() {
   const [sectorBaseName, setSectorBaseName] = useState("");

@@ -1,0 +1,19 @@
+.insert-sector {
+  display: flex;
+  flex-direction: column;
+
+  &__from {
+    margin-block: 1rem;
+  }
+  &__form__container {
+    display: grid;
+    gap: 1rem;
+    margin-block: 1rem;
+  }
+  &__btn {
+    margin-block: 2rem;
+    width: 50%;
+    display: block;
+    margin-inline: auto;
+  }
+}
