@@ -54,7 +54,7 @@ export default function Nav() {
     <nav className="Nav">
       <div className="container">
         <div className="Nav__logo">
-          <Link to="/">
+          <Link to={show ? "/dashboard" : "/"}>
             <img src={logo} alt="logo" />
             <h2 className="logo-text">كشافة</h2>
           </Link>
