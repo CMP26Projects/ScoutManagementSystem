@@ -1,0 +1,28 @@
+.insert-term {
+  &__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-block: 1rem;
+    direction: rtl;
+
+    .input:nth-child(1),
+    .insert-term__note,
+    .insert-term__btn {
+      grid-column: 1 / 3;
+    }
+
+    .insert-term__note {
+      direction: rtl;
+      font-size: 13px;
+      color: var(--grey-400);
+    }
+  }
+
+  .actions-row {
+    direction: rtl;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
