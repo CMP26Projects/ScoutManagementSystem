@@ -3,6 +3,7 @@ import PageTitle from "../common/PageTitle";
 import TextInput from "../common/Inputs";
 import Button from "../common/Button";
 import CustomCheckbox from "../common/CustomCheckbox";
+import "./InsertTermPage.scss";
 
 export default function InsertTermPage() {
   const [termName, setTermName] = useState("");
@@ -22,11 +23,11 @@ export default function InsertTermPage() {
   };
 
   return (
-    <div className="insert-term">
-      <PageTitle title="إنشاء فترة" />
-      <form className="" onSubmit={handleSubmit}>
+    <div className="insert-term container">
+      <PageTitle title="إنشاء فترة " />
+      <form className="insert-term__form" onSubmit={handleSubmit}>
         <TextInput
-          label="اسم الفترة"
+          label="اسم الفترة الجديدة"
           type="text"
           name="termName"
           value={termName}
@@ -56,15 +57,15 @@ export default function InsertTermPage() {
           **إنشاء فترة هو إجراء لا رجعة به يجب مراعاة انه بعد إنشاء الفترة
           ستتحول كل الصفحات الاخرى الى احدث فترة تم إنشاءها
         </p>
-        <CustomCheckbox 
-        labels={["لقد فهمت"]}
-        values={["understand"]}
-        checkedValues={ understandCheckbox ? ["understand"] : [] }
-        onChange={(e) => setUnderstandCheckbox(e.target.checked)}
-        name="understand"
-         />
+        <CustomCheckbox
+          labels={["لقد فهمت"]}
+          values={["understand"]}
+          checkedValues={understandCheckbox ? ["understand"] : []}
+          onChange={(e) => setUnderstandCheckbox(e.target.checked)}
+          name="understand"
+        />
         <Button
-          className="insert-term__btn Button--medium Button--primary"
+          className="insert-term__btn Button--medium Button--primary-darker"
           type="submit"
         >
           إنشاء الفترة
