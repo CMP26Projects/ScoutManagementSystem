@@ -57,10 +57,21 @@ const alertController = {
             const { id } = req.params
             const { sectorBaseName, sectorSuffixName } = req.body
 
-            // what if alert does not exist?
             // what if alert is already sent?
 
             let result
+
+            result = await db.query(
+                `SELECT EXISTS (
+                    (SELECT 1
+                    FROM "Notification"
+                    WHERE "notificationId" = $1)
+                ) AS exist;`,
+                [id]
+            )
+            if (!result.rows[0].exist) {
+                return res.status(404).json({ error: 'Alert not found' })
+            }
 
             if (!sectorBaseName || !sectorSuffixName) {
                 // send alert to all captains
