@@ -64,6 +64,40 @@ const attendanceController = {
                 body: error,
             })
         }
+    },
+
+    getSectorAttendance: async (req, res) => {
+        try {
+            const { baseName, suffixName, weekNumber, termNumber } = req.params
+
+            const result = await db.query(`
+                SELECT "ScoutAttendance".*
+                FROM "Scout", "ScoutAttendance"
+                WHERE "Scout"."sectorBaseName" = $1 AND "Scout"."sectorSuffixName" = $2
+                AND "ScoutAttendance"."weekNumber" = $3 AND "ScoutAttendance"."termNumber" = $4
+                AND "ScoutAttendance"."scoutId" = "Scout"."scoutId";
+            `,
+            [baseName, suffixName, weekNumber, termNumber])
+
+            if (result.rowCount === 0) {
+                return res.status(404).json({
+                    error: "No data exists for the provided info"
+                })
+            }
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result.rows,
+                count: result.rowCount
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occured while retrieving sector attendance',
+                body: error,
+            })
+        }
     }
 }
 
