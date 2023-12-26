@@ -26,16 +26,11 @@ const termController = {
             const currentDate = new Date()
             const startDateObj = new Date(startDate)
             const endDateObj = new Date(endDate)
-            console.log(currentDate)
-            console.log(endDateObj)
             if (startDateObj >= endDateObj || endDateObj < currentDate) {
                 return res.status(400).json({
                     error: 'Invalid dates',
                 })
             }
-
-            const termNumber = req.currentTerm.termNumber + 1
-
             if (
                 req.currentTerm.termNumber &&
                 req.currentTerm.endDate >= startDateObj
@@ -45,6 +40,7 @@ const termController = {
                 })
             }
 
+            const termNumber = req.currentTerm.termNumber + 1
             const result = await db.query(
                 `INSERT INTO "Term" VALUES ($1, $2, $3, $4)
                 RETURNING *;`,
@@ -72,7 +68,36 @@ const termController = {
         try {
             const { termName, startDate, endDate } = req.body
 
-            const result = await db.query(
+            const currentDate = new Date()
+            const startDateObj = new Date(startDate)
+            const endDateObj = new Date(endDate)
+            if (startDateObj >= endDateObj || endDateObj < currentDate) {
+                return res.status(400).json({
+                    error: 'Invalid dates',
+                })
+            }
+
+            let result = await db.query(
+                `SELECT * FROM "Term"
+                ORDER BY "termNumber" DESC
+                LIMIT 1 OFFSET 1;`
+            )
+            if (!result.rowCount) {
+                req.previousTerm = {
+                    termNumber: 0,
+                }
+            } else req.previousTerm = result.rows[0]
+
+            if (
+                req.previousTerm.termNumber &&
+                req.previousTerm.endDate >= startDateObj
+            ) {
+                return res.status(400).json({
+                    error: 'Invalid start date: Overlapping terms',
+                })
+            }
+
+            result = await db.query(
                 `UPDATE "Term" SET "termName" = $1, "startDate" = $2, "endDate" = $3
                 WHERE "termNumber" IN
                 (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term")
