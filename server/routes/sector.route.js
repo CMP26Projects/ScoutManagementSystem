@@ -5,13 +5,12 @@ import checkRankMiddleware from '../middlewares/checkRank.middleware.js'
 const sectorRouter = Router()
 
 sectorRouter.post('/', sectorController.insertSector)
-sectorRouter.get('/', sectorController.getAllSectors)
-sectorRouter.get('/:baseName/:suffixName', sectorController.getSector)
+sectorRouter.get('/all', sectorController.getAllSectors)
+sectorRouter.get('/', sectorController.getSector)
 sectorRouter.patch(
-    '/:baseName/:suffixName',
-    //TODO: Check if the captain id is for a unit captain
+    '/unit',
     sectorController.setUnitCaptain
 )
-sectorRouter.patch('/captain/:baseName/:suffixName', sectorController.assignCaptain)
+sectorRouter.patch('/assign', sectorController.assignCaptain)
 
 export default sectorRouter
