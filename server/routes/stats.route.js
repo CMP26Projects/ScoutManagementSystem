@@ -1,17 +1,30 @@
 import { Router } from 'express'
 import statsController from '../controllers/stats.controller.js'
 import { getCurrentTermMiddleware } from '../middlewares/current.middleware.js'
+import checkRankMiddleware from '../middlewares/checkRank.middleware.js'
 const statsRouter = Router()
 
 statsRouter.get(
     '/scouts',
+    checkRankMiddleware('general'),
     getCurrentTermMiddleware,
-    statsController.getScoutsAbsenceRate
+    statsController.getAllScoutsAbsenceRate
 )
 statsRouter.get(
-    '/captains',
+    '/scouts/unit/:unitCaptainId',
+    checkRankMiddleware('general', 'unit'),
     getCurrentTermMiddleware,
-    statsController.getCaptainsAbsenceRate
+    statsController.getScoutsInUnitAbsenceRate
+)
+statsRouter.get(
+    '/scouts/:sectorBaseName/:sectorSuffixName',
+    getCurrentTermMiddleware,
+    statsController.getScoutsInSectorAbsenceRate
+)
+statsRouter.get(
+    '/scouts/:scoutId',
+    getCurrentTermMiddleware,
+    statsController.getScoutAbsenceRate
 )
 
 export default statsRouter
