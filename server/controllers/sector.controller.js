@@ -30,13 +30,8 @@ const sectorController = {
     // @access  Private
     getSector: async (req, res) => {
         try {
-            let { baseName, suffixName } = req.params
-            
-            // If the suffix name wasn't provided (meaning it would be :suffixName) then make it an empty string
-            if (suffixName === ':suffixName') {
-                suffixName = ""
-            }
-            
+            const { baseName, suffixName } = req.query
+              
             const result = await db.query(
                 `
                 SELECT *
@@ -107,7 +102,7 @@ const sectorController = {
     // @access  Private
     setUnitCaptain: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.params
+            const { baseName, suffixName } = req.query
             const { unitCaptainId } = req.body
 
             if (!unitCaptainId) {
@@ -172,7 +167,7 @@ const sectorController = {
     },
     assignCaptain: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.params
+            const { baseName, suffixName } = req.query
             const { captainId } = req.body
 
             const result = await db.query(`
