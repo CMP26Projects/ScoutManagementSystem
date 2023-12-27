@@ -1,12 +1,13 @@
-
-const checkRankMiddleware = (rank) => {
+const checkRankMiddleware = (...ranks) => {
     return async (req, res, next) => {
         const captainRank = req.captain.type
-        if (captainRank === rank) {
-            next()
-        } else {
-            res.status(403).json({ message: 'Forbidden' })
+        for (const rank of ranks) {
+            if (rank === captainRank) {
+                next()
+                return
+            }
         }
+        return res.status(403).json({ message: 'Forbidden' })
     }
 }
 

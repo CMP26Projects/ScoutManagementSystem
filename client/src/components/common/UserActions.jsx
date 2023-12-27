@@ -36,7 +36,6 @@ export default function UserActions() {
           تعيين قائد لقطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Add Sector"]}
           className="Button--medium Button--regular"
         >
@@ -72,21 +71,21 @@ export default function UserActions() {
         </Button>
         <Button
           disabled
-          linkTo={ActionRoutes["Sessions"]}
+          linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
           تعديل كشاف
         </Button>
         <Button
           disabled
-          linkTo={ActionRoutes["Sessions"]}
+          linkTo={ActionRoutes["Reports and Councils"]}
           className="Button--medium Button--regular"
         >
           التقارير والمجالس
         </Button>
         <Button
           disabled
-          linkTo={ActionRoutes["Sessions"]}
+          linkTo={ActionRoutes["Activities"]}
           className="Button--medium Button--regular"
         >
           الأنشطة
@@ -99,8 +98,7 @@ export default function UserActions() {
           المواضيع
         </Button>
         <Button
-          disabled
-          linkTo={ActionRoutes["Sessions"]}
+          linkTo={ActionRoutes["Start New Term"]}
           className="Button--medium span-2-cols Button--success"
         >
           بدء فترة جديدة

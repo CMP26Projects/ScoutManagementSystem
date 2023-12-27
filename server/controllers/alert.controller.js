@@ -59,23 +59,54 @@ const alertController = {
 
             let result
 
+            result = await db.query(
+                `SELECT EXISTS (
+                    (SELECT 1
+                    FROM "Notification"
+                    WHERE "notificationId" = $1)
+                ) AS exist;`,
+                [id]
+            )
+            if (!result.rows[0].exist) {
+                return res.status(404).json({ error: 'Alert not found' })
+            }
+
             if (!sectorBaseName || !sectorSuffixName) {
                 // send alert to all captains
                 result = await db.query(
                     `INSERT INTO "RecieveNotification" ("notificationId", "captainId", "status")
-                    SELECT $1, C."captainId", 'unread'
-                    FROM "Captain" AS C
+                    (SELECT $1::integer, C."captainId", 'unread'::"NotificationStatus"
+                    FROM "Captain" AS C)
                     RETURNING *;`,
                     [id]
                 )
             } else {
+                // check if sector exist
+                result = await db.query(
+                    `SELECT EXISTS (
+                        (SELECT 1
+                        FROM "Sector"
+                        WHERE "baseName" = $1 AND
+                        "suffixName" = $2)
+                    ) AS exist;`,
+                    [sectorBaseName, sectorSuffixName]
+                )
+                if (!result.rows[0].exist) {
+                    return res.status(404).json({ error: 'Sector not found' })
+                }
+
                 // send alert to all captains in sector
                 result = await db.query(
                     `INSERT INTO "RecieveNotification" ("notificationId", "captainId", "status")
-                    SELECT $1, C."captainId", 'unread'
+                    ((SELECT $1::integer, C."captainId", 'unread'::"NotificationStatus"
                     FROM "Captain" AS C
                     WHERE C."rSectorBaseName" = $2 AND
-                    C."rSectorSuffixName" = $3
+                    C."rSectorSuffixName" = $3)
+                    UNION
+                    (SELECT $1::integer, S."unitCaptainId", 'unread'::"NotificationStatus"
+                    FROM "Sector" AS S
+                    WHERE S."baseName" = $2 AND
+                    S."suffixName" = $3))
                     RETURNING *;`,
                     [id, sectorBaseName, sectorSuffixName]
                 )
@@ -83,7 +114,7 @@ const alertController = {
 
             res.status(200).json({
                 message: 'Alert successfully sent',
-                body: result.rows[0],
+                body: result.rows,
             })
         } catch (error) {
             console.error(error)
@@ -115,7 +146,7 @@ const alertController = {
 
     getAllAlerts: async (req, res) => {
         try {
-            const { status, contentType } = req.body
+            const { status, contentType } = req.params
             const result = await db.query(
                 `SELECT N.*, R."status"
                 FROM "Notification" AS N, "RecieveNotification" AS R
@@ -125,10 +156,10 @@ const alertController = {
             )
 
             let alerts = result.rows
-            if (status) {
+            if (status !== 'all') {
                 alerts = alerts.filter((alert) => alert.status === status)
             }
-            if (contentType) {
+            if (contentType !== 'all') {
                 alerts = alerts.filter(
                     (alert) => alert.contentType === contentType
                 )
