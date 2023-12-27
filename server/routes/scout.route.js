@@ -9,7 +9,7 @@ scoutRouter.put('/:scoutId', scoutController.updateScout)
 scoutRouter.get('/', scoutController.getAllScouts)
 scoutRouter.get('/unit/:unitCaptainId', scoutController.getScoutsInUnit)
 scoutRouter.get(
-    '/sector/:baseName/:suffixName',
+    '/sector/all',
     scoutController.getScoutsInSector
 )
 
