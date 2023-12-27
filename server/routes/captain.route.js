@@ -6,7 +6,7 @@ const captainRouter = Router()
 captainRouter.get('/', captainController.getAllCaptains)
 captainRouter.get('/unit/:unitCaptainId', captainController.getCaptainsInUnit)
 captainRouter.get(
-    '/sector/:baseName/:suffixName',
+    '/sector/all',
     captainController.getCaptainsInSector
 )
 captainRouter.get('/:captainId', captainController.getCaptain)

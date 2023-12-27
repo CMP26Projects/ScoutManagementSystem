@@ -96,7 +96,7 @@ const statsController = {
     // @access  Private
     getScoutsInSectorAbsenceRate: async (req, res) => {
         try {
-            const { sectorBaseName, sectorSuffixName } = req.params
+            const { sectorBaseName, sectorSuffixName } = req.query
 
             if (req.currentTerm.termNumber === 0) {
                 return res.status(400).json({

@@ -3,7 +3,7 @@ import db from '../database/db.js'
 const captainController = {
     getAllCaptains: async (req, res) => {
         try {
-            const { type } = req.body
+            const { type } = req.query
 
             let result;
             if (type === 'regular') {
@@ -35,7 +35,7 @@ const captainController = {
     },
     getCaptainsInSector: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.params
+            const { baseName, suffixName } = req.query
 
             // Query on the database to get all the captains info in a specific sector
             const result = await db.query(

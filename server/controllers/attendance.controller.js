@@ -71,7 +71,7 @@ const attendanceController = {
     // @access  Private
     getSectorAttendance: async (req, res) => {
         try {
-            const { baseName, suffixName, weekNumber, termNumber } = req.params
+            const { baseName, suffixName, weekNumber, termNumber } = req.query
 
             const result = await db.query(`
                 SELECT "ScoutAttendance".*

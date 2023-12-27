@@ -19,7 +19,7 @@ const scoutController = {
     },
     getScoutsInSector: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.params
+            const { baseName, suffixName } = req.query
 
             const result = await db.query(
                 `SELECT *
