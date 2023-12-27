@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import TextInput, { RadioInput } from "../common/Inputs";
 import CustomSelect from "../common/CustomSelect";
-import { useGetAllSectorsQuery } from "../../redux/slices/sectorApiSlice";
 import "../../assets/styles/components/InsertScoutPage.scss";
 import PageTitle from "../common/PageTitle";
 import { useInsertScoutMutation } from "../../redux/slices/scoutApiSlice";
 import Button from "../common/Button";
 import { toast } from "react-toastify";
+import { useGetSectorsQuery } from "../../redux/slices/sectorApiSlice";
 
 const InsertScoutPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -23,7 +23,7 @@ const InsertScoutPage = () => {
 
   let sectors = [];
 
-  const { data, isFetching } = useGetAllSectorsQuery();
+  const { data, isFetching } = useGetSectorsQuery();
 
   if (data && !isFetching) {
     sectors = data.body;

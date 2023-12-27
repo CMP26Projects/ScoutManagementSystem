@@ -35,13 +35,6 @@ export const captainsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Sector"],
     }),
-    }),
-    GetAllSectors: builder.query({
-      query: () => ({
-        url: `${SECTOR_URL}/`,
-        method: "GET",
-      }),
-    }),
   }),
 });
 
