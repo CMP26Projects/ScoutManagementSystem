@@ -58,7 +58,7 @@ export default function AssignSector() {
       toast.success("تم تعيين القائد بنجاح");
     } catch (err) {
       toast.error("حدث خطأ أثناء تعيين القائد");
-      console.log(err);
+      console.log(JSON.stringify(err));
       toast.error(JSON.stringify(err));
     }
   };
@@ -114,7 +114,7 @@ export default function AssignSector() {
           setChosenCaptainId(e.target.value);
         }}
       />
-      {isFetchingCaptains && (
+      {(isFetchingCaptains || isLoadingAssignRegularCaptain) && (
         <p
           style={{
             direction: "rtl",

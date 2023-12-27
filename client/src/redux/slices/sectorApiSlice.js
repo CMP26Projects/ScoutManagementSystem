@@ -29,7 +29,7 @@ export const captainsApi = apiSlice.injectEndpoints({
     }),
     UpdateSectorRegularCaptain: builder.mutation({
       query: (sector) => ({
-        url: `${SECTOR_URL}/${sector.baseName}/${sector.suffixName}`,
+        url: `${SECTOR_URL}/captain/${sector.baseName}/${sector.suffixName}`,
         method: "PATCH",
         body: sector,
       }),
