@@ -10,6 +10,7 @@ export const captainsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: sector,
       }),
+      invalidatesTags: ["Sector", "Captains"],
     }),
     UpdateSectorUnitCaptain: builder.mutation({
       query: (sector) => ({
@@ -21,6 +22,7 @@ export const captainsApi = apiSlice.injectEndpoints({
           suffixName: sector.suffixName,
         },
       }),
+      invalidatesTags: ["Sector", "Captains"],
     }),
   }),
 });

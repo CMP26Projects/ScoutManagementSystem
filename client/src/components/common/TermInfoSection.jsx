@@ -10,8 +10,11 @@ import InfoBox from "./InfoBox";
 export default function TermInfoSection() {
   const { data: termInfo, isFetching: isFetchingTerm } = useGetCurTermQuery();
   const { data: curWeek, isFetching: isFetchingWeek } = useGetCurWeekQuery();
-  const { data: weeksLeft, isFetching: isFetchingWeeksLeft } =
-    useGetRemainingWeeksQuery();
+  const {
+    data: weeksLeft,
+    isFetching: isFetchingWeeksLeft,
+    isLoading,
+  } = useGetRemainingWeeksQuery();
 
   if (
     termInfo &&
@@ -36,7 +39,7 @@ export default function TermInfoSection() {
           color="colorful"
           title="اسم الفترة"
           value={
-            isFetchingTerm
+            isFetchingTerm || isLoading
               ? "جاري التحميل"
               : !termInfo
               ? "لا يوجد بيانات"
@@ -47,7 +50,7 @@ export default function TermInfoSection() {
           color="dark"
           title="الاسبوع الحالي"
           value={
-            isFetchingWeek
+            isFetchingWeek || isLoading
               ? "جاري التحميل"
               : !curWeek
               ? "0"
@@ -58,7 +61,7 @@ export default function TermInfoSection() {
           color="dark"
           title="الاسابيع الباقية"
           value={
-            isFetchingWeeksLeft
+            isFetchingWeeksLeft || isLoading
               ? "جاري التحميل"
               : !weeksLeft
               ? "0"
