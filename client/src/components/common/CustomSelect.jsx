@@ -40,6 +40,9 @@ export default function CustomSelect(props) {
         required={required}
         value={selectedValue}
       >
+        <option value="" disabled>
+          اختر
+        </option>
         {data.map((item) => (
           <option key={item[valueMember]} value={item[valueMember]}>
             {item[displayMember]}
