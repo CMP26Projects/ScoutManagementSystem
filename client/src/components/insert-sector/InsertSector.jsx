@@ -79,7 +79,10 @@ export default function InsertSector() {
             required
           />
           <CustomSelect
-            data={unitCaptains}
+            data={unitCaptains.map((captain) => ({
+              ...captain,
+              text: captain?.firstName + " " + captain?.middleName + " " + captain?.lastName, 
+            }))}
             label="قائد القطاع"
             name="unitSectorLeader"
             selectedValue={unitSectorLeader}
@@ -87,7 +90,7 @@ export default function InsertSector() {
               setUnitSectorLeader(e.target.value);
             }}
             required
-            displayMember="firstName"
+            displayMember="text"
             valueMember="captainId"
           />
           {isFetching && (
