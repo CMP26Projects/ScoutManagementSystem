@@ -17,7 +17,7 @@ statsRouter.get(
     statsController.getScoutsInUnitAbsenceRate
 )
 statsRouter.get(
-    '/scouts/:sectorBaseName/:sectorSuffixName',
+    '/scouts/sector',
     getCurrentTermMiddleware,
     statsController.getScoutsInSectorAbsenceRate
 )
