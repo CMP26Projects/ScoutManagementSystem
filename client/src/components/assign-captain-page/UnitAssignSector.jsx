@@ -58,7 +58,7 @@ export default function UnitAssignSector() {
       toast.success("تم تعيين القائد بنجاح");
     } catch (err) {
       toast.error("حدث خطأ أثناء تعيين القائد");
-      console.log(err);
+      console.log(JSON.stringify(err));
       toast.error(JSON.stringify(err));
     }
   };
