@@ -22,8 +22,17 @@ export const captainsApi = apiSlice.injectEndpoints({
         },
       }),
     }),
+    GetAllSectors: builder.query({
+      query: () => ({
+        url: `${SECTOR_URL}/`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useInsertSectorMutation, useUpdateSectorUnitCaptainMutation } =
-  captainsApi;
+export const {
+  useInsertSectorMutation,
+  useUpdateSectorUnitCaptainMutation,
+  useGetAllSectorsQuery,
+} = captainsApi;

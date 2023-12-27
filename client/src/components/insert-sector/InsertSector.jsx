@@ -17,7 +17,7 @@ export default function InsertSector() {
     useInsertSectorMutation();
 
   let unitCaptains = [];
-
+  
   const { data, isFetching } = useGetCaptainsQuery();
 
   if (data && !isFetching) {

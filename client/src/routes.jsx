@@ -22,13 +22,14 @@ import CaptainProfile from "./components/captain-profile/CaptainProfile";
 import InsertTermPage from "./components/insert-term/InsertTermPage";
 import UpdateTermPage from "./components/update-term-page/UpdateTermPage";
 import InsertSector from "./components/insert-sector/InsertSector";
+import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
 
 function Routes() {
   return (
     <Router>
       <Switch>
         <Route element={<PublicLayout />}>
-          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/" element={<InsertScoutPage />} />
           <Route exact path="/signUp" element={<SignUp />} />
           <Route exact path="/logIn" element={<LogIn />} />
           <Route exact path="/dashboard" element={<Dashboard />} />

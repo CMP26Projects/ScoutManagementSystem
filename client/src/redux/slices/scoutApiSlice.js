@@ -10,7 +10,13 @@ export const scoutsApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    InsertScout: builder.mutation({
+      query: () => ({
+        url: `${SCOUT_URL}/`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllScoutsCountQuery } = scoutsApi;
+export const { useGetAllScoutsCountQuery, useInsertScoutMutation } = scoutsApi;
