@@ -66,6 +66,9 @@ const attendanceController = {
         }
     },
 
+    // @desc    Get all attendance records for all the scouts in a certain sector in a certain week & term
+    // @route   GET /api/attendance/sector/:baseName/:suffixName/:weekNumber/:termNumber
+    // @access  Private
     getSectorAttendance: async (req, res) => {
         try {
             const { baseName, suffixName, weekNumber, termNumber } = req.params
@@ -89,6 +92,35 @@ const attendanceController = {
                 message: "Successful retrieval",
                 body: result.rows,
                 count: result.rowCount
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occured while retrieving sector attendance',
+                body: error,
+            })
+        }
+    },
+
+    // @desc    Get attendance records for a certain scout in a certain week & term
+    // @route   GET /api/attendance/:scoutId/:weekNumber/:termNumber
+    // @access  Private
+    getScoutAttendance: async (req, res) => {
+        try {
+            const { scoutId, weekNumber, termNumber } = req.params
+
+            const result = await db.query(`
+                SELECT *
+                FROM "ScoutAttendance"
+                WHERE "scoutId" = $1 AND "weekNumber" = $2 AND "termNumber" = $3
+            `,
+            [scoutId, weekNumber, termNumber])
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result.rows,
+                count: result.rowCount,
             })
 
         } catch (error) {
