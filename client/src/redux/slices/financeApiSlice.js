@@ -9,6 +9,7 @@ export const financeApi = apiSlice.injectEndpoints({
         url: `${FINANCE_URL}`,
         method: "GET",
       }),
+      providesTags: ["finance"],
     }),
   }),
 });

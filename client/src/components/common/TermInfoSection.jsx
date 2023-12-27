@@ -10,14 +10,21 @@ import InfoBox from "./InfoBox";
 export default function TermInfoSection() {
   const { data: termInfo, isFetching: isFetchingTerm } = useGetCurTermQuery();
   const { data: curWeek, isFetching: isFetchingWeek } = useGetCurWeekQuery();
-  const { data: weeksLeft, isFetching: isFetchingWeeksLeft } =
-    useGetRemainingWeeksQuery();
+  const {
+    data: weeksLeft,
+    isFetching: isFetchingWeeksLeft,
+    isLoading,
+  } = useGetRemainingWeeksQuery();
 
-  console.log({
-    termInfo,
-    curWeek,
-    weeksLeft,
-  });
+  if (
+    termInfo &&
+    !isFetchingTerm &&
+    curWeek &&
+    !isFetchingWeek &&
+    weeksLeft &&
+    !isFetchingWeeksLeft
+  )
+    console.log({ termInfo, curWeek, weeksLeft });
 
   return (
     <div
@@ -32,7 +39,7 @@ export default function TermInfoSection() {
           color="colorful"
           title="اسم الفترة"
           value={
-            isFetchingTerm
+            isFetchingTerm || isLoading
               ? "جاري التحميل"
               : !termInfo
               ? "لا يوجد بيانات"
@@ -43,14 +50,18 @@ export default function TermInfoSection() {
           color="dark"
           title="الاسبوع الحالي"
           value={
-            isFetchingWeek ? "جاري التحميل" : !curWeek ? "0" : curWeek?.body
+            isFetchingWeek || isLoading
+              ? "جاري التحميل"
+              : !curWeek
+              ? "0"
+              : curWeek?.body?.weekNumber
           }
         />
         <InfoBox
           color="dark"
           title="الاسابيع الباقية"
           value={
-            isFetchingWeeksLeft
+            isFetchingWeeksLeft || isLoading
               ? "جاري التحميل"
               : !weeksLeft
               ? "0"
@@ -67,7 +78,9 @@ export default function TermInfoSection() {
         }}
         className="row"
       >
-        <Button disabled className="Button--danger">إلغاء الاسبوع</Button>
+        <Button disabled className="Button--danger">
+          إلغاء الاسبوع
+        </Button>
         <Button linkTo="/edit-term" className="Button--dark">
           تعديل الفترة
         </Button>
