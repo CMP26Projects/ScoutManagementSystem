@@ -8,11 +8,12 @@ import { useInsertScoutMutation } from "../../redux/slices/scoutApiSlice";
 import Button from "../common/Button";
 import { toast } from "react-toastify";
 
-const InsertScoutPage = () => {
+const UpdateScoutPage = () => {
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
+  const [oldChosenSector, setOldChosenSector] = useState("");
   const [chosenSector, setChosenSector] = useState("");
   const [studyYear, setStudyYear] = useState("");
   const [enrollDate, setEnrollDate] = useState("");
@@ -31,7 +32,7 @@ const InsertScoutPage = () => {
       sectors = [{ baseName: "لا يوجد قطاع", suffixName: "" }];
     }
   }
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newScout = {
@@ -58,54 +59,75 @@ const InsertScoutPage = () => {
     <div className="add-scout-page">
       <PageTitle title="إضافة و تعيين كشافيين" />
       <section className="add-new-scout">
-        <h4>إضافة كشاف جديد</h4>
         <form className="add-scout-form" onSubmit={handleSubmit}>
-          <div>
-            <div className="horizontally-aligned">
-              <div className="form-card ">
-                <TextInput
-                  type="text"
-                  label="الاسم الأول"
-                  name="firstname"
-                  placeholder="جون"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required={true}
-                />
-              </div>
-              <div className="form-card">
-                <TextInput
-                  type="text"
-                  label="الاسم الأوسط (الأب)"
-                  name="middlename"
-                  placeholder="دوي"
-                  value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
-                  required={true}
-                />
-              </div>
+          <h4>اختار الكشاف</h4>
+          <CustomSelect
+            name="sectors-old"
+            label={"اختر القطاع"}
+            data={sectors}
+            displayMember={"sectorAllName"}
+            valueMember={"sectorAllName"}
+            selectedValue={oldChosenSector}
+            required={true}
+            onChange={(e) => setOldChosenSector(e.target.value)}
+          />
+
+          <CustomSelect
+            name="sectors"
+            label={"اختر الكشاف"}
+            data={sectors}
+            displayMember={"sectorAllName"}
+            valueMember={"sectorAllName"}
+            selectedValue={chosenSector}
+            required={true}
+            onChange={(e) => setChosenSector(e.target.value)}
+          />
+
+          <h4>تعديل الكشاف</h4>
+          <div className="horizontally-aligned">
+            <div className="form-card ">
+              <TextInput
+                type="text"
+                label="الاسم الأول"
+                name="firstname"
+                placeholder="جون"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required={true}
+              />
             </div>
-            <div className="horizontally-aligned">
-              <div className="form-card form-item">
-                <TextInput
-                  type="text"
-                  label="الاسم الأخير (الجد)"
-                  name="lastname"
-                  placeholder="السيد"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required={true}
-                />
-              </div>
-              <div className="form-card">
-                <RadioInput
-                  label="النوع"
-                  name="gender"
-                  valuesArr={["ذكر", "أنثى"]}
-                  onChange={(e) => setGender(e.target.value)}
-                  required={true}
-                />
-              </div>
+            <div className="form-card">
+              <TextInput
+                type="text"
+                label="الاسم الأوسط (الأب)"
+                name="middlename"
+                placeholder="دوي"
+                value={middleName}
+                onChange={(e) => setMiddleName(e.target.value)}
+                required={true}
+              />
+            </div>
+          </div>
+          <div className="horizontally-aligned">
+            <div className="form-card form-item">
+              <TextInput
+                type="text"
+                label="الاسم الأخير (الجد)"
+                name="lastname"
+                placeholder="السيد"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required={true}
+              />
+            </div>
+            <div className="form-card">
+              <RadioInput
+                label="النوع"
+                name="gender"
+                valuesArr={["ذكر", "أنثى"]}
+                onChange={(e) => setGender(e.target.value)}
+                required={true}
+              />
             </div>
           </div>
 
@@ -175,4 +197,4 @@ const InsertScoutPage = () => {
   );
 };
 
-export default InsertScoutPage;
+export default UpdateScoutPage;

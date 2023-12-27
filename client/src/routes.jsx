@@ -23,13 +23,14 @@ import InsertTermPage from "./components/insert-term/InsertTermPage";
 import UpdateTermPage from "./components/update-term-page/UpdateTermPage";
 import InsertSector from "./components/insert-sector/InsertSector";
 import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
+import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
 
 function Routes() {
   return (
     <Router>
       <Switch>
         <Route element={<PublicLayout />}>
-          <Route exact path="/" element={<InsertScoutPage />} />
+          <Route exact path="/" element={<UpdateScoutPage />} />
           <Route exact path="/signUp" element={<SignUp />} />
           <Route exact path="/logIn" element={<LogIn />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
@@ -37,6 +38,7 @@ function Routes() {
           <Route exact path="/start-new-term" element={<InsertTermPage />} />
           <Route exact path="/edit-term" element={<UpdateTermPage />} />
           <Route exact path="/add-sector" element={<InsertSector />} />
+          <Route exact path="/add-scout" element={<InsertScoutPage />} />
         </Route>
 
         {/* Testing Routes */}
