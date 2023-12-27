@@ -99,6 +99,16 @@ export default function ChangeCaptainType() {
         }}
       />
 
+      {isLoadingUpdateCaptainType && (
+        <p
+          style={{
+            direction: "rtl",
+          }}
+        >
+          جاري التحميل
+        </p>
+      )}
+
       <Button className="change-captain-role__btn Button--medium Button--primary-darker">
         تعيين الرتبة
       </Button>

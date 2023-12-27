@@ -1,6 +1,7 @@
 import PageTitle from "../common/PageTitle";
 import "./AssignCaptainPage.scss";
 import ChangeCaptainType from "./ChangeCaptainType";
+import AssignSector from "./AssignSector";
 
 export default function AssignCaptainPage() {
   return (
@@ -15,6 +16,7 @@ export default function AssignCaptainPage() {
         <h4 className="assign-captain-page__form__title">
           تعيين قطاع لقائد عادي
         </h4>
+        <AssignSector />
       </div>
       <div className="assign-captain-page__form__container">
         <h4 className="assign-captain-page__form__title">
