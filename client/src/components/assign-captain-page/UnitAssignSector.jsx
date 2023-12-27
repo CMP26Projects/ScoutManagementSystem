@@ -5,15 +5,15 @@ import CustomSelect from "../common/CustomSelect";
 import { useState } from "react";
 import {
   useGetSectorsQuery,
-  useUpdateSectorRegularCaptainMutation,
+  useUpdateSectorUnitCaptainMutation,
 } from "../../redux/slices/sectorApiSlice";
 
-export default function AssignSector() {
+export default function UnitAssignSector() {
   const [chosenCaptainId, setChosenCaptainId] = useState("");
   const [chosenSectorFullName, setChosenSectorFullName] = useState("");
 
-  const [assignRegularCaptain, { isLoading: isLoadingAssignRegularCaptain }] =
-    useUpdateSectorRegularCaptainMutation();
+  const [assignSector, { isLoading: isLoadingAssignSector }] =
+    useUpdateSectorUnitCaptainMutation();
 
   let {
     data: captains,
@@ -39,22 +39,22 @@ export default function AssignSector() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     console.log({
-      captainId: chosenCaptainId,
+      UnitCaptainId: chosenCaptainId,
       baseName: chosenSectorFullName.split(" - ")[0],
       suffixName: chosenSectorFullName.split(" - ")[1] || "",
     });
 
     try {
-      const res = await assignRegularCaptain({
-        captainId: chosenCaptainId,
+      const res = await assignSector({
+        unitCaptainId: chosenCaptainId,
         baseName: chosenSectorFullName.split(" - ")[0],
         suffixName: chosenSectorFullName.split(" - ")[1] || "",
       }).unwrap();
       console.log(res);
       if (res.status === 400 || res.status === 500)
         throw new Error("Something went wrong while assigning the sector");
-
       toast.success("تم تعيين القائد بنجاح");
     } catch (err) {
       toast.error("حدث خطأ أثناء تعيين القائد");
@@ -95,7 +95,7 @@ export default function AssignSector() {
             : !captains
             ? [{ captainId: "", fullName: "لا يوجد قادة" }]
             : captains
-                ?.filter((captain) => captain.type === "regular")
+                ?.filter((captain) => captain.type === "unit")
                 ?.map((captain) => ({
                   ...captain,
                   fullName:
@@ -114,7 +114,7 @@ export default function AssignSector() {
           setChosenCaptainId(e.target.value);
         }}
       />
-      {isFetchingCaptains && (
+      {isLoadingAssignSector && (
         <p
           style={{
             direction: "rtl",

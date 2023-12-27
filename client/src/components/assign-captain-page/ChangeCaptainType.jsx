@@ -25,12 +25,12 @@ export default function ChangeCaptainType() {
     captains = captains?.body;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ captainId: chosenCaptainId, type });
 
     try {
-      const res = updateCaptainType({
+      const res = await updateCaptainType({
         captainId: chosenCaptainId,
         type,
       }).unwrap();
