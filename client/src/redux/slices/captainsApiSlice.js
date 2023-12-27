@@ -18,7 +18,19 @@ export const captainsApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Captains"],
     }),
+    UpdateCaptainType: builder.mutation({
+      query: (captain) => ({
+        url: `${CAPTAINS_URL}/${captain.captainId}`,
+        method: "PATCH",
+        body: captain,
+      }),
+      invalidatesTags: ["Captains"],
+    }),
   }),
 });
 
-export const { useGetCaptainsQuery, useGetUnitCaptainsQuery } = captainsApi;
+export const {
+  useGetCaptainsQuery,
+  useGetUnitCaptainsQuery,
+  useUpdateCaptainTypeMutation,
+} = captainsApi;

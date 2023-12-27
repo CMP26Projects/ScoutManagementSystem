@@ -1,0 +1,22 @@
+.assign-captain-page
+{
+  direction: rtl;
+
+  &__form__container {
+    margin-block: 2rem;
+
+    h4 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  form {
+    display: grid;
+    gap: 1rem;
+
+    .Button {
+      justify-self: center;
+      width: 50%;
+    }
+  }
+}

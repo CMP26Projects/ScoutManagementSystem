@@ -3,7 +3,7 @@ import Button from "./Button";
 import { useSelector } from "react-redux";
 
 const ActionRoutes = {
-  "Assign Sector Leader": "/assign-sector-leader",
+  "Assign Sector Leader": "/assign-captain",
   "Add Sector": "/add-sector",
   "Add Scout": "/add-scout",
   Statistics: "/statistics",
@@ -29,7 +29,6 @@ export default function UserActions() {
     return (
       <>
         <Button
-          disabled
           linkTo={ActionRoutes["Assign Sector Leader"]}
           className="Button--medium Button--primary-darker"
         >
