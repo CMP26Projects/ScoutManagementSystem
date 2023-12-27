@@ -7,6 +7,6 @@ alertRouter.post('/', alertController.createAlert)
 alertRouter.get('/:id', alertController.getAlert)
 alertRouter.post('/:id', alertController.sendAlert)
 alertRouter.delete('/:id', alertController.deleteAlert)
-alertRouter.get('/', alertController.getAllAlerts)
+alertRouter.get('/:status/:contentType', alertController.getAllAlerts)
 
 export default alertRouter
