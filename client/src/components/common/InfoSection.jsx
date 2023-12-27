@@ -22,6 +22,10 @@ export default function InfoSection() {
 
     const { data: budget, isFetching: isFetchingBudget } = useGetBudgetQuery();
 
+    if (budget && !isFetchingBudget) console.log(budget);
+    if (absenceRate && !isFetchingAbsence) console.log(absenceRate);
+    if (scouts && !isFetchingScoutsCount) console.log(scouts);
+
     return (
       <>
         <InfoBox
@@ -42,7 +46,7 @@ export default function InfoSection() {
               ? "جاري التحميل"
               : !absenceRate
               ? "لا يوجد بيانات"
-              : absenceRate?.body?.absenceRate + "%"
+              : absenceRate?.body * 100 + "%"
           }
           color="dark"
         />

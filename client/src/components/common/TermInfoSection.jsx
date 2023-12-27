@@ -13,11 +13,15 @@ export default function TermInfoSection() {
   const { data: weeksLeft, isFetching: isFetchingWeeksLeft } =
     useGetRemainingWeeksQuery();
 
-  console.log({
-    termInfo,
-    curWeek,
-    weeksLeft,
-  });
+  if (
+    termInfo &&
+    !isFetchingTerm &&
+    curWeek &&
+    !isFetchingWeek &&
+    weeksLeft &&
+    !isFetchingWeeksLeft
+  )
+    console.log({ termInfo, curWeek, weeksLeft });
 
   return (
     <div
@@ -43,7 +47,11 @@ export default function TermInfoSection() {
           color="dark"
           title="الاسبوع الحالي"
           value={
-            isFetchingWeek ? "جاري التحميل" : !curWeek ? "0" : curWeek?.body
+            isFetchingWeek
+              ? "جاري التحميل"
+              : !curWeek
+              ? "0"
+              : curWeek?.body?.weekNumber
           }
         />
         <InfoBox
@@ -67,7 +75,9 @@ export default function TermInfoSection() {
         }}
         className="row"
       >
-        <Button disabled className="Button--danger">إلغاء الاسبوع</Button>
+        <Button disabled className="Button--danger">
+          إلغاء الاسبوع
+        </Button>
         <Button linkTo="/edit-term" className="Button--dark">
           تعديل الفترة
         </Button>
