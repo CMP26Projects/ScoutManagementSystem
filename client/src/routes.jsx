@@ -22,6 +22,7 @@ import CaptainProfile from "./components/captain-profile/CaptainProfile";
 import InsertTermPage from "./components/insert-term/InsertTermPage";
 import UpdateTermPage from "./components/update-term-page/UpdateTermPage";
 import InsertSector from "./components/insert-sector/InsertSector";
+import AssignCaptainPage from "./components/assign-captain-page/AssignCaptainPage";
 
 function Routes() {
   return (
@@ -36,6 +37,7 @@ function Routes() {
           <Route exact path="/start-new-term" element={<InsertTermPage />} />
           <Route exact path="/edit-term" element={<UpdateTermPage />} />
           <Route exact path="/add-sector" element={<InsertSector />} />
+          <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
         </Route>
 
         {/* Testing Routes */}
