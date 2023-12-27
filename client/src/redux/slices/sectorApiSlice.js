@@ -6,7 +6,7 @@ export const captainsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetSectors: builder.query({
       query: () => ({
-        url: `${SECTOR_URL}/all/`,
+        url: `${SECTOR_URL}/`,
         method: "GET",
       }),
       providesTags: ["Sector"],
@@ -21,19 +21,17 @@ export const captainsApi = apiSlice.injectEndpoints({
     }),
     UpdateSectorUnitCaptain: builder.mutation({
       query: (sector) => ({
-        url: `${SECTOR_URL}/unit/`,
+        url: `${SECTOR_URL}/${sector.baseName}/${sector.suffixName}`,
         method: "PATCH",
         body: sector,
-        query: sector,
       }),
       invalidatesTags: ["Sector"],
     }),
     UpdateSectorRegularCaptain: builder.mutation({
       query: (sector) => ({
-        url: `${SECTOR_URL}/assign/`,
+        url: `${SECTOR_URL}/captain/${sector.baseName}/${sector.suffixName}`,
         method: "PATCH",
         body: sector,
-        query: sector,
       }),
       invalidatesTags: ["Sector"],
     }),
