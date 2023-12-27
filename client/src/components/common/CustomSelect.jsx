@@ -2,18 +2,18 @@ import PropTypes from "prop-types";
 
 //----------------------------------------------------------------
 // Usage:
-// <CustomSelect
-//   name={"select"}
-//   label={"اختر اللغة"}
-//   data={[
-//     { id: 1, name: "العربية" },
-//     { id: 2, name: "English" },
-//   ]}
-//   displayMember={"name"}
-//   valueMember={"id"}
-//   selectedValue={selectedLanguage}
-//   required={true}
-//   onChange={(e) => setSelectedLanguage(e.target.value)}
+{/* <CustomSelect
+  name={"select"}
+  label={"اختر اللغة"}
+  data={[
+    { id: 1, name: "العربية" },
+    { id: 2, name: "English" },
+  ]}
+  displayMember={"name"}
+  valueMember={"id"}
+  selectedValue={selectedLanguage}
+  required={true}
+  onChange={(e) => setSelectedLanguage(e.target.value)} */}
 // />
 //----------------------------------------------------------------
 
