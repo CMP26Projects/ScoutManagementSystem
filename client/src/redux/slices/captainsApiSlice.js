@@ -9,12 +9,14 @@ export const captainsApi = apiSlice.injectEndpoints({
         url: `${CAPTAINS_URL}/`,
         method: "GET",
       }),
+      providesTags: ["Captains"],
     }),
     GetUnitCaptains: builder.query({
       query: () => ({
         url: `${CAPTAINS_URL}/`,
         method: "GET",
       }),
+      providesTags: ["Captains"],
     }),
   }),
 });

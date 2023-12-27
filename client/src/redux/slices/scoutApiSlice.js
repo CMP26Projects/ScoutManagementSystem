@@ -9,6 +9,7 @@ export const scoutsApi = apiSlice.injectEndpoints({
         url: `${SCOUT_URL}/`,
         method: "GET",
       }),
+      providesTags: ["Scouts"]
     }),
     InsertScout: builder.mutation({
       query: () => ({

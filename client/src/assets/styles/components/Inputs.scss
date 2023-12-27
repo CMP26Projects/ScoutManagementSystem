@@ -32,4 +32,8 @@
     line-height: 1rem;
     color: var(--grey-100);
   }
+
+  select {
+    direction: rtl;
+  }
 }

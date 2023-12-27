@@ -12,5 +12,6 @@ sectorRouter.patch(
     //TODO: Check if the captain id is for a unit captain
     sectorController.setUnitCaptain
 )
+sectorRouter.patch('/captain/:baseName/:suffixName', sectorController.assignCaptain)
 
 export default sectorRouter
