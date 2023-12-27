@@ -170,6 +170,39 @@ const sectorController = {
             })
         }
     },
+    assignCaptain: async (req, res) => {
+        try {
+            const { baseName, suffixName } = req.params
+            const { captainId } = req.body
+
+            const result = await db.query(`
+                UPDATE "Captain"
+                SET "rSectorBaseName" = $1, "rSectorSuffixName" = $2
+                WHERE "captainId" = $3
+                RETURNING *
+            `,
+            [baseName, suffixName, captainId])
+
+            if (result.rowCount === 0) {
+                return res.status(400).json({
+                    error: "Error occured while assigning captain"
+                })
+            }
+
+            res.status(200).json({
+                message: "Successful assignment",
+                body: result.rows,
+                count: result.rowCount
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occured while assigning a regular captain to a sector',
+                body: error,
+            })
+        }
+    }
 }
 
 export default sectorController
