@@ -89,14 +89,14 @@ const captainController = {
     getCaptain: async (req, res) => {
         try {
             // Extract the captain ID from the request params
-            const { id } = req.params
+            const { captainId } = req.params
 
             // Query on the database to get that captain info
             const result = await db.query(
                 `SELECT *
                 FROM "Captain"
                 WHERE "captainId" = $1`,
-                [id]
+                [captainId]
             )
 
             // If captain doesn't exist return an error message
@@ -124,10 +124,10 @@ const captainController = {
     // @access  Private
     setCaptainType: async (req, res) => {
         try {
-            const { id } = req.params
+            const { captainId } = req.params
             const { type } = req.body
 
-            if (!id) {
+            if (!captainId) {
                 return res.status(400).json({
                     error: "Please enter a valid id",
                 })
@@ -146,7 +146,7 @@ const captainController = {
                 WHERE "captainId" = $1
                 RETURNING *
             `,
-            [id, type])
+            [captainId, type])
 
             res.status(200).json({
                 message: "Successful update",
