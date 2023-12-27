@@ -31,7 +31,7 @@ function Routes() {
     <Router>
       <Switch>
         <Route element={<PublicLayout />}>
-          <Route exact path="/" element={<UpdateScoutPage />} />
+          <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/signUp" element={<SignUp />} />
           <Route exact path="/logIn" element={<LogIn />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
@@ -41,6 +41,7 @@ function Routes() {
           <Route exact path="/add-sector" element={<InsertSector />} />
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
           <Route exact path="/add-scout" element={<InsertScoutPage />} />
+          <Route exact path="/update-scout" element={<UpdateScoutPage />} />
         </Route>
 
         {/* Testing Routes */}

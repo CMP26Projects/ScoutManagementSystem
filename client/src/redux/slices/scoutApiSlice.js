@@ -9,15 +9,38 @@ export const scoutsApi = apiSlice.injectEndpoints({
         url: `${SCOUT_URL}/`,
         method: "GET",
       }),
-      providesTags: ["Scouts"]
+      providesTags: ["Scouts"],
     }),
     InsertScout: builder.mutation({
-      query: () => ({
+      query: (scout) => ({
         url: `${SCOUT_URL}/`,
         method: "POST",
+        body: scout,
       }),
+      invalidatesTags: ["Scouts"],
+    }),
+    GetScoutsInSector: builder.query({
+      query: (sector) => ({
+        url: `${SCOUT_URL}/sector/${sector.baseName}/${sector.suffixName}`,
+        method: "GET",
+      }),
+      providesTags: ["Scouts"],
+    }),
+
+    UpdateScout: builder.mutation({
+      query: (scout) => ({
+        url: `${SCOUT_URL}/${scout.scoutId}`,
+        method: "PUT",
+        body: scout,
+      }),
+      invalidatesTags: ["Scouts"],
     }),
   }),
 });
 
-export const { useGetAllScoutsCountQuery, useInsertScoutMutation } = scoutsApi;
+export const {
+  useGetAllScoutsCountQuery,
+  useInsertScoutMutation,
+  useGetScoutsInSectorQuery,
+  useUpdateScoutMutation,
+} = scoutsApi;

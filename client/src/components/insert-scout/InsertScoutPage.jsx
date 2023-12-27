@@ -32,23 +32,44 @@ const InsertScoutPage = () => {
     }
   }
 
+  const schoolYears = [
+    { name: "الأول الإبتدائي", value: 1 },
+    { name: "الثاني الإبتدائي", value: 2 },
+    { name: "الثالث الإبتدائي", value: 3 },
+    { name: "الرابع الإبتدائي", value: 4 },
+    { name: "الخامس الإبتدائي", value: 5 },
+    { name: "السادس الإبتدائي", value: 6 },
+    { name: "الأول الإعدادي", value: 7 },
+    { name: "الثاني الإعدادي", value: 8 },
+    { name: "الثالث الإعدادي", value: 9 },
+    { name: "الأول الثانوي", value: 10 },
+    { name: "الثاني الثانوي", value: 11 },
+    { name: "الثالث الثانوي", value: 12 },
+  ];
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newScout = {
       firstName: firstName,
       middleName: middleName,
       lastName: lastName,
-      gender: gender,
-      sectorbaseName: chosenSector.split(" ")[0],
-      sectorSuffixName: chosenSector.split(" ")[1],
+      gender: gender === "ذكر" ? "male" : "female",
+      sectorBaseName: chosenSector.split(" ")[0],
+      sectorSuffixName: chosenSector.split(" ")[1] || "",
+      schoolGrade: studyYear,
+      photo: null,
+      birthCertificate: null,
+      birthDate: birthDate,
+      enrollDate: enrollDate,
     };
 
+    console.log(newScout);
     try {
       const res = await insertScout(newScout).unwrap();
       if (res.status === 400 || res.status === 500)
         throw new Error("Something went wrong while inserting the scout");
       toast.success("تم إنشاء الكشاف بنجاح");
     } catch (err) {
+      console.log();
       toast.error("حدث خطأ أثناء إنشاء الكشاف");
       toast.error(JSON.stringify(err));
     }
@@ -113,7 +134,12 @@ const InsertScoutPage = () => {
             <CustomSelect
               name="sectors"
               label={"اختر القطاع"}
-              data={sectors}
+              data={sectors.map((sector) => {
+                return {
+                  ...sector,
+                  sectorAllName: sector.baseName + " " + sector.suffixName,
+                };
+              })}
               displayMember={"sectorAllName"}
               valueMember={"sectorAllName"}
               selectedValue={chosenSector}
@@ -145,17 +171,16 @@ const InsertScoutPage = () => {
             </div>
           </div>
 
-          <div>
-            <TextInput
-              label="السنة الدراسية"
-              type="text"
-              name="studyYear"
-              placeholder="الأول الإعدادي"
-              value={studyYear}
-              onChange={(e) => setStudyYear(e.target.value)}
-              required={false}
-            />
-          </div>
+          <CustomSelect
+            label="السنة الدراسية"
+            name="studyYear"
+            data={schoolYears}
+            displayMember="name"
+            valueMember="value"
+            selectedValue={studyYear}
+            onChange={(e) => setStudyYear(e.target.value)}
+            required={false}
+          />
           <Button className="insert-sector__btn Button--medium Button--primary-darker">
             إضافة
           </Button>
