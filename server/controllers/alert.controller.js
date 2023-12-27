@@ -57,8 +57,6 @@ const alertController = {
             const { id } = req.params
             const { sectorBaseName, sectorSuffixName } = req.body
 
-            // what if alert is already sent?
-
             let result
 
             result = await db.query(
@@ -83,6 +81,20 @@ const alertController = {
                     [id]
                 )
             } else {
+                // check if sector exist
+                result = await db.query(
+                    `SELECT EXISTS (
+                        (SELECT 1
+                        FROM "Sector"
+                        WHERE "baseName" = $1 AND
+                        "suffixName" = $2)
+                    ) AS exist;`,
+                    [sectorBaseName, sectorSuffixName]
+                )
+                if (!result.rows[0].exist) {
+                    return res.status(404).json({ error: 'Sector not found' })
+                }
+
                 // send alert to all captains in sector
                 result = await db.query(
                     `INSERT INTO "RecieveNotification" ("notificationId", "captainId", "status")
@@ -134,7 +146,7 @@ const alertController = {
 
     getAllAlerts: async (req, res) => {
         try {
-            const { status, contentType } = req.body
+            const { status, contentType } = req.params
             const result = await db.query(
                 `SELECT N.*, R."status"
                 FROM "Notification" AS N, "RecieveNotification" AS R
@@ -144,10 +156,10 @@ const alertController = {
             )
 
             let alerts = result.rows
-            if (status) {
+            if (status !== 'all') {
                 alerts = alerts.filter((alert) => alert.status === status)
             }
-            if (contentType) {
+            if (contentType !== 'all') {
                 alerts = alerts.filter(
                     (alert) => alert.contentType === contentType
                 )

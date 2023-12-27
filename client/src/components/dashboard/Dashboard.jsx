@@ -18,7 +18,7 @@ export default function Dashboard() {
     }
   }, [navigate, userInfo]);
 
-  const titleMsg = `مرحباً يا كاتبن ${userInfo?.firstName} ${userInfo?.middleName}`;
+  const titleMsg = `مرحباً يا كابتن ${userInfo?.firstName} ${userInfo?.middleName}`;
 
   return (
     <div className="dashboard">
