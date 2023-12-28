@@ -1,6 +1,6 @@
 import db from "../database/db.js"
 
-const attendanceController = {
+const scoutAttendanceController = {
     // @desc    Insert a new attendance record for a scout in a certain sector
     // @route   POST /api/attendance/
     // @access  Private
@@ -123,4 +123,4 @@ const attendanceController = {
     }
 }
 
-export default attendanceController;
+export default scoutAttendanceController;
