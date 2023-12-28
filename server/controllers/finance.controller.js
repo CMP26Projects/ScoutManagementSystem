@@ -15,7 +15,7 @@ const financeController = {
 
             // get expense
             result = await db.query(
-                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem"
+                `SELECT COALESCE(SUM("value"), 0) AS sum FROM "FinanceItem"
                 WHERE "type" = 'expense';`
             )
             const expense = result.rows[0].sum
@@ -39,10 +39,10 @@ const financeController = {
     getIncome: async (req, res) => {
         try {
             const result = await db.query(
-                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem"
+                `SELECT * FROM "FinanceItem"
                 WHERE "type" = 'income';`
             )
-            const income = result.rows[0].sum
+            const income = result.rows
 
             res.status(200).json({
                 message: 'Get income successfully',
@@ -62,10 +62,10 @@ const financeController = {
     getExpense: async (req, res) => {
         try {
             const result = await db.query(
-                `SELECT COALESCE(SUM(value), 0) AS sum FROM "FinanceItem"
+                `SELECT * FROM "FinanceItem"
                 WHERE "type" = 'expense';`
             )
-            const expense = result.rows[0].sum
+            const expense = result.rows
 
             res.status(200).json({
                 message: 'Get expense successfully',
@@ -84,31 +84,50 @@ const financeController = {
     // @access  Private
     addSubscription: async (req, res) => {
         try {
-            const { value, sectorBaseName, sectorSuffixName } = req.body
-
-            if (req.currentWeek.weekNumber === 0) {
-                return res.status(400).json({
-                    error: 'No week is currently active',
-                })
-            }
+            const {
+                value,
+                sectorBaseName,
+                sectorSuffixName,
+                termNumber,
+                weekNumber,
+            } = req.body
 
             let result = await db.query(
-                `INSERT INTO "FinanceItem" ("value", "timestamp", "type")
-                VALUES ($1, NOW(), 'income') RETURNING *;`,
-                [value]
+                `SELECT "itemId" AS id
+                FROM "Subscription"
+                WHERE "sectorBaseName" = $1 AND "sectorSuffixName" = $2 AND "termNumber" = $3 AND "weekNumber" = $4;`,
+                [sectorBaseName, sectorSuffixName, termNumber, weekNumber]
             )
+
+            if (!result.rowCount) {
+                result = await db.query(
+                    `INSERT INTO "FinanceItem" ("value", "timestamp", "type")
+                    VALUES ($1, NOW(), 'income') RETURNING *;`,
+                    [value]
+                )
+            } else {
+                result = await db.query(
+                    `UPDATE "FinanceItem"
+                    SET "value"=$1, "timestamp"=NOW()
+                    WHERE "itemId"=$2 RETURNING *;`,
+                    [value, result.rows[0].id]
+                )
+            }
 
             const financeItem = result.rows[0]
 
             result = await db.query(
                 `INSERT INTO "Subscription" ("itemId", "sectorBaseName", "sectorSuffixName", "weekNumber", "termNumber")
-                VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+                VALUES ($1, $2, $3, $4, $5)
+                ON CONFLICT ("itemId") DO UPDATE
+                SET "sectorBaseName" = $2, "sectorSuffixName" = $3, "weekNumber" = $4, "termNumber" = $5
+                RETURNING *;`,
                 [
                     financeItem.itemId,
                     sectorBaseName,
                     sectorSuffixName,
-                    req.currentWeek.weekNumber,
-                    req.currentWeek.termNumber,
+                    weekNumber,
+                    termNumber,
                 ]
             )
 
@@ -122,6 +141,63 @@ const financeController = {
             console.log(error)
             res.status(500).json({
                 error: 'An error occurred while adding subscription',
+            })
+        }
+    },
+
+    // @desc    Get a subscription
+    // @route   GET /api/finance/subscription
+    // @access  Private
+    getSubscription: async (req, res) => {
+        try {
+            const { sectorBaseName, sectorSuffixName, weekNumber, termNumber } =
+                req.query
+
+            const result = await db.query(
+                `SELECT F."value"
+                FROM "Subscription" AS S, "FinanceItem" AS F
+                WHERE S."itemId" = F."itemId" AND
+                "sectorBaseName" = $1 AND "sectorSuffixName" = $2 AND
+                "weekNumber" = $3 AND "termNumber" = $4;`,
+                [sectorBaseName, sectorSuffixName, weekNumber, termNumber]
+            )
+            const subscription = result.rows[0].value
+
+            res.status(200).json({
+                message: 'Get subscription successfully',
+                body: subscription,
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occurred while getting the subscription',
+            })
+        }
+    },
+
+    // @desc    Get all subscriptions of current week
+    // @route   GET /api/finance/subscription/all
+    // @access  Private
+    getAllSubscriptionsOfCurrentWeek: async (req, res) => {
+        try {
+            const result = await db.query(
+                `SELECT COALESCE(SUM(F."value"), 0) AS sum
+                FROM "Subscription" AS S, "FinanceItem" AS F
+                WHERE S."itemId" = F."itemId" AND
+                S."termNumber" = $1 AND
+                S."weekNumber" = $2;`,
+                [req.currentWeek.termNumber, req.currentWeek.weekNumber]
+            )
+            const subscription = result.rows[0].sum
+
+            res.status(200).json({
+                message: 'Get subscription successfully',
+                body: subscription,
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occurred while getting the subscription',
             })
         }
     },

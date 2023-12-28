@@ -144,6 +144,34 @@ const alertController = {
         }
     },
 
+    updateStatus: async (req, res) => {
+        try {
+            const { id } = req.params
+
+            const result = await db.query(
+                `UPDATE "RecieveNotification"
+                SET "status" = 'read'
+                WHERE "notificationId" = $1 AND
+                "captainId" = $2
+                RETURNING *;`,
+                [id, req.captain.captainId]
+            )
+
+            if (!result.rowCount)
+                return res.status(404).json({ error: 'Alert not found' })
+
+            res.status(200).json({
+                message: 'Alert status successfully updated',
+                body: result.rows[0],
+            })
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({
+                error: 'An error occured while updating alert status',
+            })
+        }
+    },
+
     getAllAlerts: async (req, res) => {
         try {
             const { status, contentType } = req.query
@@ -151,7 +179,8 @@ const alertController = {
                 `SELECT N.*, R."status"
                 FROM "Notification" AS N, "RecieveNotification" AS R
                 WHERE N."notificationId" = R."notificationId" AND
-                R."captainId" = $1;`,
+                R."captainId" = $1
+                ORDER BY N."timestamp" DESC;`,
                 [req.captain.captainId]
             )
 

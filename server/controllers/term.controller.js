@@ -127,7 +127,7 @@ const termController = {
     // @desc    Get a week
     // @route   GET /api/term/week
     // @access  Private
-    getWeek: async (req, res) => {
+    getCurrentWeek: async (req, res) => {
         try {
             if (req.currentWeek.weekNumber === 0) {
                 return res.status(400).json({
@@ -142,6 +142,29 @@ const termController = {
             console.log(error)
             res.status(500).json({
                 error: 'An error occurred while getting the week',
+            })
+        }
+    },
+
+    // @desc    Get all weeks in term
+    // @route   GET /api/term/week/all
+    // @access  Private
+    getAllWeeks: async (req, res) => {
+        try {
+            const result = await db.query(
+                `SELECT * FROM "Week"
+                WHERE "termNumber" = $1;`,
+                [req.currentTerm.termNumber]
+            )
+
+            res.status(200).json({
+                message: 'all weeks in current term found successfully',
+                body: result.rows,
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occurred while getting all weeks',
             })
         }
     },
