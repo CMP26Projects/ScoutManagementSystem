@@ -2,6 +2,9 @@ import { useState } from "react";
 import CustomSelect from "../common/CustomSelect";
 import PageTitle from "../common/PageTitle";
 import "./ScoutsAttendance.scss";
+import InfoBox from "../common/InfoBox";
+import TextInput from "../common/Inputs";
+import Button from "../common/Button";
 
 const scoutsDumpyData = [
   {
@@ -138,32 +141,38 @@ export default function ScoutsAttendance() {
       excused: false,
     }))
   );
+  const [subscription, setSubscription] = useState(0);
 
   const handleCheckboxChange = (scoutId, checkboxType) => {
-    setAttendance((prevState) =>
-      prevState.map((scout) => {
-        scout.id === scoutId
+    setAttendance((prevState) => {
+      return prevState.map((scout) => {
+        return scoutId === scout.id
           ? { ...scout, [checkboxType]: !scout[checkboxType] }
           : scout;
-      })
-    );
+      });
+    });
+    console.log(attendance);
   };
 
   return (
-    <div className="scouts-attendance-page container">
+    <form className="scouts-attendance-page container">
       <PageTitle title="تسجيل الغياب" />
 
       <div className="chooseWeek">
         <CustomSelect
           /* TODO: Change checkbox to week  */
           label="تغيير الأسبوع"
-          options={[
+          data={[
             { value: "1", text: "الأسبوع الأول" },
             { value: "2", text: "الأسبوع الثاني" },
           ]}
-          value="1"
+          displayMember="text"
+          valueMember="value"
+          selectedValue={""}
+          onChange={() => {}}
         />
       </div>
+
       <div className="record-attendance">
         <table className="simple-table-for-checkboxes">
           <thead>
@@ -182,22 +191,61 @@ export default function ScoutsAttendance() {
                 <td>
                   <input
                     type="checkbox"
-                    checked={scout.present}
+                    checked={scout?.present}
                     onChange={() => handleCheckboxChange(scout.id, "present")}
+                    disabled={scout?.excused}
                   />
                 </td>
                 <td>
                   <input
                     type="checkbox"
-                    checked={scout.excused}
+                    checked={scout?.excused}
                     onChange={() => handleCheckboxChange(scout.id, "excused")}
+                    disabled={scout?.present}
                   />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div className="info-section attendance-info-section">
+          <InfoBox title="العدد الكلي" value={attendance.length} />
+          <InfoBox
+            title="الحضور"
+            value={attendance.filter((scout) => scout.present).length}
+          />
+          <InfoBox
+            title="نسبة الحضور"
+            value={
+              Math.round(
+                (attendance.filter((scout) => scout.present).length /
+                  attendance.length) *
+                  100
+              ) + "%"
+            }
+          />
+          <InfoBox
+            title="الغياب"
+            value={attendance.filter((scout) => !scout.present).length}
+          />
+        </div>
       </div>
-    </div>
+      <div className="subscription-box">
+        <div className="info-box colorful">
+          <h4>تسجيل الاشتراك</h4>
+          <TextInput
+            label="money"
+            type="number"
+            placeholder="المبلغ المدفوع"
+            value={subscription.toString()}
+            onChange={(e) => setSubscription(e.target.value)}
+          />
+          <p>يرجى ادخال إجمالي الاشتراك الفعلي</p>
+        </div>
+      </div>
+      <Button className="Button--medium Button--success-light" type="submit">
+        تسليم
+      </Button>
+    </form>
   );
 }

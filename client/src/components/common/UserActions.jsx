@@ -173,7 +173,6 @@ export default function UserActions() {
           القطاعات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Record Captain Absence"]}
           className="Button--medium span-2-cols Button--success"
         >
@@ -236,7 +235,6 @@ export default function UserActions() {
           القطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Record Scouts Absence"]}
           className="Button--medium span-2-cols Button--success"
         >

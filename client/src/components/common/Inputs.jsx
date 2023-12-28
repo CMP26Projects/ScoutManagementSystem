@@ -29,7 +29,7 @@ TextInput.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string || PropTypes.number,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
@@ -48,7 +48,7 @@ function RadioInput({ label, name, required, valuesArr, onChange }) {
               onChange={onChange}
               required={required}
             />
-            <span>{value}</span>  
+            <span>{value}</span>
           </div>
         ))}
       </div>
