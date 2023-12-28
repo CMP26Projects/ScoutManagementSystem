@@ -27,7 +27,7 @@ export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [logout, { isLoading, error }] = useLogoutMutation();
+  const [logout, { isLoading }] = useLogoutMutation();
 
   useEffect(() => {
     if (userInfo) {

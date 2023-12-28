@@ -6,6 +6,10 @@ import InfoBox from "../common/InfoBox";
 import TextInput from "../common/Inputs";
 import Button from "../common/Button";
 import { useGetAllWeeksQuery } from "../../redux/slices/termApiSlice";
+import { usersApi } from "../../redux/slices/usersApiSlice";
+import { useSelector } from "react-redux";
+import { useInsertSubscriptionMutation } from "../../redux/slices/financeApiSlice";
+import { toast } from "react-toastify";
 
 const scoutsDumpyData = [
   {
@@ -152,6 +156,19 @@ export default function ScoutsAttendance() {
     isSuccess: isSuccessWeeks,
   } = useGetAllWeeksQuery();
 
+  const [insertSubscription, { isLoading: isLoadingInsertSubscription }] =
+    useInsertSubscriptionMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+  if (!userInfo.rSectorBaseName || !userInfo.rSectorSuffixName) {
+    return (
+      <div className="container">
+        <h2>لا يمكنك تسجيل الغياب</h2>
+        <p>يرجى تعيين القطاع الخاص بك للقيام بذلك</p>
+      </div>
+    );
+  }
+
   if (isSuccessWeeks && !isLoadingWeeks && !isFetchingWeeks) {
     weeks = weeks?.body;
     weeks = weeks.map((week) => ({
@@ -178,8 +195,6 @@ export default function ScoutsAttendance() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(attendance);
-
     const attendanceReqBody = attendance.map((scout) => ({
       ...scout,
       attendanceStatus: scout.present
@@ -193,6 +208,30 @@ export default function ScoutsAttendance() {
     }));
 
     console.log({ attendanceReqBody });
+
+    const subscriptionReqBody = {
+      value: parseInt(subscription),
+      weekNumber: parseInt(chosenWeek),
+      termNumber: weeks.find((week) => week.weekNumber === parseInt(chosenWeek))
+        ?.termNumber,
+      sectorBaseName: userInfo?.rSectorBaseName,
+      sectorSuffixName: userInfo?.rSectorSuffixName,
+    };
+
+    console.log({ subscriptionReqBody });
+
+    try {
+      const res = await insertSubscription(subscriptionReqBody).unwrap();
+      if (res.status === 400 || res.status === 500)
+        throw new Error(
+          "Something went wrong while inserting the subscription"
+        );
+      toast.success("تم تسجيل الاشتراك بنجاح");
+    } catch (err) {
+      toast.error("حدث خطأ أثناء تسجيل الاشتراك");
+      console.log(JSON.stringify(err));
+      toast.error(JSON.stringify(err));
+    }
   };
 
   return (

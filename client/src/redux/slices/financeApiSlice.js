@@ -11,7 +11,15 @@ export const financeApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["finance"],
     }),
+    InsertSubscription: builder.mutation({
+      query: (subscription) => ({
+        url: `${FINANCE_URL}/subscription`,
+        method: "POST",
+        body: subscription,
+      }),
+      invalidatesTags: ["finance"],
+    }),
   }),
 });
 
-export const { useGetBudgetQuery } = financeApi;
+export const { useGetBudgetQuery, useInsertSubscriptionMutation } = financeApi;
