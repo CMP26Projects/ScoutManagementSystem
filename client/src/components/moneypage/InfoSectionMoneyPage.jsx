@@ -1,6 +1,7 @@
 import React from "react";
 import {
   useGetBudgetQuery,
+  useGetCurrentWeekSubscriptionsQuery,
   useGetExpenseQuery,
   useGetIncomeQuery,
 } from "../../redux/slices/financeApiSlice";
@@ -8,61 +9,86 @@ import StatisticTable from "../common/StatisticTable";
 import InfoBox from "../common/InfoBox";
 import "../../assets/styles/components/MoneyInfoSection.scss";
 const InfoSectionMoneyPage = () => {
-  const ItemsColNames = [{ name: "#" }, { name: "الوصف" }, { name: "القيمة" }];
+  const ItemsColNames = [
+    { name: "#" },
+    { name: "الوصف" },
+    { name: "القيمة" },
+    { name: "النوع" },
+  ];
 
   const { data: budget, isFetching: isFetchingBudget } = useGetBudgetQuery();
   const { data: income, isFetching: isFetchingIncome } = useGetIncomeQuery();
   const { data: expense, isFetching: isFetchingExpense } = useGetExpenseQuery();
-
+  const { data: currentWeekSub, isFetching: isFetchingCurrentWeekSub } =
+    useGetCurrentWeekSubscriptionsQuery();
   if (budget && !isFetchingBudget) console.log("budget = ", budget);
-  if (income && !isFetchingIncome) console.log("budget = ", income);
-  if (expense && !isFetchingExpense) console.log("budget = ", expense);
+  let AllItems = [{}];
+
+  let TotalIncome = 0;
+  if (income && !isFetchingIncome) {
+    console.log("income = ", income);
+    income.body.map((item) => {
+      TotalIncome += item.value;
+      AllItems = [
+        ...AllItems,
+        {
+          date: item.timestamp.split("T")[0],
+          description: item.description ? item.description : "اشتراك",
+          value: item.value,
+          type: "دخل",
+        },
+      ];
+    });
+    console.log(AllItems);
+  }
+
+  let TotalExpense = 0;
+  if (expense && !isFetchingExpense) {
+    console.log("expense = ", expense);
+    expense.body.map((item) => {
+      TotalExpense += item.value;
+      AllItems = [
+        ...AllItems,
+
+        {
+          date: item.timestamp.split("T")[0],
+          description: item.description,
+          value: item.value,
+          type: "خصم",
+        },
+      ];
+    });
+
+    console.log(AllItems);
+  }
+
+  if (!isFetchingCurrentWeekSub) console.log("sub = ", currentWeekSub);
 
   return (
     <div className="all-info">
-      <section className="info-section"> 
+      <section className="info-section">
         <InfoBox
           title="محتوى الخزنة"
-          value={
-            isFetchingBudget
-              ? "جاري التحميل"
-              : !budget
-              ? "لا يوجد بيانات"
-              : budget?.body + " جنيه"
-          }
+          value={isFetchingBudget ? "جاري التحميل" : budget?.body + " جنيه"}
           color="purple"
         />
         <InfoBox
           title="اشتراك الاسبوع الحالي"
           value={
-            //   isFetchingAbsence
-            //     ? "جاري التحميل"
-            //     : !absenceRate?
-            "لا يوجد بيانات"
-            // : absenceRate?.body * 100 + "%"
+            isFetchingCurrentWeekSub
+              ? "جاري التحميل"
+              : currentWeekSub?.body + " جنيه"
           }
           color="dark"
         />
         <InfoBox
-          title="أجمالي الأصول"
-          value={
-            isFetchingExpense
-              ? "جاري التحميل"
-              : !expense
-              ? "لا يوجد بيانات"
-              : expense?.body + " جنيه"
-          }
+          title="إجمالي الدخل"
+          value={isFetchingIncome ? "جاري التحميل" : TotalIncome + " جنيه"}
           color="dark"
         />
         <InfoBox
-          title="أجمالي الخصوم"
-          value={
-            isFetchingIncome
-              ? "جاري التحميل"
-              : !income
-              ? "لا يوجد بيانات"
-              : income.body + " جنيه"
-          }
+          title="إجمالي الخصوم"
+          value={isFetchingExpense ? "جاري التحميل" : TotalExpense + " جنيه"}
           color="dark"
         />
       </section>
@@ -71,13 +97,7 @@ const InfoSectionMoneyPage = () => {
         <StatisticTable
           title="البنود"
           columnNames={ItemsColNames}
-          dataRows={[
-            {
-              date: "1/1/2023",
-              description: "أوتاد جديدة",
-              value: "200" + "جنيه",
-            },
-          ]}
+          dataRows={AllItems}
         />
       </section>
     </div>

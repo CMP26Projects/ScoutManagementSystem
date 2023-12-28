@@ -73,7 +73,7 @@ const MoneyPage = () => {
         </Button>
       </form>
 
-      <section className="dashboard__section container">
+      <section>
         <h4 className="section__heading">الماليات</h4>
         <InfoSectionMoneyPage />
       </section>
