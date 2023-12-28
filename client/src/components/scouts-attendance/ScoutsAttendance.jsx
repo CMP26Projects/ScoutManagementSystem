@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomSelect from "../common/CustomSelect";
 import PageTitle from "../common/PageTitle";
 import "./ScoutsAttendance.scss";
@@ -6,10 +6,10 @@ import InfoBox from "../common/InfoBox";
 import TextInput from "../common/Inputs";
 import Button from "../common/Button";
 import { useGetAllWeeksQuery } from "../../redux/slices/termApiSlice";
-import { usersApi } from "../../redux/slices/usersApiSlice";
 import { useSelector } from "react-redux";
 import { useInsertSubscriptionMutation } from "../../redux/slices/financeApiSlice";
 import { toast } from "react-toastify";
+import { useGetSectorAttendanceQuery } from "../../redux/slices/attendanceApiSlice";
 
 const scoutsDumpyData = [
   {
@@ -156,18 +156,10 @@ export default function ScoutsAttendance() {
     isSuccess: isSuccessWeeks,
   } = useGetAllWeeksQuery();
 
+  const { userInfo } = useSelector((state) => state.auth);
+
   const [insertSubscription, { isLoading: isLoadingInsertSubscription }] =
     useInsertSubscriptionMutation();
-
-  const { userInfo } = useSelector((state) => state.auth);
-  if (!userInfo.rSectorBaseName || !userInfo.rSectorSuffixName) {
-    return (
-      <div className="container">
-        <h2>لا يمكنك تسجيل الغياب</h2>
-        <p>يرجى تعيين القطاع الخاص بك للقيام بذلك</p>
-      </div>
-    );
-  }
 
   if (isSuccessWeeks && !isLoadingWeeks && !isFetchingWeeks) {
     weeks = weeks?.body;
@@ -181,6 +173,39 @@ export default function ScoutsAttendance() {
 
     console.log(weeks);
   }
+
+  let {
+    data: scouts,
+    isLoading: isLoadingScouts,
+    isFetching: isFetchingScouts,
+    isSuccess: isSuccessScouts,
+    isError: isErrorScouts,
+    refetch: refetchScouts,
+  } = useGetSectorAttendanceQuery({
+    weekNumber: parseInt(chosenWeek),
+    termNumber: weeks?.find((week) => week.weekNumber === parseInt(chosenWeek))
+      ?.termNumber,
+    baseName: userInfo?.rSectorBaseName,
+    suffixName: userInfo?.rSectorSuffixName,
+  });
+
+  if (isSuccessScouts && !isLoadingScouts && !isFetchingScouts) {
+    scouts = scouts?.body;
+    scouts = scouts.map((scout) => ({
+      ...scout,
+      present: scout?.attendanceStatus === "present",
+      excused: scout?.attendanceStatus === "excused",
+      id: scout.scoutId,
+      name: scout.firstName + " " + scout.middleName + " " + scout.lastName
+    }));
+    console.log({ scouts });
+  }
+
+  useEffect(() => {
+    if (scouts) {
+      setAttendance(scouts);
+    }
+  }, [isSuccessScouts]);
 
   const handleCheckboxChange = (scoutId, checkboxType) => {
     setAttendance((prevState) => {
@@ -234,6 +259,15 @@ export default function ScoutsAttendance() {
     }
   };
 
+  if (!userInfo?.rSectorBaseName || !userInfo?.rSectorSuffixName) {
+    return (
+      <div className="container">
+        <h2>لا يمكنك تسجيل الغياب</h2>
+        <p>يرجى تعيين القطاع الخاص بك للقيام بذلك</p>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className="scouts-attendance-page container">
       <PageTitle title="تسجيل الغياب" />
@@ -247,6 +281,7 @@ export default function ScoutsAttendance() {
           selectedValue={chosenWeek}
           onChange={(e) => {
             setChosenWeek(e.target.value);
+            refetchScouts();
           }}
           required={true}
         />
@@ -327,6 +362,15 @@ export default function ScoutsAttendance() {
       <Button className="Button--medium Button--success-light" type="submit">
         تسليم
       </Button>
+      {isLoadingInsertSubscription && (
+        <p
+          style={{
+            direction: "rtl",
+          }}
+        >
+          جاري التحميل
+        </p>
+      )}
     </form>
   );
 }
