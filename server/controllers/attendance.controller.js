@@ -4,57 +4,48 @@ const attendanceController = {
     // @desc    Insert a new attendance record for a scout in a certain sector
     // @route   POST /api/attendance/
     // @access  Private
-    insertAttendance: async (req, res) => {
+    upsertAttendance: async (req, res) => {
         try {
-            const { scoutId, weekNumber, termNumber, attendanceStatus } = req.body
+            const { attendanceRecords } = req.body
 
-            // Get the scout info to check if the provided scout id exists or not
-            const scoutInfo = await db.query(`
-                SELECT * 
-                FROM "Scout" 
-                WHERE "scoutId" = $1;
-            `,
-            [scoutId]
-            )
-
-            if (scoutInfo.rowCount === 0) {
+            if (attendanceRecords === 0) {
                 return res.status(404).json({
-                    error: "No scout exist with this id"
+                    error: "No records were found"
                 })
             }
-
-            // Get the week info to check if the provided week & term numbers exist or not
-            const weekInfo = await db.query(`
-                SELECT *
-                FROM "Week"
-                WHERE "weekNumber" = $1 AND "termNumber" = $2;
-            `,
-            [weekNumber, termNumber])
-
-            if (weekInfo.rowCount === 0) {
-                return res.status(404).json({
-                    error: "Please enter an existing weekNumber & termNumber"
-                })
+            let result = [];
+            if (!attendanceRecords[0].attendanceStatus) //insert
+            {
+                for (let i = 0; i < attendanceRecords.length; i++) {
+                    result.push(
+                        await db.query(`
+                            INSERT INTO attendanceStatus VALUES ($1, $2, $3, $4)
+                            RETURNING *;
+                        `,
+                        [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
+                        )
+                    );
+                }
             }
-
-            // Insert a new attendance record into the database
-            const result = await db.query(`
-                INSERT INTO "ScoutAttendance" VALUES ($1, $2, $3, $4) RETURNING *;
-            `,
-            [scoutId, weekNumber, termNumber, attendanceStatus])
-
-            // If insertion failed return an error
-            if (result.rowCount === 0) {
-                return res.status(500).json({
-                    error: "Insertion failed"
-                })
+            else {      //update
+                for (let i = 0; i < attendanceRecords.length; i++) {
+                    result.push(
+                        await db.query(`
+                            UPDATE attendanceStatus SET "attendanceStatus" = $4
+                            WHERE "scoutId" = $1 AND "weekNumber" = $2 AND "termNumber" = $3
+                            RETURNING *;
+                        `,
+                        [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
+                        )
+                    );
+                }
             }
 
             // Return a success message
             res.status(200).json({
                 message: "Successful insertion",
-                body: result.rows,
-                count: result.rowCount,
+                body: result,
+                count: result.length,
             })
 
         } catch (error) {
