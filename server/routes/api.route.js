@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import authMiddleware from '../middlewares/auth.middleware.js'
+import checkRankMiddleware from '../middlewares/checkRank.middleware.js'
 import authRouter from './auth.route.js'
 import statsRouter from './stats.route.js'
 import financeRouter from './finance.route.js'
@@ -12,7 +13,12 @@ const apiRouter = Router()
 
 apiRouter.use('/auth', authRouter)
 apiRouter.use('/stats', authMiddleware, statsRouter)
-apiRouter.use('/finance', authMiddleware, financeRouter)
+apiRouter.use(
+    '/finance',
+    authMiddleware,
+    checkRankMiddleware('general'),
+    financeRouter
+)
 apiRouter.use('/term', authMiddleware, termRouter)
 apiRouter.use('/captain', authMiddleware, captainRouter)
 apiRouter.use('/alert', authMiddleware, alertRouter)

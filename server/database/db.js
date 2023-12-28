@@ -1,5 +1,6 @@
 import pg from 'pg'
 import dotenv from 'dotenv'
+import newWeekScheduler from './scheduler.js'
 
 dotenv.config()
 
@@ -22,5 +23,7 @@ if (process.env.DB === 'online') {
 }
 
 const db = _db
+
+newWeekScheduler.start()
 
 export default db
