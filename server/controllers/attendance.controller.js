@@ -74,11 +74,10 @@ const attendanceController = {
             const { baseName, suffixName, weekNumber, termNumber } = req.query
 
             const result = await db.query(`
-                SELECT "ScoutAttendance".*
-                FROM "Scout", "ScoutAttendance"
-                WHERE "Scout"."sectorBaseName" = $1 AND "Scout"."sectorSuffixName" = $2
+                SELECT "Scout".*, "ScoutAttendance".* FROM "Scout" LEFT JOIN "ScoutAttendance" ON "Scout"."scoutId" = "ScoutAttendance"."scoutId"
                 AND "ScoutAttendance"."weekNumber" = $3 AND "ScoutAttendance"."termNumber" = $4
-                AND "ScoutAttendance"."scoutId" = "Scout"."scoutId";
+                INNER JOIN "Sector" ON "Sector"."baseName" = "Scout"."sectorBaseName" AND "Sector"."suffixName" = "Scout"."sectorSuffixName"
+                WHERE "Sector"."baseName" = $1 AND "Sector"."suffixName" = $2;
             `,
             [baseName, suffixName, weekNumber, termNumber])
 
