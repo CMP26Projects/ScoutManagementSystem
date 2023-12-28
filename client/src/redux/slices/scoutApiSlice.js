@@ -21,8 +21,9 @@ export const scoutsApi = apiSlice.injectEndpoints({
     }),
     GetScoutsInSector: builder.query({
       query: (sector) => ({
-        url: `${SCOUT_URL}/sector/${sector.baseName}/${sector.suffixName}`,
+        url: `${SCOUT_URL}/sector/all`,
         method: "GET",
+        params: sector,
       }),
       providesTags: ["Scouts"],
     }),

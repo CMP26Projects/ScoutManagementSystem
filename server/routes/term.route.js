@@ -18,7 +18,12 @@ termRouter.post(
 termRouter.patch('/', checkRankMiddleware('general'), termController.updateTerm)
 
 // Week routes
-termRouter.get('/week', getCurrentWeekMiddleware, termController.getWeek)
+termRouter.get(
+    '/week/all',
+    getCurrentTermMiddleware,
+    termController.getAllWeeks
+)
+termRouter.get('/week', getCurrentWeekMiddleware, termController.getCurrentWeek)
 termRouter.patch(
     '/week',
     checkRankMiddleware('general'),
