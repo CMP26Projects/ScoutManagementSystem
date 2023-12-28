@@ -5,6 +5,7 @@ import "./ScoutsAttendance.scss";
 import InfoBox from "../common/InfoBox";
 import TextInput from "../common/Inputs";
 import Button from "../common/Button";
+import { useGetAllWeeksQuery } from "../../redux/slices/termApiSlice";
 
 const scoutsDumpyData = [
   {
@@ -142,6 +143,27 @@ export default function ScoutsAttendance() {
     }))
   );
   const [subscription, setSubscription] = useState(0);
+  const [chosenWeek, setChosenWeek] = useState("");
+
+  let {
+    data: weeks,
+    isLoading: isLoadingWeeks,
+    isFetching: isFetchingWeeks,
+    isSuccess: isSuccessWeeks,
+  } = useGetAllWeeksQuery();
+
+  if (isSuccessWeeks && !isLoadingWeeks && !isFetchingWeeks) {
+    weeks = weeks?.body;
+    weeks = weeks.map((week) => ({
+      ...week,
+      display:
+        week?.weekNumber +
+        " - " +
+        new Date(week?.startDate).toLocaleDateString(),
+    }));
+
+    console.log(weeks);
+  }
 
   const handleCheckboxChange = (scoutId, checkboxType) => {
     setAttendance((prevState) => {
@@ -151,11 +173,26 @@ export default function ScoutsAttendance() {
           : scout;
       });
     });
-    console.log(attendance);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(attendance);
+
+    const attendanceReqBody = attendance.map((scout) => ({
+      ...scout,
+      attendanceStatus: scout.present
+        ? "present"
+        : scout.excused
+        ? "excused"
+        : "absent",
+      weekNumber: parseInt(chosenWeek),
+      termNumber: weeks.find((week) => week.weekNumber === parseInt(chosenWeek))
+        ?.termNumber,
+    }));
+
+    console.log({ attendanceReqBody });
   };
 
   return (
@@ -164,17 +201,17 @@ export default function ScoutsAttendance() {
 
       <div className="choose-week">
         <CustomSelect
-          /* TODO: Change checkbox to week  */
           label="تغيير الأسبوع"
-          data={[
-            { value: "1", text: "الأسبوع الأول" },
-            { value: "2", text: "الأسبوع الثاني" },
-          ]}
-          displayMember="text"
-          valueMember="value"
-          // selectedValue={""}
-          // onChange={() => {}}
+          data={weeks ? weeks : []}
+          displayMember="display"
+          valueMember="weekNumber"
+          selectedValue={chosenWeek}
+          onChange={(e) => {
+            setChosenWeek(e.target.value);
+          }}
+          required={true}
         />
+        {isLoadingWeeks && <p>جاري التحميل...</p>}
       </div>
 
       <div className="record-attendance">
@@ -243,6 +280,7 @@ export default function ScoutsAttendance() {
             placeholder="المبلغ المدفوع"
             value={subscription.toString()}
             onChange={(e) => setSubscription(e.target.value)}
+            required={true}
           />
           <p>يرجى ادخال إجمالي الاشتراك الفعلي</p>
         </div>
