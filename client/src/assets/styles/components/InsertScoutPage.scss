@@ -1,0 +1,32 @@
+.add-scout-page {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+
+    .add-new-scout {
+        padding-right: 20px;
+
+    }
+
+    .add-scout-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 20px;
+        width: 95%;
+    }
+
+    .horizontally-aligned {
+        display: flex;
+        flex-direction: row;
+
+        justify-content: space-between;
+        padding-top: 20px;
+
+    }
+
+    .form-card {
+        width: 45%;
+    }
+}

@@ -23,6 +23,8 @@ import InsertTermPage from "./components/insert-term/InsertTermPage";
 import UpdateTermPage from "./components/update-term-page/UpdateTermPage";
 import InsertSector from "./components/insert-sector/InsertSector";
 import AssignCaptainPage from "./components/assign-captain-page/AssignCaptainPage";
+import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
+import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
 
 function Routes() {
   return (
@@ -38,6 +40,8 @@ function Routes() {
           <Route exact path="/edit-term" element={<UpdateTermPage />} />
           <Route exact path="/add-sector" element={<InsertSector />} />
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
+          <Route exact path="/add-scout" element={<InsertScoutPage />} />
+          <Route exact path="/update-scout" element={<UpdateScoutPage />} />
         </Route>
 
         {/* Testing Routes */}
