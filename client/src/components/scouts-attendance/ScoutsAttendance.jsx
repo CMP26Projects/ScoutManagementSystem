@@ -154,11 +154,15 @@ export default function ScoutsAttendance() {
     console.log(attendance);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="scouts-attendance-page container">
+    <form onSubmit={handleSubmit} className="scouts-attendance-page container">
       <PageTitle title="تسجيل الغياب" />
 
-      <div className="chooseWeek">
+      <div className="choose-week">
         <CustomSelect
           /* TODO: Change checkbox to week  */
           label="تغيير الأسبوع"
@@ -168,8 +172,8 @@ export default function ScoutsAttendance() {
           ]}
           displayMember="text"
           valueMember="value"
-          selectedValue={""}
-          onChange={() => {}}
+          // selectedValue={""}
+          // onChange={() => {}}
         />
       </div>
 
@@ -177,18 +181,18 @@ export default function ScoutsAttendance() {
         <table className="simple-table-for-checkboxes">
           <thead>
             <tr>
-              <th>#</th>
+              <th className="num-col">#</th>
               <th>الاسم</th>
-              <th>حاضر</th>
-              <th>معتذر</th>
+              <th className="check-col">حاضر</th>
+              <th className="check-col">معتذر</th>
             </tr>
           </thead>
           <tbody>
             {attendance.map((scout) => (
               <tr key={scout.id}>
-                <td>{scout.id}</td>
+                <td className="num-col">{scout.id}</td>
                 <td>{scout.name}</td>
-                <td>
+                <td className="check-col">
                   <input
                     type="checkbox"
                     checked={scout?.present}
@@ -196,7 +200,7 @@ export default function ScoutsAttendance() {
                     disabled={scout?.excused}
                   />
                 </td>
-                <td>
+                <td className="check-col">
                   <input
                     type="checkbox"
                     checked={scout?.excused}
@@ -234,7 +238,7 @@ export default function ScoutsAttendance() {
         <div className="info-box colorful">
           <h4>تسجيل الاشتراك</h4>
           <TextInput
-            label="money"
+            label=""
             type="number"
             placeholder="المبلغ المدفوع"
             value={subscription.toString()}
