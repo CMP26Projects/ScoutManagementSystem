@@ -9,6 +9,7 @@ export const statsApi = apiSlice.injectEndpoints({
         url: `${STATS_URL}/scouts`,
         method: "GET",
       }),
+      providesTags: ["Stats", "absence"],
     }),
   }),
 });

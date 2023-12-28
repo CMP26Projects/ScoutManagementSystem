@@ -20,3 +20,21 @@ a {
   color: var(--text-color);
   text-decoration: none;
 }
+
+textarea {
+  width: 90%;
+  height: 10rem;
+
+  border-radius: 4px;
+  border: 1px solid var(--grey-600, #4B5563);
+  background-color: var(--grey-700, #374151);
+
+  direction: rtl;
+
+  color: var(--grey-100, #9CA3AF);
+  padding: 10px 10px;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+}

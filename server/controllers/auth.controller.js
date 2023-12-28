@@ -24,7 +24,7 @@ const authController = {
                 `SELECT "email", "password"
                 FROM "Captain" 
                 WHERE "email" = $1;`,
-                [email]
+                [email.toLowerCase()]
             )
             if (captain.rows.length) {
                 return res.status(400).json({ error: 'Email is taken!!' })
@@ -42,7 +42,7 @@ const authController = {
                     middleName,
                     lastName,
                     phoneNumber,
-                    email,
+                    email.toLowerCase(),
                     hashedPassword,
                     gender,
                     'regular',
@@ -79,7 +79,7 @@ const authController = {
                 `SELECT *
                 FROM "Captain" 
                 WHERE "email" = $1;`,
-                [email]
+                [email.toLowerCase()]
             )
             if (!result.rows.length) {
                 return res.status(400).json({

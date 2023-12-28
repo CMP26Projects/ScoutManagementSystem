@@ -1,5 +1,6 @@
 .landing_page {
   --icon-size: 32px;
+  direction: rtl;
 
   .hero {
     padding-block: 60px;
@@ -24,7 +25,7 @@
       justify-content: center;
       gap: 20px;
 
-      >* {
+      > * {
         min-width: 70%;
       }
     }
@@ -59,7 +60,7 @@
       .icon {
         color: var(--primary-100);
 
-        >* {
+        > * {
           width: var(--icon-size);
           height: var(--icon-size);
         }

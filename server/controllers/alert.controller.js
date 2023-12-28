@@ -174,7 +174,7 @@ const alertController = {
 
     getAllAlerts: async (req, res) => {
         try {
-            const { status, contentType } = req.params
+            const { status, contentType } = req.query
             const result = await db.query(
                 `SELECT N.*, R."status"
                 FROM "Notification" AS N, "RecieveNotification" AS R

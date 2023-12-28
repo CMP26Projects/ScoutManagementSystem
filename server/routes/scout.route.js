@@ -4,12 +4,12 @@ import scoutController from '../controllers/scout.controller.js'
 const scoutRouter = Router()
 
 scoutRouter.post('/', scoutController.insertScout)
-scoutRouter.get('/:id', scoutController.getScout)
-scoutRouter.put('/:id', scoutController.updateScout)
+scoutRouter.get('/:scoutId', scoutController.getScout)
+scoutRouter.put('/:scoutId', scoutController.updateScout)
 scoutRouter.get('/', scoutController.getAllScouts)
 scoutRouter.get('/unit/:unitCaptainId', scoutController.getScoutsInUnit)
 scoutRouter.get(
-    '/sector/:baseName/:suffixName',
+    '/sector/all',
     scoutController.getScoutsInSector
 )
 

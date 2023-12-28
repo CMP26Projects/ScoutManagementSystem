@@ -48,7 +48,7 @@ function RadioInput({ label, name, required, valuesArr, onChange }) {
               onChange={onChange}
               required={required}
             />
-            <span>{value}</span>
+            <span>{value}</span>  
           </div>
         ))}
       </div>
