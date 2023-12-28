@@ -41,13 +41,13 @@ export default function Nav() {
     try {
       await logout().unwrap();
       toast.dark("تم تسجيل الخروج بنجاح");
-      dispatch(clearCredentials());
       navigate("/");
     } catch (err) {
       toast.dark("حدث خطأ ما");
       toast.error(err?.data?.message || err.error || JSON.stringify(err));
       console.error(err);
     }
+    dispatch(clearCredentials());
   };
 
   return (
