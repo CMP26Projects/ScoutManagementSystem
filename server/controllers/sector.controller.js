@@ -102,11 +102,11 @@ const sectorController = {
     // @access  Private
     setUnitCaptain: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.query
-            const { unitCaptainId } = req.body
+            const { baseName, suffixName } = req.query;
+            const { unitCaptainId } = req.body;
 
             if (!unitCaptainId) {
-                res.status(400).json({
+                return res.status(400).json({
                     error: 'Please enter valid ids',
                 })
             }
