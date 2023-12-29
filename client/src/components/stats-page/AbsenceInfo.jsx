@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import { useGetSectorsQuery } from "../../redux/slices/sectorApiSlice";
 import CustomSelect from "../common/CustomSelect";
+import { useGetGraphDataQuery } from "../../redux/slices/statsApiSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -49,6 +50,25 @@ export default function AbsenceInfo() {
   if (isSuccessSectors) {
     console.log({ sectors: sectors?.body });
     sectors = sectors?.body;
+  }
+
+  const {
+    data: absenceData,
+    isFetching: isFetchingAbsenceData,
+    isSuccess: isSuccessAbsenceData,
+  } = useGetGraphDataQuery(chosenSectorFullName);
+
+  let dataArr = [];
+
+  if (isSuccessAbsenceData) {
+    console.log({ absenceData: absenceData?.body });
+
+    dataArr = absenceData?.body?.map((item) => {
+      return item?.absenceRate ? item?.absenceRate * 100 : 0;
+    });
+
+    console.log({ dataArr });
+    data.datasets[0].data = dataArr;
   }
 
   return (

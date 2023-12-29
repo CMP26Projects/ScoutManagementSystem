@@ -11,7 +11,14 @@ export const statsApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Stats", "absence"],
     }),
+    GetGraphData: builder.query({
+      query: () => ({
+        url: `${STATS_URL}/scouts/graph`,
+        method: "GET",
+      }),
+      providesTags: ["Stats"],
+    }),
   }),
 });
 
-export const { useGetAbsenceRateQuery } = statsApi;
+export const { useGetAbsenceRateQuery, useGetGraphDataQuery } = statsApi;

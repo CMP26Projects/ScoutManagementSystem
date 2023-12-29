@@ -1,5 +1,5 @@
 import PageTitle from "../common/PageTitle";
-import ActivityCard from "../common/activityCard";
+import ActivityCard from "../common/ActivityCard";
 import Button from "../common/Button";
 
 import "./ActivityPage.scss";
