@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import CustomSelect from "../common/CustomSelect";
 import PageTitle from "../common/PageTitle";
-import "./ScoutsAttendance.scss";
+import "../scouts-attendance/ScoutsAttendance.scss";
 import InfoBox from "../common/InfoBox";
-import TextInput from "../common/Inputs";
 import Button from "../common/Button";
 import { useGetAllWeeksQuery } from "../../redux/slices/termApiSlice";
 import { useSelector } from "react-redux";
-import { useInsertSubscriptionMutation } from "../../redux/slices/financeApiSlice";
 import { toast } from "react-toastify";
 import {
-  useGetSectorAttendanceQuery,
-  useUpsertSectorAttendanceMutation,
+  useGetUnitAttendanceQuery,
+  useUpsertUnitAttendanceMutation,
 } from "../../redux/slices/attendanceApiSlice";
 
-export default function ScoutsAttendance() {
+export default function CaptainsAttendance() {
   const [attendance, setAttendance] = useState([]);
-  const [subscription, setSubscription] = useState(0);
   const [chosenWeek, setChosenWeek] = useState("");
 
   let {
@@ -28,10 +25,8 @@ export default function ScoutsAttendance() {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [insertSubscription, { isLoading: isLoadingInsertSubscription }] =
-    useInsertSubscriptionMutation();
   const [upsertAttendance, { isLoading: isLoadingUpsertAttendance }] =
-    useUpsertSectorAttendanceMutation();
+    useUpsertUnitAttendanceMutation();
 
   if (isSuccessWeeks && !isLoadingWeeks && !isFetchingWeeks) {
     weeks = weeks?.body;
@@ -52,7 +47,7 @@ export default function ScoutsAttendance() {
     isFetching: isFetchingScouts,
     isSuccess: isSuccessScouts,
     refetch: refetchScouts,
-  } = useGetSectorAttendanceQuery({
+  } = useGetUnitAttendanceQuery({
     weekNumber: parseInt(chosenWeek),
     termNumber: weeks?.find((week) => week.weekNumber === parseInt(chosenWeek))
       ?.termNumber,
@@ -107,29 +102,6 @@ export default function ScoutsAttendance() {
 
     console.log({ attendanceReqBody });
 
-    const subscriptionReqBody = {
-      value: parseInt(subscription),
-      weekNumber: parseInt(chosenWeek),
-      termNumber: weeks.find((week) => week.weekNumber === parseInt(chosenWeek))
-        ?.termNumber,
-      sectorBaseName: userInfo?.rSectorBaseName,
-      sectorSuffixName: userInfo?.rSectorSuffixName,
-    };
-
-    console.log({ subscriptionReqBody });
-
-    try {
-      const res = await insertSubscription(subscriptionReqBody).unwrap();
-      if (res.status === 400 || res.status === 500)
-        throw new Error(
-          "Something went wrong while inserting the subscription"
-        );
-      toast.success("تم تسجيل الاشتراك بنجاح");
-    } catch (err) {
-      toast.error("حدث خطأ أثناء تسجيل الاشتراك");
-      console.log(JSON.stringify(err));
-      toast.error(JSON.stringify(err));
-    }
     try {
       const res = await upsertAttendance({
         attendanceRecords: attendanceReqBody,
@@ -145,14 +117,14 @@ export default function ScoutsAttendance() {
     }
   };
 
-  if (!userInfo?.rSectorBaseName || !userInfo?.rSectorSuffixName) {
-    return (
-      <div className="container">
-        <h2>لا يمكنك تسجيل الغياب</h2>
-        <p>يرجى تعيين القطاع الخاص بك للقيام بذلك</p>
-      </div>
-    );
-  }
+  // if (!userInfo?.rSectorBaseName || !userInfo?.rSectorSuffixName) {
+  //   return (
+  //     <div className="container">
+  //       <h2>لا يمكنك تسجيل الغياب</h2>
+  //       <p>يرجى تعيين القطاع الخاص بك للقيام بذلك</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <form onSubmit={handleSubmit} className="scouts-attendance-page container">
@@ -234,24 +206,11 @@ export default function ScoutsAttendance() {
           />
         </div>
       </div>
-      <div className="subscription-box">
-        <div className="info-box colorful">
-          <h4>تسجيل الاشتراك</h4>
-          <TextInput
-            label=""
-            type="number"
-            placeholder="المبلغ المدفوع"
-            value={subscription.toString()}
-            onChange={(e) => setSubscription(e.target.value)}
-            required={true}
-          />
-          <p>يرجى ادخال إجمالي الاشتراك الفعلي</p>
-        </div>
-      </div>
+
       <Button className="Button--medium Button--success-light" type="submit">
         تسليم
       </Button>
-      {(isLoadingInsertSubscription || isLoadingUpsertAttendance) && (
+      {isLoadingUpsertAttendance && (
         <p
           style={{
             direction: "rtl",

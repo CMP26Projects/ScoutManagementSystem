@@ -15,7 +15,7 @@ const ActionRoutes = {
   Sessions: "/sessions",
   "Start New Term": "/start-new-term",
   Sectors: "/sectors",
-  "Record Captain Absence": "/record-captain-absence",
+  "Record Captain Absence": "/record-captains-absence",
   "Record Scouts Absence": "/record-scouts-absence",
   Scores: "/scores",
   Sector: "/sector",

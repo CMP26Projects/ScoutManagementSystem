@@ -26,8 +26,9 @@ import AssignCaptainPage from "./components/assign-captain-page/AssignCaptainPag
 import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
 import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
 import ScoutsAttendance from "./components/scouts-attendance/ScoutsAttendance";
-
 import MoneyPage from "./components/moneypage/MoneyPage";
+import CaptainsAttendance from "./components/captains-attendance/CaptainAttendance";
+
 function Routes() {
   return (
     <Router>
@@ -44,7 +45,16 @@ function Routes() {
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
           <Route exact path="/add-scout" element={<InsertScoutPage />} />
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
-          <Route exact path="/record-scouts-absence" element={<ScoutsAttendance />} />
+          <Route
+            exact
+            path="/record-scouts-absence"
+            element={<ScoutsAttendance />}
+          />
+          <Route
+            exact
+            path="/record-captains-absence"
+            element={<CaptainsAttendance />}
+          />
           <Route exact path="/finance" element={<MoneyPage />} />
         </Route>
 

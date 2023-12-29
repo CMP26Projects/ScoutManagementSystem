@@ -20,10 +20,28 @@ export const attendanceApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Attendance"],
     }),
+    GetUnitAttendance: builder.query({
+      query: (unit) => ({
+        url: `${ATTENDANCE_URL}/captainAttendance/sector/all`,
+        method: "GET",
+        params: unit,
+      }),
+      providesTags: ["Attendance"],
+    }),
+    UpsertUnitAttendance: builder.mutation({
+      query: (attendance) => ({
+        url: `${ATTENDANCE_URL}/captainAttendance/`,
+        method: "POST",
+        body: attendance,
+      }),
+      invalidatesTags: ["Attendance"],
+    }),
   }),
 });
 
 export const {
   useGetSectorAttendanceQuery,
   useUpsertSectorAttendanceMutation,
+  useGetUnitAttendanceQuery,
+  useUpsertUnitAttendanceMutation,
 } = attendanceApi;
