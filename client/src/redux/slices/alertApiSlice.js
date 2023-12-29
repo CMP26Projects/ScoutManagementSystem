@@ -5,10 +5,10 @@ const ALERT_URL = '/api/alert'
 export const alertApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         GetAllAlerts: builder.query({
-            query: (status, contentType) => ({
+            query: (item) => ({
                 url: `${ALERT_URL}/all`,
                 method: 'GET',
-                params: { status: status, contentType: contentType },
+                params: item,
             }),
             providesTags: ['alert'],
         }),
