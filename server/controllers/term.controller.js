@@ -179,6 +179,7 @@ const termController = {
                     error: 'There is no weeks or terms in the system to be cancelled',
                 })
             }
+
             const result = await db.query(
                 `UPDATE "Week" SET "cancelled" = true
                 WHERE "termNumber" = $1 AND "weekNumber" = $2
