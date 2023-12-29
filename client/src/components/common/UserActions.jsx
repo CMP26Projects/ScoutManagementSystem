@@ -105,7 +105,6 @@ export default function UserActions() {
     return (
       <>
         <Button
-          disabled
           linkTo={ActionRoutes["Assign Sector Leader"]}
           className="Button--medium Button--primary-darker"
         >
@@ -119,7 +118,6 @@ export default function UserActions() {
           الاحصائيات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Send Notification"]}
           className="Button--medium Button--regular"
         >
