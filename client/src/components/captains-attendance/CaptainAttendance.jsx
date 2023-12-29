@@ -80,10 +80,10 @@ export default function CaptainsAttendance() {
   }
 
   useEffect(() => {
-    if (scouts) {
+    if (isSuccessScouts && !isLoadingScouts && !isFetchingScouts && scouts) {
       setAttendance(scouts);
     }
-  }, [isSuccessScouts]);
+  }, [isSuccessScouts, isLoadingScouts, isFetchingScouts, chosenWeek]);
 
   const handleCheckboxChange = (scoutId, checkboxType) => {
     setAttendance((prevState) => {
