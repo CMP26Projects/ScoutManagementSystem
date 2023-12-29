@@ -73,10 +73,10 @@ export default function ScoutsAttendance() {
   }
 
   useEffect(() => {
-    if (scouts) {
+    if (isSuccessScouts && !isLoadingScouts && !isFetchingScouts && scouts) {
       setAttendance(scouts);
     }
-  }, [isSuccessScouts]);
+  }, [isSuccessScouts, isLoadingScouts, isFetchingScouts, chosenWeek]);
 
   const handleCheckboxChange = (scoutId, checkboxType) => {
     setAttendance((prevState) => {
@@ -217,7 +217,7 @@ export default function ScoutsAttendance() {
           <InfoBox title="العدد الكلي" value={attendance.length} />
           <InfoBox
             title="الحضور"
-            value={attendance && isFetchingWeeks && isFetchingScouts  && attendance?.filter((scout) => scout.present)?.length}
+            value={attendance && !isFetchingWeeks && !isFetchingScouts  && attendance?.filter((scout) => scout.present)?.length}
           />
           <InfoBox
             title="نسبة الحضور"
