@@ -47,13 +47,25 @@ export default function CaptainsAttendance() {
     isFetching: isFetchingScouts,
     isSuccess: isSuccessScouts,
     refetch: refetchScouts,
+    isError: isErrorScouts,
+    error: errorScouts,
   } = useGetUnitAttendanceQuery({
+    unitCaptainId: userInfo?.captainId,
     weekNumber: parseInt(chosenWeek),
     termNumber: weeks?.find((week) => week.weekNumber === parseInt(chosenWeek))
       ?.termNumber,
-    baseName: userInfo?.rSectorBaseName,
-    suffixName: userInfo?.rSectorSuffixName,
   });
+
+  if (isErrorScouts) {
+    console.log({ errorScouts });
+    console.log({
+      unitCaptainId: userInfo.captainId,
+      weekNumber: parseInt(chosenWeek),
+      termNumber: weeks?.find(
+        (week) => week.weekNumber === parseInt(chosenWeek)
+      )?.termNumber,
+    });
+  }
 
   if (isSuccessScouts && !isLoadingScouts && !isFetchingScouts) {
     scouts = scouts?.body;
@@ -64,7 +76,7 @@ export default function CaptainsAttendance() {
       id: scout.scoutId,
       name: scout.firstName + " " + scout.middleName + " " + scout.lastName,
     }));
-    // console.log({ scouts });
+    console.log({ captains: scouts });
   }
 
   useEffect(() => {
@@ -76,7 +88,7 @@ export default function CaptainsAttendance() {
   const handleCheckboxChange = (scoutId, checkboxType) => {
     setAttendance((prevState) => {
       return prevState.map((scout) => {
-        return scoutId === scout.id
+        return scoutId === scout.captainId
           ? { ...scout, [checkboxType]: !scout[checkboxType] }
           : scout;
       });
@@ -106,8 +118,8 @@ export default function CaptainsAttendance() {
       const res = await upsertAttendance({
         attendanceRecords: attendanceReqBody,
       }).unwrap();
-      // if (!res.ok)
-      // throw new Error("Something went wrong while inserting attendance");
+      if (res.status === 400 || res.status === 500)
+        throw new Error("Something went wrong while inserting attendance");
       toast.success("تم تسجيل الغياب بنجاح");
       console.log(res.body);
     } catch (err) {
@@ -157,15 +169,17 @@ export default function CaptainsAttendance() {
             </tr>
           </thead>
           <tbody>
-            {attendance.map((scout) => (
-              <tr key={scout.id}>
-                <td className="num-col">{scout.id}</td>
+            {attendance.map((scout, index) => (
+              <tr key={scout.captainId}>
+                <td className="num-col">{index + 1}</td>
                 <td>{scout.name}</td>
                 <td className="check-col">
                   <input
                     type="checkbox"
                     checked={scout?.present}
-                    onChange={() => handleCheckboxChange(scout.id, "present")}
+                    onChange={() =>
+                      handleCheckboxChange(scout.captainId, "present")
+                    }
                     disabled={scout?.excused}
                   />
                 </td>
@@ -173,7 +187,9 @@ export default function CaptainsAttendance() {
                   <input
                     type="checkbox"
                     checked={scout?.excused}
-                    onChange={() => handleCheckboxChange(scout.id, "excused")}
+                    onChange={() =>
+                      handleCheckboxChange(scout.captainId, "excused")
+                    }
                     disabled={scout?.present}
                   />
                 </td>
