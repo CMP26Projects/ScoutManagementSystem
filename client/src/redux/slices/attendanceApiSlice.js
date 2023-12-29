@@ -1,12 +1,12 @@
 import { apiSlice } from "./apiSlice";
 
-const ATTENDANCE_URL = "/api/attendance";
+const ATTENDANCE_URL = "/api";
 
 export const attendanceApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     GetSectorAttendance: builder.query({
       query: (sector) => ({
-        url: `${ATTENDANCE_URL}/sector/all`,
+        url: `${ATTENDANCE_URL}/scoutAttendance/sector/all`,
         method: "GET",
         params: sector,
       }),
@@ -14,7 +14,7 @@ export const attendanceApi = apiSlice.injectEndpoints({
     }),
     UpsertSectorAttendance: builder.mutation({
       query: (attendance) => ({
-        url: `${ATTENDANCE_URL}/`,
+        url: `${ATTENDANCE_URL}/scoutAttendance/`,
         method: "POST",
         body: attendance,
       }),

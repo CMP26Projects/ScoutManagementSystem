@@ -9,143 +9,13 @@ import { useGetAllWeeksQuery } from "../../redux/slices/termApiSlice";
 import { useSelector } from "react-redux";
 import { useInsertSubscriptionMutation } from "../../redux/slices/financeApiSlice";
 import { toast } from "react-toastify";
-import { useGetSectorAttendanceQuery } from "../../redux/slices/attendanceApiSlice";
-
-const scoutsDumpyData = [
-  {
-    id: 1,
-    name: "محمد علي",
-  },
-  {
-    id: 2,
-    name: "محمد la علي",
-  },
-  {
-    id: 3,
-    name: "  some one special",
-  },
-  {
-    id: 4,
-    name: "last christmas",
-  },
-  {
-    id: 5,
-    name: "i gave you my heart",
-  },
-  {
-    id: 6,
-    name: "but the very next day",
-  },
-  {
-    id: 7,
-    name: "you gave it away",
-  },
-  {
-    id: 8,
-    name: "this year",
-  },
-  {
-    id: 9,
-    name: "to save me from tears",
-  },
-  {
-    id: 10,
-    name: "i'll give it to someone special",
-  },
-  {
-    id: 11,
-    name: "once bitten and twice shy",
-  },
-  {
-    id: 12,
-    name: "i keep my distance",
-  },
-  {
-    id: 13,
-    name: "but you still catch my eye",
-  },
-  {
-    id: 14,
-    name: "tell me baby",
-  },
-  {
-    id: 15,
-    name: "do you recognize me",
-  },
-  {
-    id: 16,
-    name: "well",
-  },
-  {
-    id: 17,
-    name: "it's been a year",
-  },
-  {
-    id: 18,
-    name: "it doesn't surprise me",
-  },
-  {
-    id: 19,
-    name: "happy christmas",
-  },
-  {
-    id: 20,
-    name: "i wrapped it up and sent it",
-  },
-  {
-    id: 21,
-    name: "with a note saying i love you",
-  },
-  {
-    id: 22,
-    name: "i meant it",
-  },
-  {
-    id: 23,
-    name: "now i know what a fool i've been",
-  },
-  {
-    id: 24,
-    name: "but if you kissed me now",
-  },
-  {
-    id: 25,
-    name: "i know you'd fool me again",
-  },
-  {
-    id: 26,
-    name: "last christmas",
-  },
-  {
-    id: 27,
-    name: "i gave you my heart",
-  },
-  {
-    id: 28,
-    name: "but the very next day",
-  },
-  {
-    id: 29,
-    name: "you gave it away",
-  },
-  {
-    id: 30,
-    name: "this year",
-  },
-  {
-    id: 31,
-    name: "to save me from tears",
-  },
-];
+import {
+  useGetSectorAttendanceQuery,
+  useUpsertSectorAttendanceMutation,
+} from "../../redux/slices/attendanceApiSlice";
 
 export default function ScoutsAttendance() {
-  const [attendance, setAttendance] = useState(
-    scoutsDumpyData.map((scout) => ({
-      ...scout,
-      present: false,
-      excused: false,
-    }))
-  );
+  const [attendance, setAttendance] = useState([]);
   const [subscription, setSubscription] = useState(0);
   const [chosenWeek, setChosenWeek] = useState("");
 
@@ -160,6 +30,8 @@ export default function ScoutsAttendance() {
 
   const [insertSubscription, { isLoading: isLoadingInsertSubscription }] =
     useInsertSubscriptionMutation();
+  const [upsertAttendance, { isLoading: isLoadingUpsertAttendance }] =
+    useUpsertSectorAttendanceMutation();
 
   if (isSuccessWeeks && !isLoadingWeeks && !isFetchingWeeks) {
     weeks = weeks?.body;
@@ -179,7 +51,6 @@ export default function ScoutsAttendance() {
     isLoading: isLoadingScouts,
     isFetching: isFetchingScouts,
     isSuccess: isSuccessScouts,
-    isError: isErrorScouts,
     refetch: refetchScouts,
   } = useGetSectorAttendanceQuery({
     weekNumber: parseInt(chosenWeek),
@@ -193,10 +64,10 @@ export default function ScoutsAttendance() {
     scouts = scouts?.body;
     scouts = scouts.map((scout) => ({
       ...scout,
-      present: scout?.attendanceStatus === "present",
-      excused: scout?.attendanceStatus === "excused",
+      present: scout?.attendanceStatus === "attended",
+      excused: scout?.attendanceStatus === "execused",
       id: scout.scoutId,
-      name: scout.firstName + " " + scout.middleName + " " + scout.lastName
+      name: scout.firstName + " " + scout.middleName + " " + scout.lastName,
     }));
     console.log({ scouts });
   }
@@ -223,13 +94,15 @@ export default function ScoutsAttendance() {
     const attendanceReqBody = attendance.map((scout) => ({
       ...scout,
       attendanceStatus: scout.present
-        ? "present"
+        ? "attended"
         : scout.excused
-        ? "excused"
+        ? "execused"
         : "absent",
       weekNumber: parseInt(chosenWeek),
       termNumber: weeks.find((week) => week.weekNumber === parseInt(chosenWeek))
         ?.termNumber,
+      sectorBaseName: userInfo?.rSectorBaseName,
+      sectorSuffixName: userInfo?.rSectorSuffixName,
     }));
 
     console.log({ attendanceReqBody });
@@ -254,6 +127,19 @@ export default function ScoutsAttendance() {
       toast.success("تم تسجيل الاشتراك بنجاح");
     } catch (err) {
       toast.error("حدث خطأ أثناء تسجيل الاشتراك");
+      console.log(JSON.stringify(err));
+      toast.error(JSON.stringify(err));
+    }
+    try {
+      const res = await upsertAttendance({
+        attendanceRecords: attendanceReqBody,
+      }).unwrap();
+      // if (!res.ok)
+      // throw new Error("Something went wrong while inserting attendance");
+      toast.success("تم تسجيل الغياب بنجاح");
+      console.log(res.body);
+    } catch (err) {
+      toast.error("حدث خطأ أثناء تسجيل الغياب");
       console.log(JSON.stringify(err));
       toast.error(JSON.stringify(err));
     }
@@ -323,6 +209,7 @@ export default function ScoutsAttendance() {
             ))}
           </tbody>
         </table>
+        {isFetchingScouts && <p>جاري التحميل</p>}
         <div className="info-section attendance-info-section">
           <InfoBox title="العدد الكلي" value={attendance.length} />
           <InfoBox
@@ -332,11 +219,13 @@ export default function ScoutsAttendance() {
           <InfoBox
             title="نسبة الحضور"
             value={
-              Math.round(
-                (attendance.filter((scout) => scout.present).length /
-                  attendance.length) *
-                  100
-              ) + "%"
+              attendance.length > 0
+                ? Math.round(
+                    (attendance.filter((scout) => scout.present).length /
+                      attendance.length) *
+                      100
+                  ) + "%"
+                : "0%"
             }
           />
           <InfoBox
@@ -362,7 +251,7 @@ export default function ScoutsAttendance() {
       <Button className="Button--medium Button--success-light" type="submit">
         تسليم
       </Button>
-      {isLoadingInsertSubscription && (
+      {(isLoadingInsertSubscription || isLoadingUpsertAttendance) && (
         <p
           style={{
             direction: "rtl",
