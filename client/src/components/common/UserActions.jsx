@@ -79,7 +79,6 @@ export default function UserActions() {
           التقارير والمجالس
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Activities"]}
           className="Button--medium Button--regular"
         >
@@ -146,7 +145,6 @@ export default function UserActions() {
           التقارير والمجالس
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Activities"]}
           className="Button--medium Button--regular"
         >
@@ -200,7 +198,6 @@ export default function UserActions() {
           التقارير والمجالس
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Activities"]}
           className="Button--medium Button--regular"
         >
