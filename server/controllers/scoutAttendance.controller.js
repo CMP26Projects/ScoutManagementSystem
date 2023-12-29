@@ -15,52 +15,25 @@ const scoutAttendanceController = {
                 })
             }
 
-            const weekNumber = attendanceRecords[0].weekNumber;
-            const termNumber = attendanceRecords[0].termNumber;
-            
-            // Query to check if there are an exisiting records for this week & term or not
-            const prevRecords = await db.query(`
-                SELECT *
-                FROM "ScoutAttendance"
-                WHERE "weekNumber" = $1 AND "termNumber" = $2;
-            `,
-            [weekNumber, termNumber])
-
             let result = [];
+
+            for (let i = 0; i < attendanceRecords.length; i++) {   
+
+                // Insert a new record from the attendance array into the databse
+                const queryResult = await db.query(`
+                    INSERT INTO "ScoutAttendance" ("scoutId", "weekNumber", "termNumber", "attendanceStatus")
+                    VALUES ($1, $2, $3, $4)
+                    ON CONFLICT ("scoutId", "weekNumber", "termNumber")
+                    DO UPDATE SET "attendanceStatus" = EXCLUDED."attendanceStatus"
+                    RETURNING *;
+                `,
+                [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
+                )
+
+                // Add the newly inserted record to the result array to return back
+                result.push(queryResult.rows[0]);
+            }
             
-            // If the attendance records already exists then update them, if not insert a new records
-            if (prevRecords.rowCount === 0)
-            {
-                for (let i = 0; i < attendanceRecords.length; i++) {   
-
-                    // Insert a new record from the attendance array into the databse
-                    const queryResult = await db.query(`
-                        INSERT INTO "ScoutAttendance" VALUES ($1, $2, $3, $4)
-                        RETURNING *;
-                    `,
-                    [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
-                    )
-
-                    // Add the newly inserted record to the result array to return back
-                    result.push(queryResult.rows[0]);
-                }
-            }
-            else {
-                for (let i = 0; i < attendanceRecords.length; i++) {
-                    
-                    // Update the current record from the array
-                    const queryResult = await db.query(`
-                        UPDATE "ScoutAttendance" SET "attendanceStatus" = $4
-                        WHERE "scoutId" = $1 AND "weekNumber" = $2 AND "termNumber" = $3
-                        RETURNING *;
-                    `,
-                    [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
-                    )
-
-                    // Add the info about the updated record into the result array
-                    result.push(queryResult.rows[0]);
-                }
-            }
 
             // Return a success message
             res.status(200).json({
