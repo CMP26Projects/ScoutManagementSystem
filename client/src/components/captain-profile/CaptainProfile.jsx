@@ -44,8 +44,11 @@ export default function CaptainProfile() {
           </p>
         </div>
         {/* TODO: Add the route for The Button Later */}
-        <Button className="captain-profile__info__btn Button--medium Button--primary">
-          تعديل الصفحة الشخصية
+        <Button
+          linkTo="/edit-password"
+          className="captain-profile__info__btn Button--medium Button--primary"
+        >
+          تعديل الرمز السري
         </Button>
       </div>
     </div>

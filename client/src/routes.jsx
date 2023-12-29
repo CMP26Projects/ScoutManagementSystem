@@ -30,6 +30,7 @@ import NotificationsPage from "./components/notifications/notificationPage";
 import ScoutsAttendance from "./components/scouts-attendance/ScoutsAttendance";
 import MoneyPage from "./components/moneypage/MoneyPage";
 import CaptainsAttendance from "./components/captains-attendance/CaptainAttendance";
+import EditPassword from "./components/edit-password/EditPassword";
 
 function Routes() {
   return (
@@ -47,7 +48,11 @@ function Routes() {
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
           <Route exact path="/add-scout" element={<InsertScoutPage />} />
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
-          <Route exact path="/send-notification" element={<SendNotificationPage />} />
+          <Route
+            exact
+            path="/send-notification"
+            element={<SendNotificationPage />}
+          />
           <Route exact path="/notifications" element={<NotificationsPage />} />
           <Route
             exact
@@ -60,6 +65,7 @@ function Routes() {
             element={<CaptainsAttendance />}
           />
           <Route exact path="/finance" element={<MoneyPage />} />
+          <Route exact path="/edit-password" element={<EditPassword />} />
         </Route>
 
         {/* Testing Routes */}
