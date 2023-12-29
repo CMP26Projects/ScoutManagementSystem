@@ -68,9 +68,7 @@ const MoneyPage = () => {
           required={false}
         />
 
-        <Button className="insert-sector__btn Button--medium Button--primary-darker">
-          إضافة
-        </Button>
+        <Button className="Button--medium Button--primary-darker">إضافة</Button>
       </form>
 
       <section>
