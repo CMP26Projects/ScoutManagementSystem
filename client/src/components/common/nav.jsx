@@ -67,8 +67,7 @@ export default function Nav() {
             <Link to="/profile">
               <UserCircleIcon className="Nav__icon" />
             </Link>
-            {/* TODO: add route later */}
-            <Link to="/">
+            <Link to="/notifications">
               <BellIcon className="Nav__icon" />
             </Link>
           </div>

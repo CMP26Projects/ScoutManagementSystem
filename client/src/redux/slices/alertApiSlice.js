@@ -20,13 +20,10 @@ export const alertApi = apiSlice.injectEndpoints({
             providesTags: ['alert'],
         }),
         SendAlert: builder.mutation({
-            query: (id, sectorBaseName, sectorSuffixName) => ({
+            query: (id, item) => ({
                 url: `${ALERT_URL}/${id}`,
                 method: 'POST',
-                body: {
-                    sectorBaseName: sectorBaseName,
-                    sectorSuffixName: sectorSuffixName,
-                },
+                body: item,
             }),
             invalidatesTags: ['alert'],
         }),

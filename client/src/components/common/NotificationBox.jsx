@@ -6,7 +6,6 @@ export default function NotificationBox() {
     const { data: alerts, isFetching: isFetchingAlerts } = useGetAllAlertsQuery(
         { status: 'unread', contentType: 'all' }
     )
-    console.log('here are all alerts', alerts)
 
     return (
         <div className="notificationBox">

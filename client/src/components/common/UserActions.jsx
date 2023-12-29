@@ -62,7 +62,6 @@ export default function UserActions() {
           إدارة الماليات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Send Notification"]}
           className="Button--medium Button--regular"
         >

@@ -25,6 +25,8 @@ import InsertSector from "./components/insert-sector/InsertSector";
 import AssignCaptainPage from "./components/assign-captain-page/AssignCaptainPage";
 import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
 import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
+import SendNotificationPage from "./components/send-notification/sendNotificationPage";
+import NotificationsPage from "./components/notifications/notificationPage";
 
 function Routes() {
   return (
@@ -42,6 +44,8 @@ function Routes() {
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
           <Route exact path="/add-scout" element={<InsertScoutPage />} />
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
+          <Route exact path="/send-notification" element={<SendNotificationPage />} />
+          <Route exact path="/notifications" element={<NotificationsPage />} />
         </Route>
 
         {/* Testing Routes */}
