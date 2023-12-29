@@ -1,12 +1,32 @@
 import React from "react";
 import "../../assets/styles/components/activityCard.scss";
 import Button from "./Button";
-const ActivityCard = ({ title, place, time }) => {
+const ActivityCard = ({ activity }) => {
+  const activityTypesList = {
+    entertainment: "ترفيه",
+    rowing: "تجديف",
+    camping: "نخييم",
+    wildCooking: "طهي في البرية",
+    scouting: "كشفي",
+    volunteering: "تطوعي",
+    other: "غير ذلك",
+  };
+
+  const days = {
+    sat: "السبت",
+    sun: "الأحد",
+    mon: "الاثنين",
+    tue: "الثلاثاء",
+    wed: "الأربعاء",
+    thu: "الخميس",
+    fri: "الجمعة",
+  };
+
   return (
     <div className="all-card">
-      <h4>{title}</h4>
-      <p>{"المكان: " + place}</p>
-      <p>{"الميعاد : " + time}</p>
+      <h4>{activityTypesList[activity.type]}</h4>
+      <p>{"المكان: " + activity.place}</p>
+      <p>{"اليوم : " + days[activity.day]}</p>
       <div className="horizontally-aligned">
         <Button className="Button--medium Button--primary-darker">تعديل</Button>
         <svg

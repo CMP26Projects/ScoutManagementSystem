@@ -7,8 +7,10 @@
     gap: 20px;
 
     .activity-section {
-        width: 90%;
-        height: 800px;
+        width: 95%;
+        max-width: 400px;
+        height: fit-content;
+        max-height: 800px;
 
         background: var(--grey-800);
         display: flex;
