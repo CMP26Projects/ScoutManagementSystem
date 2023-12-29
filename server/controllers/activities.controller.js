@@ -31,6 +31,27 @@ const activitiesController = {
                 body: error,
             })
         }
+    },
+    getAllActivities: async (req, res) => {
+        try {
+            const result = await db.query(`
+                SELECT *
+                FROM "Activity"
+            `)
+
+            res.status(200).json({
+                message: "Successful retrieval",
+                body: result.rows,
+                count: result.rowCount,
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                message: 'An error occured while retrieving activities',
+                body: error,
+            })
+        }
     }
 }
 
