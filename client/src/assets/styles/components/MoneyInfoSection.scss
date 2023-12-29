@@ -1,0 +1,19 @@
+.all-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .table {
+        display: flex;
+        justify-content: center;
+        margin: 0px, 0px;
+        padding: 30px 0;
+    }
+}
+
+
+section {
+    padding-top: 0;
+    padding-bottom: 0;
+}

@@ -27,6 +27,9 @@ import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
 import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
 import SendNotificationPage from "./components/send-notification/sendNotificationPage";
 import NotificationsPage from "./components/notifications/notificationPage";
+import ScoutsAttendance from "./components/scouts-attendance/ScoutsAttendance";
+import MoneyPage from "./components/moneypage/MoneyPage";
+import CaptainsAttendance from "./components/captains-attendance/CaptainAttendance";
 
 function Routes() {
   return (
@@ -46,6 +49,17 @@ function Routes() {
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
           <Route exact path="/send-notification" element={<SendNotificationPage />} />
           <Route exact path="/notifications" element={<NotificationsPage />} />
+          <Route
+            exact
+            path="/record-scouts-absence"
+            element={<ScoutsAttendance />}
+          />
+          <Route
+            exact
+            path="/record-captains-absence"
+            element={<CaptainsAttendance />}
+          />
+          <Route exact path="/finance" element={<MoneyPage />} />
         </Route>
 
         {/* Testing Routes */}

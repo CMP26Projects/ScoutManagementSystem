@@ -51,6 +51,11 @@
     color: var(--grey-900);
   }
 
+  &--success-light {
+    background: var(--Green-200, #bcf0da);
+    color: #000;
+  }
+
   &--danger {
     background-color: var(--red-500);
     color: var(--grey-900);

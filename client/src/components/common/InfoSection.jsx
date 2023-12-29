@@ -6,7 +6,7 @@ import { useGetAbsenceRateQuery } from "../../redux/slices/statsApiSlice";
 import { useGetAllScoutsCountQuery } from "../../redux/slices/scoutApiSlice";
 import { useGetBudgetQuery } from "../../redux/slices/financeApiSlice";
 
-export default function InfoSection() {
+export default function   () {
   const { userInfo } = useSelector((state) => state.auth);
   const { type } = userInfo;
 

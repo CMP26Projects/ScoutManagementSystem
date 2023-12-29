@@ -1,0 +1,15 @@
+.money-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    direction: rtl;
+    gap: 30px;
+
+    .add-item {
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+}
