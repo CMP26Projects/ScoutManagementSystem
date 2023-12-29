@@ -2,42 +2,61 @@ import db from "../database/db.js"
 
 const scoutAttendanceController = {
     // @desc    Insert a new attendance record for a scout in a certain sector
-    // @route   POST /api/attendance/
+    // @route   POST /api/sectorAttendance/
     // @access  Private
     upsertAttendance: async (req, res) => {
         try {
-            const { attendanceRecords } = req.body
+            const  attendanceRecords  = req.body.body
 
             if (attendanceRecords === 0) {
                 return res.status(404).json({
                     error: "No records were found"
                 })
             }
+
+            const weekNumber = attendanceRecords[0].weekNumber;
+            const termNumber = attendanceRecords[0].termNumber;
+
+            const prevRecords = await db.query(`
+                SELECT *
+                FROM "ScoutAttendance"
+                WHERE "weekNumber" = $1 AND "termNumber" = $2;
+            `,
+            [weekNumber, termNumber])
+
             let result = [];
-            if (!attendanceRecords[0].attendanceStatus) //insert
+            
+            // If the attendance records already exists then update them, if not insert a new records
+            if (prevRecords.rowCount === 0)
             {
-                for (let i = 0; i < attendanceRecords.length; i++) {
-                    result.push(
-                        await db.query(`
-                            INSERT INTO attendanceStatus VALUES ($1, $2, $3, $4)
-                            RETURNING *;
-                        `,
-                        [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
-                        )
-                    );
+                for (let i = 0; i < attendanceRecords.length; i++) {   
+
+                    // Insert a new record from the attendance array into the databse
+                    const queryResult = await db.query(`
+                        INSERT INTO "ScoutAttendance" VALUES ($1, $2, $3, $4)
+                        RETURNING *;
+                    `,
+                    [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
+                    )
+
+                    // Add the newly inserted record to the result array to return back
+                    result.push(queryResult.rows[0]);
                 }
             }
-            else {      //update
+            else {
                 for (let i = 0; i < attendanceRecords.length; i++) {
-                    result.push(
-                        await db.query(`
-                            UPDATE attendanceStatus SET "attendanceStatus" = $4
-                            WHERE "scoutId" = $1 AND "weekNumber" = $2 AND "termNumber" = $3
-                            RETURNING *;
-                        `,
-                        [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
-                        )
-                    );
+                    
+                    // Update the current record from the array
+                    const queryResult = await db.query(`
+                        UPDATE "ScoutAttendance" SET "attendanceStatus" = $4
+                        WHERE "scoutId" = $1 AND "weekNumber" = $2 AND "termNumber" = $3
+                        RETURNING *;
+                    `,
+                    [attendanceRecords[i].scoutId, attendanceRecords[i].weekNumber, attendanceRecords[i].termNumber, attendanceRecords[i].attendanceStatus]
+                    )
+
+                    // Add the info about the updated record into the result array
+                    result.push(queryResult.rows[0]);
                 }
             }
 
@@ -58,7 +77,7 @@ const scoutAttendanceController = {
     },
 
     // @desc    Get all attendance records for all the scouts in a certain sector in a certain week & term
-    // @route   GET /api/attendance/sector/:baseName/:suffixName/:weekNumber/:termNumber
+    // @route   GET /api/sectorAttendance/sector/all
     // @access  Private
     getSectorAttendance: async (req, res) => {
         try {
@@ -94,7 +113,7 @@ const scoutAttendanceController = {
     },
 
     // @desc    Get attendance records for a certain scout in a certain week & term
-    // @route   GET /api/attendance/:scoutId/:weekNumber/:termNumber
+    // @route   GET /api/sectorAttendance/:scoutId/:weekNumber/:termNumber
     // @access  Private
     getScoutAttendance: async (req, res) => {
         try {
