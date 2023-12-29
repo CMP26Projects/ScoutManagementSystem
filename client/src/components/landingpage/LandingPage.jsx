@@ -6,9 +6,6 @@ import PageTitle from "../common/PageTitle";
 
 import "./LandingPage.scss";
 
-import TestTable from "../testing/TestTable";
-
-
 import {
   FolderIcon,
   AcademicCapIcon,
@@ -85,7 +82,6 @@ export default function LandingPage() {
 
       {/* uncomment to test statistics Table */}
       {/* <TestTable /> */}
-
     </div>
   );
 }

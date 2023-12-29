@@ -25,7 +25,12 @@ import InsertSector from "./components/insert-sector/InsertSector";
 import AssignCaptainPage from "./components/assign-captain-page/AssignCaptainPage";
 import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
 import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
+import SendNotificationPage from "./components/send-notification/sendNotificationPage";
+import NotificationsPage from "./components/notifications/notificationPage";
+import ScoutsAttendance from "./components/scouts-attendance/ScoutsAttendance";
 import MoneyPage from "./components/moneypage/MoneyPage";
+import CaptainsAttendance from "./components/captains-attendance/CaptainAttendance";
+
 import ActivityPage from "./components/activitypage/ActivityPage";
 import AddActivityPage from "./components/addactivitypage/AddActivityPage";
 function Routes() {
@@ -44,6 +49,18 @@ function Routes() {
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
           <Route exact path="/add-scout" element={<InsertScoutPage />} />
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
+          <Route exact path="/send-notification" element={<SendNotificationPage />} />
+          <Route exact path="/notifications" element={<NotificationsPage />} />
+          <Route
+            exact
+            path="/record-scouts-absence"
+            element={<ScoutsAttendance />}
+          />
+          <Route
+            exact
+            path="/record-captains-absence"
+            element={<CaptainsAttendance />}
+          />
           <Route exact path="/finance" element={<MoneyPage />} />
           <Route exact path="/activity" element={<ActivityPage />} />
           <Route exact path="/add-activity" element={<AddActivityPage />} />

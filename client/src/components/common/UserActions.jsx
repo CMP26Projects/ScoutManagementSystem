@@ -7,15 +7,15 @@ const ActionRoutes = {
   "Add Sector": "/add-sector",
   "Add Scout": "/add-scout",
   Statistics: "/statistics",
-  "Financial Management": "/financial-management",
+  "Financial Management": "/finance",
   "Send Notification": "/send-notification",
-  "Edit Scout": "/edit-scout",
+  "Edit Scout": "/update-scout",
   "Reports and Councils": "/reports-and-councils",
   Activities: "/activities",
   Sessions: "/sessions",
   "Start New Term": "/start-new-term",
   Sectors: "/sectors",
-  "Record Captain Absence": "/record-captain-absence",
+  "Record Captain Absence": "/record-captains-absence",
   "Record Scouts Absence": "/record-scouts-absence",
   Scores: "/scores",
   Sector: "/sector",
@@ -41,7 +41,6 @@ export default function UserActions() {
           إضافة قطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Add Scout"]}
           className="Button--medium Button--regular"
         >
@@ -55,21 +54,18 @@ export default function UserActions() {
           الاحصائيات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Financial Management"]}
           className="Button--medium Button--regular"
         >
           إدارة الماليات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Send Notification"]}
           className="Button--medium Button--regular"
         >
           إرسال إشعار
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
@@ -131,14 +127,12 @@ export default function UserActions() {
           إرسال إشعار
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Add Scout"]}
           className="Button--medium Button--regular"
         >
           إضافة كشاف
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
@@ -173,7 +167,6 @@ export default function UserActions() {
           القطاعات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Record Captain Absence"]}
           className="Button--medium span-2-cols Button--success"
         >
@@ -194,7 +187,6 @@ export default function UserActions() {
           الاحصائيات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
@@ -236,7 +228,6 @@ export default function UserActions() {
           القطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Record Scouts Absence"]}
           className="Button--medium span-2-cols Button--success"
         >

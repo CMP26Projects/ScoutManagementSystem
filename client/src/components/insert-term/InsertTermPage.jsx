@@ -31,7 +31,7 @@ export default function InsertTermPage() {
         endDate: termEndDate,
       }).unwrap();
       console.log(res);
-      if (res.status === 400 || res.status === 500 )
+      if (res.status === 400 || res.status === 500)
         throw new Error("Something went wrong while inserting the term");
       toast.success("تم إنشاء الفترة بنجاح");
     } catch (err) {
@@ -109,7 +109,7 @@ export default function InsertTermPage() {
         </Button>
         <Button
           className="insert-term__btn Button--medium Button--dark"
-          disabled
+          linkTo="/dashboard"
         >
           العودة للإجراءت
         </Button>
