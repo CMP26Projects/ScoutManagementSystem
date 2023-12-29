@@ -31,6 +31,7 @@ import ScoutsAttendance from "./components/scouts-attendance/ScoutsAttendance";
 import MoneyPage from "./components/moneypage/MoneyPage";
 import CaptainsAttendance from "./components/captains-attendance/CaptainAttendance";
 import EditPassword from "./components/edit-password/EditPassword";
+import CancelWeek from "./components/cancel-week/CancelWeek";
 
 function Routes() {
   return (
@@ -48,6 +49,7 @@ function Routes() {
           <Route exact path="/assign-captain" element={<AssignCaptainPage />} />
           <Route exact path="/add-scout" element={<InsertScoutPage />} />
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
+          <Route exact path="/cancel-week" element={<CancelWeek />} />
           <Route
             exact
             path="/send-notification"

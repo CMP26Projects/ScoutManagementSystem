@@ -48,6 +48,13 @@ export const termApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Term", "Weeks"],
     }),
+    CancelWeek: builder.mutation({
+      query: () => ({
+        url: `${TERM_URL}/week`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Weeks"],
+    }),
   }),
 });
 
@@ -58,4 +65,5 @@ export const {
   useGetRemainingWeeksQuery,
   useInsertTermMutation,
   useUpdateTermMutation,
+  useCancelWeekMutation,
 } = termApi;
