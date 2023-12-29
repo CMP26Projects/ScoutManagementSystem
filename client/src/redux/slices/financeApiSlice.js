@@ -11,7 +11,42 @@ export const financeApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["finance"],
     }),
+    GetIncome: builder.query({
+      query: () => ({
+        url: `${FINANCE_URL}/income`,
+        method: "GET",
+      }),
+      providesTags: ["finance"],
+    }),
+
+    GetExpense: builder.query({
+      query: () => ({
+        url: `${FINANCE_URL}/expense`,
+        method: "GET",
+      }),
+      providesTags: ["finance"],
+    }),
+    InsertOtherItem: builder.mutation({
+      query: (item) => ({
+        url: `${FINANCE_URL}/otherItem`,
+        method: "POST",
+        body: item,
+      }),
+      invalidatesTags: ["finance"],
+    }),
+    GetCurrentWeekSubscriptions: builder.query({
+      query: () => ({
+        url: `${FINANCE_URL}/subscription/all`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetBudgetQuery } = financeApi;
+export const {
+  useGetBudgetQuery,
+  useGetIncomeQuery,
+  useGetExpenseQuery,
+  useInsertOtherItemMutation,
+  useGetCurrentWeekSubscriptionsQuery,
+} = financeApi;
