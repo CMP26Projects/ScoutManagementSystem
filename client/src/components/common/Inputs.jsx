@@ -34,6 +34,40 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
 };
+
+function TextArea({
+  label,
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+  required,
+}) {
+  return (
+    <label className="input input--text">
+      {label}
+      <textarea
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+    </label>
+  );
+}
+TextInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+};
+
 function RadioInput({ label, name, required, valuesArr, onChange }) {
   return (
     <label className="input input--radio">
@@ -63,5 +97,5 @@ RadioInput.propTypes = {
   required: PropTypes.bool,
 };
 
-export { RadioInput };
+export { RadioInput, TextArea };
 export default TextInput;
