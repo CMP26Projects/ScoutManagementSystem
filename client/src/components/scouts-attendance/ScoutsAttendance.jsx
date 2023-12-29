@@ -185,28 +185,31 @@ export default function ScoutsAttendance() {
             </tr>
           </thead>
           <tbody>
-            {attendance.map((scout, index) => (
-              <tr key={scout.id}>
-                <td className="num-col">{index + 1}</td>
-                <td>{scout.name}</td>
-                <td className="check-col">
-                  <input
-                    type="checkbox"
-                    checked={scout?.present}
-                    onChange={() => handleCheckboxChange(scout.id, "present")}
-                    disabled={scout?.excused}
-                  />
-                </td>
-                <td className="check-col">
-                  <input
-                    type="checkbox"
-                    checked={scout?.excused}
-                    onChange={() => handleCheckboxChange(scout.id, "excused")}
-                    disabled={scout?.present}
-                  />
-                </td>
-              </tr>
-            ))}
+            {attendance &&
+              !isFetchingWeeks &&
+              !isFetchingScouts &&
+              attendance?.map((scout, index) => (
+                <tr key={scout.id}>
+                  <td className="num-col">{index + 1}</td>
+                  <td>{scout.name}</td>
+                  <td className="check-col">
+                    <input
+                      type="checkbox"
+                      checked={scout?.present}
+                      onChange={() => handleCheckboxChange(scout.id, "present")}
+                      disabled={scout?.excused}
+                    />
+                  </td>
+                  <td className="check-col">
+                    <input
+                      type="checkbox"
+                      checked={scout?.excused}
+                      onChange={() => handleCheckboxChange(scout.id, "excused")}
+                      disabled={scout?.present}
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         {isFetchingScouts && <p>جاري التحميل</p>}
@@ -214,7 +217,7 @@ export default function ScoutsAttendance() {
           <InfoBox title="العدد الكلي" value={attendance.length} />
           <InfoBox
             title="الحضور"
-            value={attendance.filter((scout) => scout.present).length}
+            value={attendance && isFetchingWeeks && isFetchingScouts  && attendance?.filter((scout) => scout.present)?.length}
           />
           <InfoBox
             title="نسبة الحضور"
