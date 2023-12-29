@@ -18,6 +18,13 @@ export const termApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Weeks"],
     }),
+    GetAllWeeks: builder.query({
+      query: () => ({
+        url: `${TERM_URL}/week/all`,
+        method: "GET",
+      }),
+      providesTags: ["Weeks"],
+    }),
     GetRemainingWeeks: builder.query({
       query: () => ({
         url: `${TERM_URL}/remaining`,
@@ -47,6 +54,7 @@ export const termApi = apiSlice.injectEndpoints({
 export const {
   useGetCurTermQuery,
   useGetCurWeekQuery,
+  useGetAllWeeksQuery,
   useGetRemainingWeeksQuery,
   useInsertTermMutation,
   useUpdateTermMutation,

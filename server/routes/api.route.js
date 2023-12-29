@@ -14,14 +14,15 @@ import captainAttendanceRouter from './captainAttendance.route.js'
 import activitiesRouter from './activities.route.js'
 const apiRouter = Router()
 
-apiRouter.use('/auth', authRouter)
-apiRouter.use('/stats', authMiddleware, statsRouter)
+apiRouter.use("/auth", authRouter);
+apiRouter.use("/stats", authMiddleware, statsRouter);
 apiRouter.use(
-    '/finance',
-    authMiddleware,
-    checkRankMiddleware('general'),
-    financeRouter
-)
+  "/finance",
+  authMiddleware,
+  // TODO: add for certain functtions remove from others
+  // checkRankMiddleware('general'),
+  financeRouter
+);
 apiRouter.use('/term', authMiddleware, termRouter)
 apiRouter.use('/captain', authMiddleware, captainRouter)
 apiRouter.use('/alert', authMiddleware, alertRouter)
@@ -31,4 +32,4 @@ apiRouter.use('/scoutAttendance', authMiddleware, scoutAttendanceRouter)
 apiRouter.use('/captainAttendance', authMiddleware, captainAttendanceRouter)
 apiRouter.use('/activities', activitiesRouter)
 
-export default apiRouter
+export default apiRouter;

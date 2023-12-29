@@ -15,7 +15,7 @@ const ActionRoutes = {
   Sessions: "/sessions",
   "Start New Term": "/start-new-term",
   Sectors: "/sectors",
-  "Record Captain Absence": "/record-captain-absence",
+  "Record Captain Absence": "/record-captains-absence",
   "Record Scouts Absence": "/record-scouts-absence",
   Scores: "/scores",
   Sector: "/sector",
@@ -173,7 +173,6 @@ export default function UserActions() {
           القطاعات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Record Captain Absence"]}
           className="Button--medium span-2-cols Button--success"
         >
@@ -236,7 +235,6 @@ export default function UserActions() {
           القطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Record Scouts Absence"]}
           className="Button--medium span-2-cols Button--success"
         >
