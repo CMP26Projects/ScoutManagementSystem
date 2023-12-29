@@ -10,6 +10,8 @@ function TextInput({
   onChange,
   placeholder,
   required,
+  pattern,
+  onInvalid,
 }) {
   return (
     <label className="input input--text">
@@ -21,6 +23,8 @@ function TextInput({
         value={value}
         onChange={onChange}
         required={required}
+        pattern={pattern}
+        onInvalid={onInvalid}
       />
     </label>
   );
