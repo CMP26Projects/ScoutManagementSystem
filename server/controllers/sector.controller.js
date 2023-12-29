@@ -19,7 +19,32 @@ const sectorController = {
         } catch (error) {
             console.log(error)
             res.status(500).json({
-                error: 'An error occured while retrieving the captains info',
+                error: 'An error occured while retrieving sector info',
+                body: error,
+            })
+        }
+    },
+
+    getAllSectorsInUnit: async (req, res) => {
+        try {
+            const { unitCaptainId } = req.params
+
+            const result = await db.query(
+                `SELECT *
+                FROM "Sector"
+                WHERE "unitCaptainId" = $1;`,
+                [unitCaptainId]
+            )
+
+            res.status(200).json({
+                message: 'Successful retrieval',
+                body: result.rows,
+                count: result.rowCount,
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occured while retrieving sectors info',
                 body: error,
             })
         }
@@ -31,7 +56,7 @@ const sectorController = {
     getSector: async (req, res) => {
         try {
             const { baseName, suffixName } = req.query
-              
+
             const result = await db.query(
                 `
                 SELECT *
@@ -68,12 +93,12 @@ const sectorController = {
 
             if (!baseName) {
                 return res.status(404).json({
-                    error: "You must insert a baseName for the sector"
+                    error: 'You must insert a baseName for the sector',
                 })
             }
 
             if (!suffixName) {
-                suffixName = ""
+                suffixName = ''
             }
 
             const result = await db.query(
@@ -102,8 +127,8 @@ const sectorController = {
     // @access  Private
     setUnitCaptain: async (req, res) => {
         try {
-            const { baseName, suffixName } = req.query;
-            const { unitCaptainId } = req.body;
+            const { baseName, suffixName } = req.query
+            const { unitCaptainId } = req.body
 
             if (!unitCaptainId) {
                 return res.status(400).json({
@@ -111,35 +136,39 @@ const sectorController = {
                 })
             }
 
-            const sectorInfo = await db.query(`
+            const sectorInfo = await db.query(
+                `
                 SELECT *
                 FROM "Sector"
                 WHERE "baseName" = $1 AND "suffixName" = $2            
             `,
-            [baseName, suffixName])
+                [baseName, suffixName]
+            )
 
             if (sectorInfo.rowCount === 0) {
                 return res.status(404).json({
-                    error: "No sector exists with these ids"
+                    error: 'No sector exists with these ids',
                 })
             }
 
-            const captainInfo = await db.query(`
+            const captainInfo = await db.query(
+                `
                 SELECT *
                 FROM "Captain"
                 WHERE "captainId" = $1    
             `,
-            [unitCaptainId])
+                [unitCaptainId]
+            )
 
             if (captainInfo.rowCount === 0) {
                 return res.status(404).json({
-                    error: "No captain exist with this id"
+                    error: 'No captain exist with this id',
                 })
             }
 
             if (captainInfo.rows[0].type !== 'unit') {
                 return res.status(401).json({
-                    error: "The provided captain id is not for a unit captain"
+                    error: 'The provided captain id is not for a unit captain',
                 })
             }
 
@@ -170,26 +199,27 @@ const sectorController = {
             const { baseName, suffixName } = req.query
             const { captainId } = req.body
 
-            const result = await db.query(`
+            const result = await db.query(
+                `
                 UPDATE "Captain"
                 SET "rSectorBaseName" = $1, "rSectorSuffixName" = $2
                 WHERE "captainId" = $3
                 RETURNING *
             `,
-            [baseName, suffixName, captainId])
+                [baseName, suffixName, captainId]
+            )
 
             if (result.rowCount === 0) {
                 return res.status(400).json({
-                    error: "Error occured while assigning captain"
+                    error: 'Error occured while assigning captain',
                 })
             }
 
             res.status(200).json({
-                message: "Successful assignment",
+                message: 'Successful assignment',
                 body: result.rows,
-                count: result.rowCount
+                count: result.rowCount,
             })
-
         } catch (error) {
             console.log(error)
             res.status(500).json({
@@ -197,7 +227,7 @@ const sectorController = {
                 body: error,
             })
         }
-    }
+    },
 }
 
 export default sectorController

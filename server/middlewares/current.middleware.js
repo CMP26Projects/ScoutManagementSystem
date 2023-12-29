@@ -23,11 +23,11 @@ const getCurrentTermMiddleware = async (req, res, next) => {
 
 const getCurrentWeekMiddleware = async (req, res, next) => {
     try {
-
-        const result = await db.query('CALL get_current_week();')
-
-        console.log(result)
-
+        const result = await db.query(
+            `SELECT * FROM "Week" WHERE "weekNumber" IN
+            (SELECT COALESCE(MAX("weekNumber"), 0) FROM "Week" WHERE "termNumber" IN
+            (SELECT COALESCE(MAX("termNumber"), 0) FROM "Term"));`
+        )
         if (!result.rows.length) {
             req.currentWeek = {
                 termNumber: 0,

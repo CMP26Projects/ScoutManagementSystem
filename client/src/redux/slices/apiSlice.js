@@ -25,6 +25,7 @@ export const apiSlice = createApi({
     "auth",
     "sector",
     "alert",
+    "activites",
   ],
   endpoints: () => ({}),
 });
