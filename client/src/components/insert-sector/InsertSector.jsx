@@ -65,7 +65,9 @@ export default function InsertSector() {
             type="text"
             name="sectorBaseName"
             value={sectorBaseName}
-            onChange={(e) => setSectorBaseName(e.target.value)}
+            onChange={(e) => {setSectorBaseName(e.target.value); e.target.setCustomValidity('');}}
+            pattern="^[\u0621-\u064Aa-zA-Z]+$"
+            onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال أسم القطاع بطريقة صحيحة (بالعربية او الانجليزية)')}
             placeholder="اسم القطاع"
             required
           />
@@ -74,7 +76,9 @@ export default function InsertSector() {
             type="text"
             name="sectorSuffixName"
             value={sectorSuffixName}
-            onChange={(e) => setSectorSuffixName(e.target.value)}
+            onChange={(e) => {setSectorSuffixName(e.target.value); e.target.setCustomValidity('');}}
+            pattern="^[\u0621-\u064Aa-zA-Z]+$"
+            onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال رقم القطاع بطريقة صحيحة')}
             placeholder="مثل: أ, ب, ج"
             required
           />

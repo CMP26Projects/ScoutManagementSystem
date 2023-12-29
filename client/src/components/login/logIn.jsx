@@ -49,7 +49,9 @@ export default function LogIn() {
             name="email"
             value={email}
             placeholder="regular@gmail.com"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {setEmail(e.target.value); e.target.setCustomValidity('');}}
+            pattern="^[a-zA-Z0-9._%\+\-]+@[a-zA-Z0-9._%\+\-]+\.[a-z]{2,}$"
+            onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال بريد إليكتروني صحيح')}
             required={true}
           />
           <TextInput

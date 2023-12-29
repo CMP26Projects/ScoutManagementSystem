@@ -80,7 +80,9 @@ export default function SignUp() {
               name="firstName"
               value={firstName}
               placeholder="أكتب أسمك الاول"
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => {setFirstName(e.target.value); e.target.setCustomValidity('');}}
+              pattern="^[\u0621-\u064Aa-zA-Z]+$"
+              onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال الاسم الاول فقط (باللغة العربية او الانجليزية)')}
               required={true}
             />
             <TextInput
@@ -89,7 +91,9 @@ export default function SignUp() {
               name="middleName"
               value={middleName}
               placeholder="أكتب أسمك المتوسط"
-              onChange={(e) => setMiddleName(e.target.value)}
+              onChange={(e) => {setMiddleName(e.target.value); e.target.setCustomValidity('');}}
+              pattern="^[\u0621-\u064Aa-zA-Z]+$"
+              onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال الاسم الاوسط فقط (باللغة العربية او الانجليزية)')}
               required={true}
             />
             <TextInput
@@ -98,7 +102,9 @@ export default function SignUp() {
               name="lastName"
               value={lastName}
               placeholder="أكتب أسمك الأخير"
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => {setLastName(e.target.value); e.target.setCustomValidity('');}}
+              pattern="^[\u0621-\u064Aa-zA-Z]+$"
+              onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال الاسم الأخير فقط (باللغة العربية او الانجليزية)')}
               required={true}
             />
           </div>
@@ -110,7 +116,9 @@ export default function SignUp() {
               name="email"
               value={email}
               placeholder="some@gmail.com"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {setEmail(e.target.value); e.target.setCustomValidity('');}}
+              pattern="^[a-zA-Z0-9._%\+\-]+@[a-zA-Z0-9._%\+\-]+\.[a-z]{2,}$"
+              onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال بريد إليكتروني صحيح')} 
               required={true}
             />
             <TextInput
@@ -140,7 +148,9 @@ export default function SignUp() {
               name="phone"
               value={phone}
               placeholder="أكتب رقم هاتفك"
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {setPhone(e.target.value); e.target.setCustomValidity('');}}
+              pattern="^01[0-9]{9}$"
+              onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال رقم هاتف صحيح')} 
               required={true}
             />
             <RadioInput

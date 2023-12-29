@@ -90,7 +90,9 @@ const InsertScoutPage = () => {
                   name="firstname"
                   placeholder="جون"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => {setFirstName(e.target.value); e.target.setCustomValidity('');}}
+                  pattern="^[\u0621-\u064Aa-zA-Z]+$"
+                  onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال الاسم الاول فقط (باللغة العربية او الانجليزية)')}
                   required={true}
                 />
               </div>
@@ -101,7 +103,9 @@ const InsertScoutPage = () => {
                   name="middlename"
                   placeholder="دوي"
                   value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
+                  onChange={(e) => {setMiddleName(e.target.value); e.target.setCustomValidity('');}}
+                  pattern="^[\u0621-\u064Aa-zA-Z]+$"
+                  onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال الاسم الاوسط فقط (باللغة العربية او الانجليزية)')}
                   required={true}
                 />
               </div>
@@ -114,7 +118,9 @@ const InsertScoutPage = () => {
                   name="lastname"
                   placeholder="السيد"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => {setLastName(e.target.value); e.target.setCustomValidity('');}}
+                  pattern="^[\u0621-\u064Aa-zA-Z]+$"
+                  onInvalid={(e) => e.target.setCustomValidity('الرجاء إدخال الاسم الأخير فقط (باللغة العربية او الانجليزية)')}
                   required={true}
                 />
               </div>
