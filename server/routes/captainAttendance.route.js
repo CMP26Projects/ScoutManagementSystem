@@ -4,8 +4,8 @@ import captainAttendanceController from "../controllers/captainAttendance.contro
 const captainAttendanceRouter = Router()
 
 // Insert a new attendance for a captain
-//captainAttendanceRouter.post('/', captainAttendanceController.upsertAttendance)
+captainAttendanceRouter.post('/', captainAttendanceController.upsertAttendance)
 captainAttendanceRouter.get('/sector/all', captainAttendanceController.getSectorAttendance)
-//captainAttendanceRouter.get('/:captainId/:weekNumber/:termNumber', captainAttendanceController.getCaptainAttendance)
+captainAttendanceRouter.get('/:captainId/:weekNumber/:termNumber', captainAttendanceController.getCaptainAttendance)
 
 export default captainAttendanceRouter;
