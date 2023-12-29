@@ -1,0 +1,18 @@
+.all-card {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+
+    background: var(--grey-700, #374151);
+    border-radius: 10px;
+
+    padding: 20px 20px;
+
+    .horizontally-aligned {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

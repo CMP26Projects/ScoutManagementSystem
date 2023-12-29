@@ -33,6 +33,8 @@ import CaptainsAttendance from "./components/captains-attendance/CaptainAttendan
 import EditPassword from "./components/edit-password/EditPassword";
 import CancelWeek from "./components/cancel-week/CancelWeek";
 
+import ActivityPage from "./components/activitypage/ActivityPage";
+import AddActivityPage from "./components/addactivitypage/AddActivityPage";
 function Routes() {
   return (
     <Router>
@@ -68,6 +70,8 @@ function Routes() {
           />
           <Route exact path="/finance" element={<MoneyPage />} />
           <Route exact path="/edit-password" element={<EditPassword />} />
+          <Route exact path="/activity" element={<ActivityPage />} />
+          <Route exact path="/add-activity" element={<AddActivityPage />} />
         </Route>
 
         {/* Testing Routes */}

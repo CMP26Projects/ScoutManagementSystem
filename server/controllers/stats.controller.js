@@ -25,7 +25,7 @@ const statsController = {
                 [req.currentTerm.termNumber]
             )
             const absenceRate = computeAbsenceRate(result.rows[0])
-            if (!absenceRate) {
+            if (absenceRate == null) {
                 return res.status(400).json({
                     error: 'There are no attendance records',
                 })
@@ -73,7 +73,7 @@ const statsController = {
                 [req.currentTerm.termNumber, unitCaptainId]
             )
             const absenceRate = computeAbsenceRate(result.rows[0])
-            if (!absenceRate) {
+            if (absenceRate == null) {
                 return res.status(400).json({
                     error: 'There are no attendance records for this unit',
                 })
@@ -120,7 +120,7 @@ const statsController = {
                 [sectorBaseName, sectorSuffixName, req.currentTerm.termNumber]
             )
             const absenceRate = computeAbsenceRate(result.rows[0])
-            if (!absenceRate) {
+            if (absenceRate == null) {
                 return res.status(400).json({
                     error: 'There are no attendance records for this sector',
                 })
@@ -166,7 +166,7 @@ const statsController = {
                 [scoutId, req.currentTerm.termNumber]
             )
             const absenceRate = computeAbsenceRate(result.rows[0])
-            if (!absenceRate) {
+            if (absenceRate == null) {
                 return res.status(400).json({
                     error: 'There are no attendance records for this scout',
                 })
