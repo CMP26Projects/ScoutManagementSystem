@@ -44,7 +44,6 @@ export default function CaptainProfile() {
             {(userInfo.type === "unit" || userInfo.type == "general") && ""}
           </p>
         </div>
-        {/* TODO: Add the route for The Button Later */}
         <Button
           linkTo="/edit-password"
           className="captain-profile__info__btn Button--medium Button--primary"
