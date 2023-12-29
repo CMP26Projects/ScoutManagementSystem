@@ -22,7 +22,7 @@ export const attendanceApi = apiSlice.injectEndpoints({
     }),
     GetUnitAttendance: builder.query({
       query: (unit) => ({
-        url: `${ATTENDANCE_URL}/captainAttendance/sector/all`,
+        url: `${ATTENDANCE_URL}/captainAttendance/unit/all`,
         method: "GET",
         params: unit,
       }),
