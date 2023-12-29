@@ -35,6 +35,7 @@ import CancelWeek from "./components/cancel-week/CancelWeek";
 
 import ActivityPage from "./components/activitypage/ActivityPage";
 import AddActivityPage from "./components/addactivitypage/AddActivityPage";
+import StatsPage from "./components/stats-page/StatsPage";
 function Routes() {
   return (
     <Router>
@@ -72,6 +73,7 @@ function Routes() {
           <Route exact path="/edit-password" element={<EditPassword />} />
           <Route exact path="/activities" element={<ActivityPage />} />
           <Route exact path="/add-activity" element={<AddActivityPage />} />
+          <Route exact path="/stats" element={<StatsPage />} />
         </Route>
 
         {/* Testing Routes */}

@@ -6,7 +6,7 @@ const ActionRoutes = {
   "Assign Sector Leader": "/assign-captain",
   "Add Sector": "/add-sector",
   "Add Scout": "/add-scout",
-  Statistics: "/statistics",
+  Statistics: "/stats",
   "Financial Management": "/finance",
   "Send Notification": "/send-notification",
   "Edit Scout": "/update-scout",
@@ -47,7 +47,6 @@ export default function UserActions() {
           إضافة كشاف
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes.Statistics}
           className="Button--medium Button--regular"
         >
@@ -111,7 +110,6 @@ export default function UserActions() {
           تعيين قائد لقطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Statistics"]}
           className="Button--medium Button--regular"
         >
@@ -176,7 +174,6 @@ export default function UserActions() {
     return (
       <>
         <Button
-          disabled
           linkTo={ActionRoutes["Statistics"]}
           className="Button--medium span-2-cols Button--regular"
         >
