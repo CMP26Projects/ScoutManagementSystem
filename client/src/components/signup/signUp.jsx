@@ -109,7 +109,7 @@ export default function SignUp() {
               type="email"
               name="email"
               value={email}
-              placeholder="أكتب بريدك الالكتروني"
+              placeholder="some@gmail.com"
               onChange={(e) => setEmail(e.target.value)}
               required={true}
             />

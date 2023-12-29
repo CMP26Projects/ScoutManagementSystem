@@ -27,7 +27,7 @@ export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [logout, { isLoading, error }] = useLogoutMutation();
+  const [logout, { isLoading }] = useLogoutMutation();
 
   useEffect(() => {
     if (userInfo) {
@@ -41,13 +41,13 @@ export default function Nav() {
     try {
       await logout().unwrap();
       toast.dark("تم تسجيل الخروج بنجاح");
-      dispatch(clearCredentials());
       navigate("/");
     } catch (err) {
       toast.dark("حدث خطأ ما");
       toast.error(err?.data?.message || err.error || JSON.stringify(err));
       console.error(err);
     }
+    dispatch(clearCredentials());
   };
 
   return (
@@ -67,8 +67,7 @@ export default function Nav() {
             <Link to="/profile">
               <UserCircleIcon className="Nav__icon" />
             </Link>
-            {/* TODO: add route later */}
-            <Link to="/">
+            <Link to="/notifications">
               <BellIcon className="Nav__icon" />
             </Link>
           </div>
