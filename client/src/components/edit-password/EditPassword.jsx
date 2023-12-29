@@ -3,14 +3,28 @@ import Button from "../common/Button";
 import TextInput from "../common/Inputs";
 import "./EditPassword.scss";
 import PageTitle from "../common/PageTitle";
+import { useChangePasswordMutation } from "../../redux/slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 export default function EditPassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
+
+  const submitHandler = async (e) => {
     e.preventDefault();
     console.log({ oldPassword, newPassword });
+
+    try {
+      const res = await changePassword({ oldPassword, newPassword }).unwrap();
+      if (res.status === 400 || res.status === 500)
+        throw new Error("Something went wrong while changing the password");
+      toast.success("تم تغيير كلمة السر بنجاح");
+    } catch (err) {
+      toast.error("حدث خطأ أثناء تغيير كلمة السر");
+      toast.error(JSON.stringify(err));
+    }
   };
 
   return (
@@ -40,6 +54,7 @@ export default function EditPassword() {
       >
         تغيير كلمة السر
       </Button>
+      {isLoading && <p>جاري تغيير كلمة السر</p>}
     </form>
   );
 }
