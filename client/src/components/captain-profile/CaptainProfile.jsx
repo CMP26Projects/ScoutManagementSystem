@@ -41,6 +41,7 @@ export default function CaptainProfile() {
             {userInfo.rSectorBaseName
               ? userInfo.rSectorBaseName + " " + userInfo.rSectorSuffixName
               : "لا يوجد"}
+            {(userInfo.type === "unit" || userInfo.type == "general") && ""}
           </p>
         </div>
         {/* TODO: Add the route for The Button Later */}
