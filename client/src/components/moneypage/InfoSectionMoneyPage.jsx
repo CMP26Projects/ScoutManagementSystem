@@ -77,7 +77,9 @@ const InfoSectionMoneyPage = () => {
           value={
             isFetchingCurrentWeekSub
               ? "جاري التحميل"
-              : currentWeekSub?.body + " جنيه"
+              : currentWeekSub?.body
+              ? currentWeekSub?.body + " جنيه"
+              : "لا يوجد"
           }
           color="dark"
         />
@@ -93,7 +95,15 @@ const InfoSectionMoneyPage = () => {
         />
       </section>
 
-      <section className="table">
+      <section
+        style={{
+          width: "100%",
+          padding: "0",
+          margin: "0",
+          marginBottom: "2rem",
+        }}
+        className="table"
+      >
         <StatisticTable
           title="البنود"
           columnNames={ItemsColNames}
