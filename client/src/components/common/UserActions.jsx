@@ -9,7 +9,7 @@ const ActionRoutes = {
   Statistics: "/statistics",
   "Financial Management": "/financial-management",
   "Send Notification": "/send-notification",
-  "Edit Scout": "/edit-scout",
+  "Edit Scout": "/update-scout",
   "Reports and Councils": "/reports-and-councils",
   Activities: "/activities",
   Sessions: "/sessions",
@@ -41,7 +41,6 @@ export default function UserActions() {
           إضافة قطاع
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Add Scout"]}
           className="Button--medium Button--regular"
         >
@@ -68,7 +67,6 @@ export default function UserActions() {
           إرسال إشعار
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
@@ -130,14 +128,12 @@ export default function UserActions() {
           إرسال إشعار
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Add Scout"]}
           className="Button--medium Button--regular"
         >
           إضافة كشاف
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
@@ -192,7 +188,6 @@ export default function UserActions() {
           الاحصائيات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Edit Scout"]}
           className="Button--medium Button--regular"
         >
