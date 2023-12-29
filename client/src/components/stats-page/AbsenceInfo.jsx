@@ -13,6 +13,7 @@ import { Line } from "react-chartjs-2";
 import { useGetSectorsQuery } from "../../redux/slices/sectorApiSlice";
 import CustomSelect from "../common/CustomSelect";
 import { useGetGraphDataQuery } from "../../redux/slices/statsApiSlice";
+import InfoBox from "../common/InfoBox";
 
 ChartJS.register(
   CategoryScale,
@@ -74,6 +75,17 @@ export default function AbsenceInfo() {
   return (
     <div className="absence-info">
       <h4>الغياب</h4>
+      {/* <InfoBox
+        title="نسبة الغياب"
+        value={
+          isFetchingAbsenceData
+            ? "جاري التحميل"
+            : dataArr?.length > 0
+            ? Math.round(dataArr[dataArr.length - 1]) + "%"
+            : "لا يوجد بيانات"
+        }
+        color="purple"
+      /> */}
       <Line data={data} />
       <h4
         style={{
