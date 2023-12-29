@@ -46,7 +46,7 @@ export default function InfoSection() {
               ? "جاري التحميل"
               : !absenceRate
               ? "لا يوجد بيانات"
-              : Math.reound(absenceRate?.body * 100) + "%"
+              : Math.round(absenceRate?.body * 100) + "%"
           }
           color="dark"
         />

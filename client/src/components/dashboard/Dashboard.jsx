@@ -18,7 +18,10 @@ export default function Dashboard() {
     }
   }, [navigate, userInfo]);
 
-  const titleMsg = `مرحباً يا كابتن ${userInfo?.firstName} ${userInfo?.middleName}`;
+  const titleMsg =
+    userInfo.gender == "male"
+      ? `مرحباً يا كابتن ${userInfo?.firstName} ${userInfo?.middleName}`
+      : `مرحبا يا شيفتان ${userInfo?.firstName} ${userInfo?.middleName}`;
 
   return (
     <div className="dashboard">

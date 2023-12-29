@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import "../../assets/styles/components/TermInfoSection.scss";
 import {
   useGetCurTermQuery,
@@ -16,15 +17,17 @@ export default function TermInfoSection() {
     isLoading,
   } = useGetRemainingWeeksQuery();
 
-  if (
-    termInfo &&
-    !isFetchingTerm &&
-    curWeek &&
-    !isFetchingWeek &&
-    weeksLeft &&
-    !isFetchingWeeksLeft
-  )
-    console.log({ termInfo, curWeek, weeksLeft });
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // if (
+  //   termInfo &&
+  //   !isFetchingTerm &&
+  //   curWeek &&
+  //   !isFetchingWeek &&
+  //   weeksLeft &&
+  //   !isFetchingWeeksLeft
+  // )
+  //   console.log({ termInfo, curWeek, weeksLeft });
 
   return (
     <div
@@ -78,12 +81,16 @@ export default function TermInfoSection() {
         }}
         className="row"
       >
-        <Button disabled className="Button--danger">
-          إلغاء الاسبوع
-        </Button>
-        <Button linkTo="/edit-term" className="Button--dark">
-          تعديل الفترة
-        </Button>
+        {userInfo?.type == "general" && (
+          <>
+            <Button linkTo="/cancel-week" className="Button--danger">
+              إلغاء الاسبوع
+            </Button>
+            <Button linkTo="/edit-term" className="Button--dark">
+              تعديل الفترة
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

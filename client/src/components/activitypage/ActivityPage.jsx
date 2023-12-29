@@ -1,4 +1,3 @@
-import React from "react";
 import PageTitle from "../common/PageTitle";
 import ActivityCard from "../common/activityCard";
 import Button from "../common/Button";
