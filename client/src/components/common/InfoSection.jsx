@@ -6,7 +6,7 @@ import { useGetAbsenceRateQuery } from "../../redux/slices/statsApiSlice";
 import { useGetAllScoutsCountQuery } from "../../redux/slices/scoutApiSlice";
 import { useGetBudgetQuery } from "../../redux/slices/financeApiSlice";
 
-export default function   () {
+export default function InfoSection() {
   const { userInfo } = useSelector((state) => state.auth);
   const { type } = userInfo;
 
@@ -46,7 +46,7 @@ export default function   () {
               ? "جاري التحميل"
               : !absenceRate
               ? "لا يوجد بيانات"
-              : absenceRate?.body * 100 + "%"
+              : Math.reound(absenceRate?.body * 100) + "%"
           }
           color="dark"
         />
