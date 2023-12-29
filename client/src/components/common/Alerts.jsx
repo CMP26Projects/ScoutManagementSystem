@@ -1,5 +1,6 @@
 import { PropTypes } from "prop-types";
 import "../../assets/styles/components/Alert.scss";
+import { BellAlertIcon } from "@heroicons/react/24/outline";
 
 const Alert = ({ title, info, buttontext, Onclick, showRightBox, color }) => {
   return (
@@ -10,7 +11,9 @@ const Alert = ({ title, info, buttontext, Onclick, showRightBox, color }) => {
             className={
               showRightBox ? "right-box " + color : "right-box hide " + color
             }
-          />
+          >
+            <BellAlertIcon />
+          </div>
           <h6 className={"title " + color}>{title}</h6>
         </div>
         <svg
