@@ -32,6 +32,7 @@ import MoneyPage from "./components/moneypage/MoneyPage";
 import CaptainsAttendance from "./components/captains-attendance/CaptainAttendance";
 
 import ActivityPage from "./components/activitypage/ActivityPage";
+import AddActivityPage from "./components/addactivitypage/AddActivityPage";
 function Routes() {
   return (
     <Router>
@@ -62,6 +63,7 @@ function Routes() {
           />
           <Route exact path="/finance" element={<MoneyPage />} />
           <Route exact path="/activity" element={<ActivityPage />} />
+          <Route exact path="/add-activity" element={<AddActivityPage />} />
         </Route>
 
         {/* Testing Routes */}
