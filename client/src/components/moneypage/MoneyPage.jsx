@@ -36,7 +36,7 @@ const MoneyPage = () => {
   };
 
   return (
-    <div className="money-page">
+    <div className="money-page container">
       <PageTitle title="إدارة الماليات" />
       <form className="add-item" onSubmit={HandleSubmit}>
         <h4>أضافة بند</h4>

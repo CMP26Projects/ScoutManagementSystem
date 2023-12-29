@@ -7,7 +7,7 @@ const ActionRoutes = {
   "Add Sector": "/add-sector",
   "Add Scout": "/add-scout",
   Statistics: "/statistics",
-  "Financial Management": "/financial-management",
+  "Financial Management": "/finance",
   "Send Notification": "/send-notification",
   "Edit Scout": "/update-scout",
   "Reports and Councils": "/reports-and-councils",
@@ -54,7 +54,6 @@ export default function UserActions() {
           الاحصائيات
         </Button>
         <Button
-          disabled
           linkTo={ActionRoutes["Financial Management"]}
           className="Button--medium Button--regular"
         >
