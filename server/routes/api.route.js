@@ -11,6 +11,7 @@ import scoutRouter from './scout.route.js'
 import sectorRouter from './sector.route.js'
 import scoutAttendanceRouter from './scoutAttendance.route.js'
 import captainAttendanceRouter from './captainAttendance.route.js'
+import activitiesRouter from './activities.route.js'
 const apiRouter = Router()
 
 apiRouter.use('/auth', authRouter)
@@ -28,5 +29,6 @@ apiRouter.use('/scout', authMiddleware, scoutRouter)
 apiRouter.use('/sector', authMiddleware, sectorRouter)
 apiRouter.use('/scoutAttendance', authMiddleware, scoutAttendanceRouter)
 apiRouter.use('/captainAttendance', authMiddleware, captainAttendanceRouter)
+apiRouter.use('/activities', activitiesRouter)
 
 export default apiRouter
