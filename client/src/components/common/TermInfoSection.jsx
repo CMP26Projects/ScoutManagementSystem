@@ -16,15 +16,15 @@ export default function TermInfoSection() {
     isLoading,
   } = useGetRemainingWeeksQuery();
 
-  if (
-    termInfo &&
-    !isFetchingTerm &&
-    curWeek &&
-    !isFetchingWeek &&
-    weeksLeft &&
-    !isFetchingWeeksLeft
-  )
-    console.log({ termInfo, curWeek, weeksLeft });
+  // if (
+  //   termInfo &&
+  //   !isFetchingTerm &&
+  //   curWeek &&
+  //   !isFetchingWeek &&
+  //   weeksLeft &&
+  //   !isFetchingWeeksLeft
+  // )
+  //   console.log({ termInfo, curWeek, weeksLeft });
 
   return (
     <div
@@ -78,7 +78,7 @@ export default function TermInfoSection() {
         }}
         className="row"
       >
-        <Button disabled className="Button--danger">
+        <Button linkTo="/cancel-week" className="Button--danger">
           إلغاء الاسبوع
         </Button>
         <Button linkTo="/edit-term" className="Button--dark">
