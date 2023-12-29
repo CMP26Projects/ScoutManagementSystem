@@ -114,6 +114,50 @@ const authController = {
         }
     },
 
+    // @desc    Update a password
+    // @route   PATCH /api/auth/newPassword
+    // @access  Private
+    updatePassword: async (req, res) => {
+        try {
+            // Deconstruct the request body
+            const { oldPassword, newPassword } = req.body
+
+            // Check if the old password is correct
+            const isCorrect = await bcrypt.compare(
+                oldPassword,
+                req.captain.password
+            )
+            if (!isCorrect) {
+                return res.status(400).json({
+                    error: 'Old password is Invalid',
+                })
+            }
+
+            // Hash the new password
+            const hashedPassword = await bcrypt.hash(newPassword, 10)
+
+            // Update the password
+            const result = await db.query(
+                `UPDATE "Captain"
+                SET "password" = $1
+                WHERE "captainId" = $2
+                RETURNING *;`,
+                [hashedPassword, req.captain.captainId]
+            )
+
+            // Send the response
+            res.status(200).json({
+                message: 'Password updated successfully',
+                body: result.rows[0],
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                error: 'An error occurred while updating the password',
+            })
+        }
+    },
+
     // @desc    Logout a captain
     // @route   POST /api/auth/logout
     // @access  Private
