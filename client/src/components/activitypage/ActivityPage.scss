@@ -1,0 +1,27 @@
+.activity-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    direction: rtl;
+
+    gap: 20px;
+
+    .activity-section {
+        width: 90%;
+        height: 800px;
+
+        background: var(--grey-800);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 0px;
+        border-radius: 10px;
+
+        overflow-y: scroll;
+    }
+
+    .add-button {
+        width: 30%
+    }
+}
