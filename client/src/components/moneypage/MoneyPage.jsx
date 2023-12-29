@@ -39,7 +39,7 @@ const MoneyPage = () => {
     <div className="money-page">
       <PageTitle title="إدارة الماليات" />
       <form className="add-item" onSubmit={HandleSubmit}>
-        <h4>أضافة بند</h4>
+        <h4>إضافة بند</h4>
         <TextInput
           type="text"
           label="القيمة"

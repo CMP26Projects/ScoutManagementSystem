@@ -27,6 +27,7 @@ import InsertScoutPage from "./components/insert-scout/InsertScoutPage";
 import UpdateScoutPage from "./components/update-scout/UpdateScoutPage";
 import MoneyPage from "./components/moneypage/MoneyPage";
 import ActivityPage from "./components/activitypage/ActivityPage";
+import AddActivityPage from "./components/addactivitypage/AddActivityPage";
 function Routes() {
   return (
     <Router>
@@ -45,6 +46,7 @@ function Routes() {
           <Route exact path="/update-scout" element={<UpdateScoutPage />} />
           <Route exact path="/finance" element={<MoneyPage />} />
           <Route exact path="/activity" element={<ActivityPage />} />
+          <Route exact path="/add-activity" element={<AddActivityPage />} />
         </Route>
 
         {/* Testing Routes */}
