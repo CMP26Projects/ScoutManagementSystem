@@ -15,7 +15,7 @@ export default function LogIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isLoading}] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -48,7 +48,7 @@ export default function LogIn() {
             type="email"
             name="email"
             value={email}
-            placeholder="أكتب بريدك الالكتروني"
+            placeholder="regular@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
             required={true}
           />
@@ -57,7 +57,7 @@ export default function LogIn() {
             type="password"
             name="password"
             value={password}
-            placeholder="أكتب الرمز السري"
+            placeholder="********"
             onChange={(e) => setPassword(e.target.value)}
             required={true}
           />
