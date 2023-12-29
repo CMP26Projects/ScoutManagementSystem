@@ -1,29 +1,50 @@
 import { Router } from 'express'
 import statsController from '../controllers/stats.controller.js'
-import { getCurrentTermMiddleware } from '../middlewares/current.middleware.js'
+import { getCurrentWeekMiddleware } from '../middlewares/current.middleware.js'
 import checkRankMiddleware from '../middlewares/checkRank.middleware.js'
 const statsRouter = Router()
 
+
+// Detailed stats
+statsRouter.get(
+    '/scouts/graph',
+    checkRankMiddleware('general'),
+    getCurrentWeekMiddleware,
+    statsController.getAllScoutsAbsenceRateGraph
+)
+statsRouter.get(
+    '/scouts/graph/unit/:unitCaptainId',
+    checkRankMiddleware('general', 'unit'),
+    getCurrentWeekMiddleware,
+    statsController.getScoutsInUnitAbsenceRateGraph
+)
+statsRouter.get(
+    '/scouts/graph/sector',
+    getCurrentWeekMiddleware,
+    statsController.getScoutsInSectorAbsenceRateGraph
+)
+
+// General stats
 statsRouter.get(
     '/scouts',
     checkRankMiddleware('general'),
-    getCurrentTermMiddleware,
+    getCurrentWeekMiddleware,
     statsController.getAllScoutsAbsenceRate
 )
 statsRouter.get(
     '/scouts/unit/:unitCaptainId',
     checkRankMiddleware('general', 'unit'),
-    getCurrentTermMiddleware,
+    getCurrentWeekMiddleware,
     statsController.getScoutsInUnitAbsenceRate
 )
 statsRouter.get(
     '/scouts/sector',
-    getCurrentTermMiddleware,
+    getCurrentWeekMiddleware,
     statsController.getScoutsInSectorAbsenceRate
 )
 statsRouter.get(
     '/scouts/:scoutId',
-    getCurrentTermMiddleware,
+    getCurrentWeekMiddleware,
     statsController.getScoutAbsenceRate
 )
 
