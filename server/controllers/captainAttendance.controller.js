@@ -3,7 +3,8 @@ import db from "../database/db.js"
 const captainAttendanceController = {
     upsertAttendance: async (req, res) => {
         try {
-            const  attendanceRecords  = req.body.body
+            // NOTE: attendanceRecords must be sent as an array of objects in the request body
+            const  { attendanceRecords }  = req.body
 
             if (attendanceRecords === 0) {
                 return res.status(404).json({
@@ -14,6 +15,7 @@ const captainAttendanceController = {
             const weekNumber = attendanceRecords[0].weekNumber;
             const termNumber = attendanceRecords[0].termNumber;
 
+            // Query to check if there are an exisiting records for this week & term or not
             const prevRecords = await db.query(`
                 SELECT *
                 FROM "CaptainAttendance"
