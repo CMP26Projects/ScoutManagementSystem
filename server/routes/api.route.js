@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import authMiddleware from '../middlewares/auth.middleware.js'
-import checkRankMiddleware from '../middlewares/checkRank.middleware.js'
 import authRouter from './auth.route.js'
 import statsRouter from './stats.route.js'
 import financeRouter from './finance.route.js'
@@ -14,15 +13,9 @@ import captainAttendanceRouter from './captainAttendance.route.js'
 import activitiesRouter from './activities.route.js'
 const apiRouter = Router()
 
-apiRouter.use("/auth", authRouter);
-apiRouter.use("/stats", authMiddleware, statsRouter);
-apiRouter.use(
-  "/finance",
-  authMiddleware,
-  // TODO: add for certain functtions remove from others
-  // checkRankMiddleware('general'),
-  financeRouter
-);
+apiRouter.use('/auth', authRouter)
+apiRouter.use('/stats', authMiddleware, statsRouter)
+apiRouter.use('/finance', authMiddleware, financeRouter)
 apiRouter.use('/term', authMiddleware, termRouter)
 apiRouter.use('/captain', authMiddleware, captainRouter)
 apiRouter.use('/alert', authMiddleware, alertRouter)
@@ -32,4 +25,4 @@ apiRouter.use('/scoutAttendance', authMiddleware, scoutAttendanceRouter)
 apiRouter.use('/captainAttendance', authMiddleware, captainAttendanceRouter)
 apiRouter.use('/activities', activitiesRouter)
 
-export default apiRouter;
+export default apiRouter
