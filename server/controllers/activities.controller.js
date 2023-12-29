@@ -3,14 +3,14 @@ import db from "../database/db.js"
 const activitiesController = {
     insertActivity: async (req, res) => {
         try {
-            const { place, weekNumber, termNumber, day, type } = req.body
+            const { name , place, weekNumber, termNumber, day, type } = req.body
 
             const result = await db.query(`
-                INSERT INTO "Activity" ("place", "weekNumber", "termNumber", "day", "type")
-                VALUES ($1, $2, $3, $4, $5)
+                INSERT INTO "Activity" ( "name" , "place", "weekNumber", "termNumber", "day", "type")
+                VALUES ($1, $2, $3, $4, $5 , $6)
                 RETURNING *
             `,
-            [place, weekNumber, termNumber, day, type])
+            [name , place, weekNumber, termNumber, day, type])
 
             if (result.rowCount === 0) {
                 return res.status(400).json({

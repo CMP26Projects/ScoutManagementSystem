@@ -4,12 +4,16 @@ import TextInput from "../common/Inputs";
 import CustomSelect from "../common/CustomSelect";
 import Button from "../common/Button";
 import "../../assets/styles/components/MoneyPage.scss";
+import { useInsertActivityMutation } from "../../redux/slices/activitiesApiSlice";
+import { useGetAllWeeksQuery } from "../../redux/slices/termApiSlice";
+import { toast } from "react-toastify";
 
 const AddActivityPage = () => {
-  const [activityName, setActivityName] = useState(" ");
-  const [activityType, setActivityType] = useState(" ");
-  const [activityPlace, setActivityPlace] = useState(" ");
-  const [activityDay, setActivityDay] = useState(" ");
+  const [activityName, setActivityName] = useState("");
+  const [activityType, setActivityType] = useState("");
+  const [activityPlace, setActivityPlace] = useState("");
+  const [activityDay, setActivityDay] = useState("");
+  const [activityWeek, setActivityWeek] = useState("");
 
   const activityTypesList = [
     { value: "entertainment", name: "ترفيه" },
@@ -31,27 +35,45 @@ const AddActivityPage = () => {
     { name: "الجمعة", value: "fri" },
   ];
 
+  const [insertActivity, { isLoading }] = useInsertActivityMutation();
+  const { data: WeeksAvailable, isFetching: isFetchingWeeks } =
+    useGetAllWeeksQuery();
+
+  let weeksList;
+  if (!isFetchingWeeks && WeeksAvailable) {
+    weeksList = WeeksAvailable.body.map((week) => {
+      return {
+        ...week,
+        allWeekInfo: week.weekNumber + " - " + week.startDate.split("T")[0],
+        weekId: week.termNumber + "-" + week.weekNumber,
+      };
+    });
+    console.log("weeks = ", WeeksAvailable, weeksList);
+  }
   const HandleSubmit = async (e) => {
     e.preventDefault();
     const newActivity = {
       name: activityName,
-      place: activityType,
+      place: activityPlace,
+      weekNumber: activityWeek.split("-")[1],
+      termNumber: activityWeek.split("-")[0],
       day: activityDay,
       type: activityType,
     };
 
     console.log(newActivity);
-    // try {
-    //   const res = await insertScout(newActivity).unwrap();
-    //   if (res.status === 400 || res.status === 500)
-    //     throw new Error("Something went wrong while inserting the scout");
-    //   toast.success("تم إنشاء الكشاف بنجاح");
-    // } catch (err) {
-    //   console.log();
-    //   toast.error("حدث خطأ أثناء إنشاء الكشاف");
-    //   toast.error(JSON.stringify(err));
-    // }
+    try {
+      const res = await insertActivity(newActivity).unwrap();
+      if (res.status === 400 || res.status === 500 || res.status === 404)
+        throw new Error("Something went wrong while inserting the activity");
+      toast.success("تم إنشاء النشاط بنجاح");
+    } catch (err) {
+      console.log();
+      toast.error("حدث خطأ أثناء إنشاء النشاط");
+      toast.error(JSON.stringify(err));
+    }
   };
+
   return (
     <div className="money-page">
       <PageTitle title="إضافة نشاط" />
@@ -98,12 +120,22 @@ const AddActivityPage = () => {
           onChange={(e) => setActivityDay(e.target.value)}
           required={true}
         />
+        <CustomSelect
+          label="اختار الأسبوع"
+          name="activityWeek"
+          data={isFetchingWeeks ? [] : weeksList}
+          displayMember="allWeekInfo"
+          valueMember="weekId"
+          selectedValue={activityWeek}
+          onChange={(e) => setActivityWeek(e.target.value)}
+          required={true}
+        />
 
         <Button className="insert-sector__btn Button--medium Button--primary-darker">
           إضافة
         </Button>
 
-        {/* {isLoadingInsertScout && (
+        {isLoading && (
           <p
             style={{
               direction: "rtl",
@@ -111,7 +143,7 @@ const AddActivityPage = () => {
           >
             جاري الإضافة
           </p>
-        )} */}
+        )}
       </form>
     </div>
   );

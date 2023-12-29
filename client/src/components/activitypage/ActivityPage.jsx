@@ -1,21 +1,32 @@
 import PageTitle from "../common/PageTitle";
-import ActivityCard from "../common/ActivityCard";
+import ActivityCard from "../common/activityCard";
 import Button from "../common/Button";
 
 import "./ActivityPage.scss";
+import { useGetAllActivitiesQuery } from "../../redux/slices/activitiesApiSlice";
 
 const ActivityPage = () => {
+  const { data: activityList, isFetching: isFetchingActivity } =
+    useGetAllActivitiesQuery();
+
+  if (!isFetchingActivity) {
+    console.log("activities = ", activityList);
+  }
   return (
     <div className="activity-page">
       <PageTitle title="الأنشطة" />
-      <Button className="Button--medium Button--success add-button">
+      <Button
+        className="Button--medium Button--success add-button"
+        linkTo="/add-activity"
+      >
         إضافة
       </Button>
       <div className="activity-section">
-        <ActivityCard title="تخييم" place="محمية وادي دجلة" time="يوم الجمعة" />
-        <ActivityCard title="تخييم" place="محمية وادي دجلة" time="يوم الجمعة" />
-        <ActivityCard title="تخييم" place="محمية وادي دجلة" time="يوم الجمعة" />
-        <ActivityCard title="تخييم" place="محمية وادي دجلة" time="يوم الجمعة" />
+        {isFetchingActivity
+          ? "جاري التحميل..."
+          : activityList.body.map((act) => {
+              return <ActivityCard activity={act} />;
+            })}
       </div>
     </div>
   );
