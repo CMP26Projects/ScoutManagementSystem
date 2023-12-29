@@ -8,7 +8,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
+import { useGetSectorsQuery } from "../../redux/slices/sectorApiSlice";
+import CustomSelect from "../common/CustomSelect";
 
 ChartJS.register(
   CategoryScale,
@@ -35,10 +38,51 @@ export default function AbsenceInfo() {
     ],
   };
 
+  const [chosenSectorFullName, setChosenSectorFullName] = useState("");
+
+  let {
+    data: sectors,
+    isFetching: isFetchingSectors,
+    isSuccess: isSuccessSectors,
+  } = useGetSectorsQuery();
+
+  if (isSuccessSectors) {
+    console.log({ sectors: sectors?.body });
+    sectors = sectors?.body;
+  }
+
   return (
     <div className="absence-info">
       <h4>الغياب</h4>
       <Line data={data} />
+      <h4
+        style={{
+          marginBlock: "2rem",
+        }}
+      >
+        غياب القطاعات
+      </h4>
+      <CustomSelect
+        name={"choose-sector"}
+        label={"أختر القطاع"}
+        data={
+          isFetchingSectors
+            ? [{ sectorId: "", fullName: "جاري التحميل" }]
+            : !sectors
+            ? [{ sectorId: "", fullName: "لا يوجد قطاعات" }]
+            : sectors?.map((sector) => ({
+                ...sector,
+                fullName: sector.baseName + " - " + sector.suffixName,
+              }))
+        }
+        displayMember={"fullName"}
+        valueMember={"fullName"}
+        selectedValue={chosenSectorFullName}
+        required={true}
+        onChange={(e) => {
+          setChosenSectorFullName(e.target.value);
+        }}
+      />
     </div>
   );
 }
