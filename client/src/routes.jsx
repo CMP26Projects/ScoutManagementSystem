@@ -70,7 +70,7 @@ function Routes() {
           />
           <Route exact path="/finance" element={<MoneyPage />} />
           <Route exact path="/edit-password" element={<EditPassword />} />
-          <Route exact path="/activity" element={<ActivityPage />} />
+          <Route exact path="/activities" element={<ActivityPage />} />
           <Route exact path="/add-activity" element={<AddActivityPage />} />
         </Route>
 
