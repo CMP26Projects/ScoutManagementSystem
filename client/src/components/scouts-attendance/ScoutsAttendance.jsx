@@ -185,9 +185,9 @@ export default function ScoutsAttendance() {
             </tr>
           </thead>
           <tbody>
-            {attendance.map((scout) => (
+            {attendance.map((scout, index) => (
               <tr key={scout.id}>
-                <td className="num-col">{scout.id}</td>
+                <td className="num-col">{index + 1}</td>
                 <td>{scout.name}</td>
                 <td className="check-col">
                   <input
