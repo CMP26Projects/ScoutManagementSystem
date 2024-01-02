@@ -59,11 +59,13 @@ This website is based on a well structured database and a user friendly app, whi
 ER-design and schema designs for the database
 
 ![ER](READMEImages/scouts-managment-system-er-no-attr.drawio.png)
+
 ![Schema](READMEImages/Schema.jpg)
 
 ### Figma Design
 
-We have designed a complete UX design for all system pages: about 40 pages  
+We have designed a complete UX design for all system pages: about 40 pages
+
 ![Figma Design](READMEImages/FigmaDesign.png)
 
 [View full figma design](https://www.figma.com/file/Yj8KCaGVDlDprgecgPdMwq/Scouts-Management-System?type=design&node-id=0%3A1&mode=design&t=rPMKLEZWaE6dBebp-1)
@@ -76,8 +78,10 @@ We have designed a complete UX design for all system pages: about 40 pages
 
 run the following commands in the terminal
 
-`npm i
-npm run dev`
+```
+npm i
+npm run dev
+```
 
 ## Contributers
 
