@@ -1,6 +1,6 @@
 # Scout Management System
 
-![Logo](READMEImages/logo.png)
+![Logo](READMEImages/logo-ex.png)
 
 ## About the Project
 
@@ -61,20 +61,23 @@ ER-design and schema designs for the database
 ![ER](READMEImages/scouts-managment-system-er-no-attr.drawio.png)
 ![Schema](READMEImages/Schema.jpg)
 
-### User Stories
-
-[User Stories](https://drive.google.com/file/d/1RwYU0OpM7EVVqLCTXDNxmlU7WgaKOdvz/view?usp=sharing)
-
 ### Figma Design
 
 We have designed a complete UX design for all system pages: about 40 pages  
 ![Figma Design](READMEImages/FigmaDesign.png)
+
 [View full figma design](https://www.figma.com/file/Yj8KCaGVDlDprgecgPdMwq/Scouts-Management-System?type=design&node-id=0%3A1&mode=design&t=rPMKLEZWaE6dBebp-1)
+
+### User Stories
+
+[User Stories](https://drive.google.com/file/d/1RwYU0OpM7EVVqLCTXDNxmlU7WgaKOdvz/view?usp=sharing)
 
 ## How to run?
 
 run the following commands in the terminal
-![Commands](READMEImages/carbon.png)
+
+`npm i
+npm run dev`
 
 ## Contributers
 
