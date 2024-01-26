@@ -4,7 +4,8 @@ This is Kashafty! An SPA for managing all the scout groups needs. Attendance, fi
 
 <!-- Scout management system is a website implemented using **PERN stack**. This project is a 2nd year CUFE project for practicing on the fundamental rules of database system management. -->
 
-<!-- ![Landing Page](READMEImages/Landing%20Page%20Cropped.png) -->
+<!-- TODO: replace with an image that have Kashafty on it or maybe a GIF -->
+![Landing Page](READMEImages/Landing%20Page%20Cropped.png)
 
 ## 🤔 But why?
 
