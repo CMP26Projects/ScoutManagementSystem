@@ -1,25 +1,38 @@
-# Scout Management System
+# ![Logo](READMEImages/logo-ex.png) Kashafty
 
-![Logo](READMEImages/logo-ex.png)
+This is Kashafty! An SPA for managing all the scout groups needs. Attendance, finance, activities you name it! we got it!
 
-## About the Project
+<!-- Scout management system is a website implemented using **PERN stack**. This project is a 2nd year CUFE project for practicing on the fundamental rules of database system management. -->
 
-Scout management system is a website implemented using **PERN stack**. This project is a 2nd year CUFE project for practicing on the fundemental rules of database system management.
+<!-- ![Landing Page](READMEImages/Landing%20Page%20Cropped.png) -->
 
-![Landing Page](READMEImages/Landing%20Page%20Cropped.png)
+## 🤔 But why?
 
-## Our website is now on air🔥
+- Have you ever tried to record the attendance of over 500 person using only a paper and a pen? Well, we did and it was a mess!
+- Have you ever to make reports on something and found yourself in the face of a huge pile of papers that is impossible to handle? guess what, we did too!
+- as a leader, have you ever found yourself in a headache trying to manage the mess of data and reports that come from every direction with no clear structure? we totally understand you!
 
-We deployed our website, although, it is still in progress so you might find some missing functoinalities.
+So we made `Kashafty` the solution for all scout groups' problems. It is a website that helps you manage all your scouts' data, activities, finance and much more!
 
-To login as a general captain use:
+<!-- ## Our website is now on air🔥 -->
 
-> email: general@gmail.com
-> pass: 1234
+<!-- We deployed our website, although, it is still in progress so you might find some missing functionalities. -->
 
-🔥[Website Link](https://scouts-managment-system-development.onrender.com/)🔥
+<!-- To login as a general captain use: -->
 
-## Why do you have to use this website?
+<!-- > email: general@gmail.com -->
+<!-- > pass: 1234 -->
+
+## 🚀 Quick start
+
+To get started navigate to [Kashafty demo](https://scouts-managment-system-development.onrender.com/) and use this account to try out the Main functionalities:
+
+> - email:[general@gmail.com](general@gmail.com)
+> - pass: 1234
+
+you can also create your own account and try out the system as a regular captain.
+
+## 📖 Documentation and features
 
 This website is based on a well structured database and a user friendly app, which helps in providing the best managerial experience to the scout captains. It helps them in:
 
@@ -52,6 +65,19 @@ This website is based on a well structured database and a user friendly app, whi
 - Providing graphs for better analysis
 - Getting reports on the current system status
 
+## Tech Stack
+
+- **Frontend:**
+  - ![React](https://img.icons8.com/ios/50/000000/react-native.png) React
+  - ![Redux](https://img.icons8.com/ios/50/000000/redux.png) Redux
+  - ![JavaScript](https://img.icons8.com/ios/50/000000/javascript.png) JavaScript
+  - ![Sass](https://img.icons8.com/windows/50/000000/sass.png) Sass
+- **Backend:**
+  - ![Node.js](https://img.icons8.com/windows/50/000000/node-js.png) Node.js
+  - ![Express.js](https://img.icons8.com/ios/50/000000/express.png) Express
+- **Database:**
+  - ![PostgreSQL](https://img.icons8.com/ios/50/000000/postgreesql.png) PostgreSQL
+
 ## Pre-implementation phase
 
 ### Database design
@@ -74,17 +100,22 @@ We have designed a complete UX design for all system pages: about 40 pages
 
 [User Stories](https://drive.google.com/file/d/1RwYU0OpM7EVVqLCTXDNxmlU7WgaKOdvz/view?usp=sharing)
 
-## How to run?
+## How to run locally?
 
-run the following commands in the terminal
+after filling the `.env` file as required. run the following commands in the terminal
 
-```
+```bash
 npm i
 npm run dev
 ```
 
-## Contributers
+## Contributors
 
-| ![Abdelruhman](https://avatars.githubusercontent.com/u/121282837?v=4) | ![Amir](https://avatars.githubusercontent.com/u/88613195?v=4) | ![Akram](https://avatars.githubusercontent.com/u/109467185?v=4) | ![Ahmed](https://avatars.githubusercontent.com/u/104217693?v=4) |
+<!-- | ![Abdelruhman](https://avatars.githubusercontent.com/u/121282837?v=4) | ![Amir](https://avatars.githubusercontent.com/u/88613195?v=4) | ![Akram](https://avatars.githubusercontent.com/u/109467185?v=4) | ![Ahmed](https://avatars.githubusercontent.com/u/104217693?v=4) |
 | --------------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 | [AbdelruhmanSamy](https://github.com/AbdelruhmanSamy/)                | [amir-kedis](https://github.com/amir-kedis/)                  | [akramhany](https://github.com/akramhany/)                      | [AhmedHamed3699](https://github.com/AhmedHamed3699)             |
+ -->
+
+| <img src="https://avatars.githubusercontent.com/u/121282837?v=4" width="50px" alt="Abdelruhman"> | <img src="https://avatars.githubusercontent.com/u/88613195?v=4" width="50px" alt="Amir"> | <img src="https://avatars.githubusercontent.com/u/109467185?v=4" width="50px" alt="Akram"> | <img src="https://avatars.githubusercontent.com/u/104217693?v=4" width="50px" alt="Ahmed"> |
+| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| [AbdelruhmanSamy](https://github.com/AbdelruhmanSamy/)                                           | [amir-kedis](https://github.com/amir-kedis/)                                             | [akramhany](https://github.com/akramhany/)                                                 | [AhmedHamed3699](https://github.com/AhmedHamed3699)                                        |
