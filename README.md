@@ -70,10 +70,12 @@ This website is based on a well structured database and a user friendly app, whi
 ## 🧰 Tech Stack
 
 - **Frontend**
-  <img src="https://img.icons8.com/color/48/000000/react-native.png"/> <img src="https://img.icons8.com/color/48/000000/redux.png"/> <img src="https://img.icons8.com/color/48/000000/javascript.png"/> <img src="https://img.icons8.com/color/48/000000/sass.png"/>
+
+<img src="https://img.icons8.com/color/48/000000/react-native.png"/> <img src="https://img.icons8.com/color/48/000000/redux.png"/> <img src="https://img.icons8.com/color/48/000000/javascript.png"/> <img src="https://img.icons8.com/color/48/000000/sass.png"/>
 
 - **Backend**
-  <img src="https://img.icons8.com/color/48/000000/nodejs.png"/> <img src="https://img.icons8.com/color/48/000000/express-js.png"/> <img src="https://img.icons8.com/color/48/000000/postgreesql.png"/>
+
+<img src="https://img.icons8.com/color/48/000000/nodejs.png"/> <img src="https://img.icons8.com/color/48/000000/express-js.png"/> <img src="https://img.icons8.com/color/48/000000/postgreesql.png"/>
 
 ## Pre-implementation phase
 
@@ -114,5 +116,5 @@ npm run dev
  -->
 
 | <img src="https://avatars.githubusercontent.com/u/121282837?v=4" width="100px" alt="Abdelruhman"> | <img src="https://avatars.githubusercontent.com/u/88613195?v=4" width="100px" alt="Amir"> | <img src="https://avatars.githubusercontent.com/u/109467185?v=4" width="100px" alt="Akram"> | <img src="https://avatars.githubusercontent.com/u/104217693?v=4" width="100px" alt="Ahmed"> |
-| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| [AbdelruhmanSamy](https://github.com/AbdelruhmanSamy/)                                           | [amir-kedis](https://github.com/amir-kedis/)                                             | [akramhany](https://github.com/akramhany/)                                                 | [AhmedHamed3699](https://github.com/AhmedHamed3699)                                        |
+| ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [AbdelruhmanSamy](https://github.com/AbdelruhmanSamy/)                                            | [amir-kedis](https://github.com/amir-kedis/)                                              | [akramhany](https://github.com/akramhany/)                                                  | [AhmedHamed3699](https://github.com/AhmedHamed3699)                                         |
