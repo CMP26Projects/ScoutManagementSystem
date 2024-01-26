@@ -1,6 +1,6 @@
 # ![Logo](READMEImages/logo-ex.png) Kashafty
 
-This is Kashafty! An SPA for managing all the scout groups needs. Attendance, finance, activities you name it! we got it!
+This is Kashafty! An SPA for managing all the scout groups needs. Attendance, finance, activities you name it! we got it! 😉
 
 <!-- Scout management system is a website implemented using **PERN stack**. This project is a 2nd year CUFE project for practicing on the fundamental rules of database system management. -->
 
