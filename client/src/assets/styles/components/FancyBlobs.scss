@@ -20,7 +20,7 @@
     fill: linear-gradient(82deg, #8900c9 38.7%, #fcf 76.51%);
     filter: blur(150px);
     top: -167px;
-    animation: BlobMove1 var(--animation-duration) ease-in-out infinite forwards;
+    // animation: BlobMove1 var(--animation-duration) ease-in-out infinite forwards;
   }
 
   .Blob-2 {
@@ -28,7 +28,7 @@
     filter: blur(125px);
     top: 66px;
     left: -71px;
-    animation: BlobMove2 var(--animation-duration) ease-in-out infinite forwards;
+    // animation: BlobMove2 var(--animation-duration) ease-in-out infinite forwards;
   }
 
   .Blob-3 {
@@ -39,7 +39,7 @@
     filter: blur(150px);
     top: 460px;
     left: 0;
-    animation: BlobMove3 var(--animation-duration) ease-in-out infinite forwards;
+    // animation: BlobMove3 var(--animation-duration) ease-in-out infinite forwards;
   }
 
   .Blob-4 {
@@ -50,7 +50,7 @@
     filter: blur(150px);
     top: 503px;
     left: 150px;
-    animation: BlobMove4 var(--animation-duration) ease-in-out infinite forwards;
+    // animation: BlobMove4 var(--animation-duration) ease-in-out infinite forwards;
   }
 }
 
