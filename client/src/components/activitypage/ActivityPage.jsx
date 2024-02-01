@@ -25,7 +25,7 @@ const ActivityPage = () => {
         {isFetchingActivity
           ? "جاري التحميل..."
           : activityList.body.map((act) => {
-              return <ActivityCard activity={act} />;
+              return <ActivityCard key={act} activity={act} />;
             })}
       </div>
     </div>
